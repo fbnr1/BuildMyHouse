@@ -1,43 +1,50 @@
 import dearpygui.dearpygui as dpg
+from dpg_theme import create_theme
+
 
 def add_buttons_addTab():
-    dpg.add_button(label="Etage", parent=addTab)
-    dpg.add_button(label="Tür", parent=addTab)
-    dpg.add_button(label="Fenster", parent=addTab)
+    button_width = dpg.get_item_width(tab_window) - 15
+    dpg.add_button(label="Etage", parent=addTab, width=button_width)
+    dpg.add_button(label="Tür", parent=addTab, width=button_width)
+    dpg.add_button(label="Fenster", parent=addTab, width=button_width)
+
 
 def add_a():
     pass
 
+
 dpg.create_context()
-dpg.create_viewport(title='Custom Title')
+dpg.create_viewport(title='BuildMyHouse')
 
 with dpg.font_registry():
-    # first argument ids the path to the .ttf or .otf file
-    default_font = dpg.add_font("NotoSerifBalinese-Regular.ttf", 20)
+    default_font = dpg.add_font("OpenSans-VariableFont_wdth,wght.ttf", 18)
 
-with dpg.window(label="Example Window") as main_window:
+with dpg.window() as main_window:
     with dpg.menu_bar():
         with dpg.menu(label="Datei"):
             dpg.add_menu_item(label="Neu")
             dpg.add_menu_item(label="Öffnen")
             dpg.add_menu_item(label="Speichern")
             dpg.add_menu_item(label="Exportieren")
+        with dpg.menu(label="Hilfe"):
+            pass
 
     with dpg.group(horizontal=True):
-        with dpg.child_window(label="Example Window", autosize_y=True, width=200):
+        with dpg.child_window(autosize_y=True, width=200) as tab_window:
             with dpg.tab_bar():
-                addTab = dpg.add_tab(label="add")
+                addTab = dpg.add_tab(label="Hinzufügen")
                 add_buttons_addTab()
-                editTab = dpg.add_tab(label="edit")
+                editTab = dpg.add_tab(label="Bearbeiten")
 
-        with dpg.child_window(label="Example Window", autosize_y=True, autosize_x=True) as draw_window:
+        with dpg.child_window(autosize_y=True, autosize_x=True) as draw_window:
             with dpg.drawlist(width=dpg.get_viewport_width()-200, height=dpg.get_viewport_height()):
                 dpg.draw_quad((10, 10), (10, 300), (300, 300), (300, 10), color=(0, 0, 255), thickness=10,
                               fill=(255, 0, 255))
 
-#dpg.bind_theme(5)
-dpg.set_item_font(main_window, default_font)
-print(dpg.theme)
+global_theme = create_theme()
+dpg.bind_theme(global_theme)
+dpg.bind_font(default_font)
+
 dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.maximize_viewport()
