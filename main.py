@@ -1,7 +1,8 @@
 import dearpygui.dearpygui as dpg
+import gui
+
 
 def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
 
     dpg.create_context()
     dpg.create_viewport(title='Custom Title', width=600, height=300)
@@ -17,11 +18,7 @@ def print_hi(name):
     dpg.start_dearpygui()
     dpg.destroy_context()
 
-    print(f'Hi, {name}')  # Press Strg+F8 to toggle the breakpoint.
 
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-
+    Test = gui
+    Test.dpgTest()
