@@ -5,9 +5,9 @@ dpg.create_context()
 
 dpg.create_viewport(title='Build My House', width=1920, height=1080, resizable=False, max_width=1920, max_height=1080,
                     min_width=1920, min_height=1080)
-with dpg.window(tag="config_win", pos=[0, 0], label="Configuration", no_move=True,
+with dpg.window(tag="config_win", pos=[0, 0], no_move=True,
                 width=int(dpg.get_viewport_width() / 4), height=int(dpg.get_viewport_height()), no_collapse=True,
-                no_close=True, no_resize=True):
+                no_close=True, no_resize=True, no_title_bar=True):
     with dpg.menu_bar():
         with dpg.group():
             with dpg.menu(label="Menu"):
