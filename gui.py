@@ -9,10 +9,6 @@ def add_buttons_addTab():
     dpg.add_button(label="Fenster", parent=addTab, width=button_width)
 
 
-def add_a():
-    pass
-
-
 dpg.create_context()
 dpg.create_viewport(title='BuildMyHouse')
 
@@ -35,11 +31,12 @@ with dpg.window() as main_window:
                 addTab = dpg.add_tab(label="Hinzufügen")
                 add_buttons_addTab()
                 editTab = dpg.add_tab(label="Bearbeiten")
-
+        #with dpg.child_window(autosize_y=True, autosize_x=True) as draw_window:
         with dpg.child_window(autosize_y=True, autosize_x=True) as draw_window:
-            with dpg.drawlist(width=dpg.get_viewport_width()-200, height=dpg.get_viewport_height()):
-                dpg.draw_quad((10, 10), (10, 300), (300, 300), (300, 10), color=(0, 0, 255), thickness=10,
-                              fill=(255, 0, 255))
+            #create_square(300, draw_window)
+            pass
+
+dpg.add_item_resize_handler()
 
 global_theme = create_theme()
 dpg.bind_theme(global_theme)
@@ -49,7 +46,7 @@ dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.maximize_viewport()
 dpg.set_primary_window(main_window, True)
-dpg.show_style_editor()
+#dpg.show_style_editor()
 dpg.start_dearpygui()
 dpg.destroy_context()
 
