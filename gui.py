@@ -13,24 +13,11 @@ def onStart():
     return
 
 
-def dpgTest():
-    '''dpg.create_context()
-    dpg.create_viewport(title='Custom Title', width=600, height=300)
-
-    with dpg.window(label="Example Window"):
-        dpg.add_text("Hello, world")
-        dpg.add_button(label="Save")
-        dpg.add_input_text(label="string", default_value="Quick brown fox")
-        dpg.add_slider_float(label="float", default_value=0.273, max_value=1)
-
-    dpg.setup_dearpygui()
-    dpg.show_viewport()
-    dpg.start_dearpygui()
-    dpg.destroy_context()'''
-
+def create_gui():
     dpg.create_context()
 
-    dpg.create_viewport(title='Build My House', max_width=1920, max_height=1080, width=1920, height=1080, resizable=False)
+    dpg.create_viewport(title='Build My House', max_width=1920, max_height=1080, width=1920, height=1080,
+                        resizable=False)
 
     with dpg.window(tag="config_win", pos=[0, 0], label="Configuration", no_move=True,
                     width=int(dpg.get_viewport_width() / 4), height=int(dpg.get_viewport_height()), no_collapse=True,
@@ -86,8 +73,7 @@ def dpgTest():
     dpg.destroy_context()
 
 
-
-class gui(object):
+class Gui(object):
 
     def __int__(self, name):
         self.name = name
