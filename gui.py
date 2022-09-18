@@ -1,16 +1,12 @@
 import dearpygui.dearpygui as dpg
 import configurationWindow
 import house_parameter
+from gui_theme import create_theme
 
 
 def onStart():
     dpg.create_context()
     dpg.create_viewport(title='Build My House')
-    dpg.setup_dearpygui()
-    dpg.show_viewport()
-    dpg.start_dearpygui()
-    dpg.destroy_context()
-    return
 
 
 def create_gui():
@@ -67,8 +63,11 @@ def create_gui():
             with dpg.plot(label="House Editor", height=-1, width=-1, no_mouse_pos=True):
                 dpg.add_plot_legend()
 
+    #global_theme = create_theme()
+    #dpg.bind_theme(global_theme)
     dpg.setup_dearpygui()
     dpg.show_viewport()
+    dpg.maximize_viewport()
     dpg.start_dearpygui()
     dpg.destroy_context()
 
