@@ -1,5 +1,6 @@
 import dearpygui.dearpygui as dpg
 from dpg_theme import create_theme
+from create_square import create_square
 
 
 def add_buttons_addTab():
