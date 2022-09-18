@@ -12,7 +12,7 @@ height = 1080
 def add_popup_content():
     with dpg.menu_bar():
         dpg.add_button(label="Save", callback=house_parameter.on_save())
-        dpg.add_button(label="Close", callback=lambda: dpg.configure_item("Popup", show=False))
+        #dpg.add_button(label="Close", callback=lambda: dpg.configure_item("Popup", show=False))
     dpg.add_text("Options")
     dpg.add_text(label="Wall")
     dpg.add_slider_float(label="How long is the Wall?", max_value=40, min_value=10, tag="wall_length")
@@ -50,8 +50,7 @@ def create_gui():
 
     with dpg.window(width=width, height=height) as main_window:
         with dpg.child_window(tag="config_win", pos=[0, 0], label="Configuration", autosize_y=True,
-                              width=int(width / 4), height=int(height)) \
-                as config_window:
+                              width=int(width / 4), height=int(height), menubar=True) as config_window:
             with dpg.menu_bar() as menu_bar:
                 with dpg.menu(label="Menu"):
                     dpg.add_button(label="Save", callback=configurationWindow.on_save)
@@ -97,9 +96,6 @@ def create_gui():
         print(width)
         dpg.render_dearpygui_frame()
     dpg.destroy_context()
-
-
-
 
 
 class Gui(object):
