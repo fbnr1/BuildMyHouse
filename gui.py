@@ -15,6 +15,9 @@ def create_gui():
     dpg.create_viewport(title='Build My House', max_width=1920, max_height=1080, width=1920, height=1080,
                         resizable=False)
 
+    with dpg.font_registry():
+        default_font = dpg.add_font("OpenSans-VariableFont_wdth,wght.ttf", 18)
+
     with dpg.window(tag="config_win", pos=[0, 0], label="Configuration", no_move=True,
                     width=int(dpg.get_viewport_width() / 4), height=int(dpg.get_viewport_height()), no_collapse=True,
                     no_close=True, no_resize=True):
@@ -65,6 +68,8 @@ def create_gui():
 
     #global_theme = create_theme()
     #dpg.bind_theme(global_theme)
+    dpg.bind_font(default_font)
+
     dpg.setup_dearpygui()
     dpg.show_viewport()
     dpg.maximize_viewport()
