@@ -12,7 +12,7 @@ height = 1080
 def add_popup_content():
     with dpg.menu_bar():
         dpg.add_button(label="Save", callback=house_parameter.on_save())
-        dpg.add_button(label="Close", callback=lambda: dpg.configure_item("Popup", show=False))
+        #dpg.add_button(label="Close", callback=lambda: dpg.configure_item("Popup", show=False))
     dpg.add_text("Options")
     dpg.add_text(label="Wall")
     dpg.add_slider_float(label="How long is the Wall?", max_value=40, min_value=10, tag="wall_length")
