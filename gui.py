@@ -73,12 +73,10 @@ def create_gui():
                 dpg.add_plot_legend()
 
                 dpg.add_plot_axis(dpg.mvXAxis, tag="x_axis")
-                dpg.set_axis_limits("x_axis", 0, 1)
+                dpg.set_axis_limits("x_axis", 0, 100)
 
                 dpg.add_plot_axis(dpg.mvYAxis, tag="y_axis")
-                dpg.set_axis_limits("y_axis", 0, 1)
-
-                dpg.add_drag_line(label="dline1", color=[255, 0, 0, 255], vertical=False, default_value=2.0, callback=print_val)
+                dpg.set_axis_limits("y_axis", 0, 100)
 
     # global_theme = create_theme()
     # dpg.bind_theme(global_theme)
