@@ -74,8 +74,15 @@ def create_gui():
         with dpg.child_window(width=int((width / 4) * 3), height=height, pos=[480, 0], tag="house_editor",
                               autosize_y=True, autosize_x=True):
             with dpg.plot(label="House Editor", height=-1, width=-1, no_mouse_pos=True, equal_aspects=True,
-                          pan_button=3, no_box_select=True, no_menus=True):
+                          pan_button=3, no_box_select=True, no_menus=True) as plot:
+
                 dpg.add_plot_legend()
+
+                dpg.add_plot_axis(dpg.mvXAxis, tag="x_axis")
+                dpg.set_axis_limits("x_axis", 0, 1)
+
+                dpg.add_plot_axis(dpg.mvYAxis, tag="y_axis")
+                dpg.set_axis_limits("y_axis", 0, 1)
 
     # global_theme = create_theme()
     # dpg.bind_theme(global_theme)
