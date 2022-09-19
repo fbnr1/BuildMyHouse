@@ -1,7 +1,7 @@
 import dearpygui.dearpygui as dpg
 import configurationWindow
 import house_parameter
-from gui_theme import create_theme
+# from gui_theme import create_theme
 
 global height
 global width
@@ -10,7 +10,7 @@ height = 1080
 
 
 def add_popup_content():
-    with dpg.menu_bar():
+    with dpg.menu_bar(show=True):
         dpg.add_button(label="Save", callback=house_parameter.on_save())
         #dpg.add_button(label="Close", callback=lambda: dpg.configure_item("Popup", show=False))
     dpg.add_text("Options")
@@ -31,12 +31,6 @@ def add_popup_content():
         dpg.add_checkbox(label="Texture 2")
         dpg.add_checkbox(label="Texture 3")
 
-
-def onstart():
-    dpg.create_context()
-    dpg.create_viewport(title='Build My House')
-
-
 def create_gui():
     dpg.create_context()
     global height
@@ -48,11 +42,11 @@ def create_gui():
     with dpg.font_registry():
         default_font = dpg.add_font("OpenSans-VariableFont_wdth,wght.ttf", 18)
 
-    with dpg.window(width=width, height=height) as main_window:
+    with dpg.window(width=width, height=height, no_move=True, no_scrollbar=True, no_resize=True, no_collapse=True,
+                    no_title_bar=True, no_close=True) as main_window:
         with dpg.child_window(tag="config_win", pos=[0, 0], label="Configuration", autosize_y=True,
-                              width=int(width / 4), height=int(height)) \
-                as config_window:
-            with dpg.menu_bar() as menu_bar:
+                              width=int(width / 4), height=int(height), menubar=True):
+            with dpg.menu_bar():
                 with dpg.menu(label="Menu"):
                     dpg.add_button(label="Save", callback=configurationWindow.on_save)
                     dpg.add_button(label="Load", callback=configurationWindow.on_load)
@@ -84,33 +78,32 @@ def create_gui():
                 dpg.add_plot_axis(dpg.mvYAxis, tag="y_axis")
                 dpg.set_axis_limits("y_axis", 0, 1)
 
+                dpg.add_drag_line(label="dline1", color=[255, 0, 0, 255], vertical=False, default_value=2.0, callback=print_val)
+
     # global_theme = create_theme()
     # dpg.bind_theme(global_theme)
     dpg.bind_font(default_font)
 
     dpg.setup_dearpygui()
     dpg.show_viewport()
-
+    '''while dpg.is_dearpygui_running():
+        # print("hello")
+        # global height
+        height = dpg.get_viewport_height()
+        # global width
+        width = dpg.get_viewport_width()
+        # print(height)
+        # print(width)
+        dpg.render_dearpygui_frame()'''
     dpg.maximize_viewport()
     dpg.set_primary_window(main_window, True)
     dpg.start_dearpygui()
-
-    while dpg.is_dearpygui_running():
-        # print("hello")
-        #global height
-        height = dpg.get_viewport_height()
-        #global width
-        width = dpg.get_viewport_width()
-        print(height)
-        print(width)
-        dpg.render_dearpygui_frame()
     dpg.destroy_context()
 
 
-
-
+def print_val(sender):
+    print(dpg.get_value(sender))
 
 class Gui(object):
-
     def __int__(self, name):
         self.name = name
