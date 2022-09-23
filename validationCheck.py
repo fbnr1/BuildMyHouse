@@ -8,7 +8,8 @@ def buildingconstructable():
     a = windowsvalid()
     b = widthandheightvalid()
     c = collision()
-    if a == True and b == True and c == True:
+    d = roofheightnothigherthanbuildingheight()
+    if a == True and b == True and c == True and d == True:
         return True
 
 
@@ -21,6 +22,9 @@ def windowsvalid(windows, buildingheight, buildinglength):
 def widthandheightvalid(buildingheight, buildingwidth):
     if buildingheight != 0 and buildingwidth != 0:
         return True
+def roofheightnothigherthanbuildingheight(buildingheight, roofheight)
+    if buildingheight > roofheight:
+        return True
 
 def collision(object1, object2):
-    # if object1.pos != object2.pos --> return True
+    # if object1.pos != object2.pos --> return True, 2 Objekte sollen nicht die gleiche Position haben
