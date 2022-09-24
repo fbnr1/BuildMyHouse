@@ -9,10 +9,7 @@ global width
 width = 1920
 height = 1080
 
-def on_save(sender, app_data, user_data):
-    print("sender: ", dpg.get_value(sender))
-    print("app_data: ", dpg.get_value(app_data))
-    print("user_data: ", dpg.get_value(user_data))
+
 
 
 #def _get_window_type
@@ -40,7 +37,7 @@ def create_gui():
                               width=int(width / 4), height=int(height), menubar=True):
             with dpg.menu_bar():
                 with dpg.menu(label="Menu"):
-                    dpg.add_button(label="Save", callback=on_save, user_data="Hallo")
+                    dpg.add_button(label="Save", callback=test, user_data="Hallo")
                     dpg.add_button(label="Load", callback=lambda: dpg.show_item("file_dialog_id"))
                     dpg.add_button(label="Export", callback=configurationWindow.on_export)
                 with dpg.menu(label="Perspective"):
@@ -95,8 +92,8 @@ def create_gui():
 
 
 def print_val(sender, app_data):
-    print(dpg.get_value(sender))
-    print(dpg.get_value(app_data))
+    print(sender)
+    print(app_data)
 
 
 class Gui(object):
