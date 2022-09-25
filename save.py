@@ -5,7 +5,7 @@ import os.path
 
 def save(lists, filename):
     print(lists)
-    save_path = '.\saves'
+    save_path = '.\save'
     name = os.path.join(save_path, filename)
     name = name + '.jsonl'
     newfile = codecs.open(name, "w+", encoding="utf8", errors="ignore")
@@ -13,7 +13,7 @@ def save(lists, filename):
 
 
 def load(filename):
-    save_path = '.\saves'
+    save_path = '.\save'
     name = os.path.join(save_path, filename)
     name = name + '.jsonl'
     newfile = codecs.open(name, "r+", encoding="utf8", errors="ignore")
