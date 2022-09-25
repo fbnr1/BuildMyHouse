@@ -71,6 +71,9 @@ def new_floor():
         with dpg.group():
             dpg.add_text("Floor Width: ")
             dpg.add_text(floor_paras[1])
+    liste = {"floor_len": floor_paras[0], "floor_width": floor_paras[1]}
+    print(liste)
+    gui.append_floor(liste)
     floor_paras.clear()
 
 
@@ -148,9 +151,6 @@ def add_popup_content():
     with dpg.menu_bar(show=True):
         dpg.add_button(label="Save")
         dpg.add_button(label="Close", callback=lambda: dpg.configure_item("popup_window", show=False))
-    '''dpg.add_text("Wall")
-    dpg.add_slider_float(label="How long is the Wall?", max_value=40, min_value=10, tag="wall_length", format="%.2f")
-    dpg.add_slider_float(label="How wide is the Wall?", max_value=40, min_value=10, tag="wall_width", format="%.2f")'''
     dpg.add_text("Options")
     dpg.add_separator()
     dpg.add_spacer(height=10)
@@ -179,8 +179,6 @@ def add_popup_content():
     dpg.add_separator(tag="end_window_task")
     dpg.add_spacer(height=12)
 
-    '''dpg.add_slider_float(label="How long is the window?", max_value=5, min_value=2, tag="window_length")
-    dpg.add_slider_float(label="How wide is the window?", max_value=5, min_value=2, tag="window_width")'''
     dpg.add_text("Door")
     dpg.add_checkbox(label="Is there a door?", tag="door_count")
     dpg.add_separator()

@@ -1,6 +1,7 @@
 import dearpygui.dearpygui as dpg
 import configurationWindow
 import popup
+import save
 
 # from gui_theme import create_theme
 
@@ -8,7 +9,8 @@ global height
 global width
 width = 1920
 height = 1080
-
+global house_list
+house_list = {"House": {}}
 
 # def _get_window_type
 
@@ -17,6 +19,12 @@ def test(sender, app_data, user_data, file_path_name):
     print("Sender: ", sender)
     print("App Data: ", app_data)
     print(app_data['file_path_name'])
+
+
+def saving():
+    global house_list
+    print(house_list)
+    save.save(house_list, "testen")
 
 
 def create_gui():
@@ -34,9 +42,13 @@ def create_gui():
                     no_title_bar=True, no_close=True) as main_window:
         with dpg.child_window(tag="config_win", pos=[0, 0], label="Configuration", autosize_y=True,
                               width=int(width / 4), height=int(height), menubar=True):
+            with dpg.file_dialog(directory_selector=False, show=False, callback=test, id="file_dialog_id",
+                                 default_path=".\saves", ):
+                dpg.add_file_extension(".jsonl", color=(150, 255, 150, 255))
+                dpg.add_file_extension(".*", color=(0, 255, 255, 255))
             with dpg.menu_bar():
                 with dpg.menu(label="Menu"):
-                    dpg.add_button(label="Save", callback=test, user_data="Hallo")
+                    dpg.add_button(label="Save", callback=saving)
                     dpg.add_button(label="Load", callback=lambda: dpg.show_item("file_dialog_id"))
                     dpg.add_button(label="Export", callback=configurationWindow.on_export)
                 with dpg.menu(label="Perspective"):
@@ -50,7 +62,7 @@ def create_gui():
             with dpg.group(horizontal=True):
                 dpg.add_button(label="Popup", tag="parent", callback=lambda: dpg.show_item("popup_window"))
                 with dpg.window(width=600, height=600, no_move=True, no_scrollbar=True, no_resize=True, no_collapse=True,
-                                no_title_bar=True, no_close=True, show=False, tag="popup_window") as pop:
+                                no_title_bar=True, no_close=True, show=False, tag="popup_window", menubar=True) as pop:
                     popup.add_popup_content()
 
         wid = dpg.get_item_width(pop)
@@ -59,15 +71,10 @@ def create_gui():
 
         with dpg.child_window(width=int((width / 4) * 3), height=height, pos=[480, 0], tag="house_editor",
                               autosize_y=True, autosize_x=True):
-            with dpg.plot(label="House Editor", height=-1, width=-1, no_mouse_pos=True, equal_aspects=True,
-                          pan_button=3, no_box_select=True, no_menus=True) as plot:
+            with dpg.plot(tag="plot", label="House Editor", height=-1, width=-1, no_mouse_pos=True, equal_aspects=True,
+                          no_box_select=True, no_menus=True) as plot:
                 dpg.add_plot_legend()
 
-                dpg.add_plot_axis(dpg.mvXAxis, tag="x_axis")
-                dpg.set_axis_limits("x_axis", 0, 100)
-
-                dpg.add_plot_axis(dpg.mvYAxis, tag="y_axis")
-                dpg.set_axis_limits("y_axis", 0, 100)
 
     # global_theme = create_theme()
     # dpg.bind_theme(global_theme)
@@ -75,15 +82,7 @@ def create_gui():
 
     dpg.setup_dearpygui()
     dpg.show_viewport()
-    '''while dpg.is_dearpygui_running():
-        # print("hello")
-        # global height
-        height = dpg.get_viewport_height()
-        # global width
-        width = dpg.get_viewport_width()
-        # print(height)
-        # print(width)
-        dpg.render_dearpygui_frame()'''
+    '''while dpg.is_dearpygui_running():'''
     dpg.maximize_viewport()
     dpg.set_primary_window(main_window, True)
     dpg.start_dearpygui()
@@ -93,6 +92,28 @@ def create_gui():
 def print_val(sender, app_data):
     print(sender)
     print(app_data)
+
+
+def append_floor(liste):
+    global house_list
+    i = len(house_list["House"])
+    house_list["House"]["Floor"+str(i)] = liste
+    draw_floor(liste["floor_len"], liste["floor_width"], i)
+    print(house_list)
+
+
+def draw_floor(len, width, i):
+    global house_list
+    if i > 0:
+        paras = house_list["House"]["Floor"+str(i-1)]
+        print(paras)
+        house_list["House"]["Floor"+str(i)]["height"] = width + paras["height"]
+        heights = house_list["House"]["Floor"+str(i)]["height"]
+        dpg.draw_quad((0, 0+house_list["House"]["Floor"+str(i-1)]["height"]), (0, heights), (len, heights), (len, 0+house_list["House"]["Floor"+str(i-1)]["height"]), parent="plot", thickness=0.001)
+
+    else:
+        dpg.draw_quad((0, 0), (0, width), (len, width), (len, 0), parent="plot", thickness=0.001)
+        house_list["House"]["Floor0"]["height"] = width
 
 
 class Gui(object):
