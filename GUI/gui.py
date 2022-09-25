@@ -10,15 +10,14 @@ width = 1920
 height = 1080
 
 
-
-
-#def _get_window_type
+# def _get_window_type
 
 
 def test(sender, app_data, user_data, file_path_name):
     print("Sender: ", sender)
     print("App Data: ", app_data)
     print(app_data['file_path_name'])
+
 
 def create_gui():
     dpg.create_context()
@@ -49,9 +48,9 @@ def create_gui():
                 with dpg.tree_node(label="House"):
                     dpg.add_button(label="does nothing")
             with dpg.group(horizontal=True):
-                dpg.add_button(label="Popup", tag="parent")
-                with dpg.popup(parent="parent", mousebutton=dpg.mvMouseButton_Left, modal=True,
-                               no_move=True, min_size=[600, 600]) as pop:
+                dpg.add_button(label="Popup", tag="parent", callback=lambda: dpg.show_item("popup_window"))
+                with dpg.window(width=600, height=600, no_move=True, no_scrollbar=True, no_resize=True, no_collapse=True,
+                                no_title_bar=True, no_close=True, show=False, tag="popup_window") as pop:
                     popup.add_popup_content()
 
         wid = dpg.get_item_width(pop)
