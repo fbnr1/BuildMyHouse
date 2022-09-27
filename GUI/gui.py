@@ -58,7 +58,7 @@ def create_gui():
                     dpg.add_button(label="Left Side", tag="left", callback=configurationWindow.house_side)
                     dpg.add_button(label="Back", tag="back", callback=configurationWindow.house_side)
             with dpg.child_window(width=-1, height=600):
-                with dpg.tree_node(label="House"):
+                with dpg.tree_node(label="House", tag="house_node"):
                     dpg.add_button(label="does nothing")
             with dpg.group(horizontal=True):
                 dpg.add_button(label="Popup", tag="parent", callback=lambda: dpg.show_item("popup_window"))
@@ -72,8 +72,7 @@ def create_gui():
 
         with dpg.child_window(width=int((width / 4) * 3), height=height, pos=[480, 0], tag="house_editor",
                               autosize_y=True, autosize_x=True):
-            with dpg.plot(tag="plot", label="House Editor", height=-1, width=-1, no_mouse_pos=True, equal_aspects=True,
-                          pan_button=3, no_box_select=True, no_menus=True) as plot:
+            with dpg.plot(tag="plot", label="House Editor", height=-1, width=-1, no_mouse_pos=True, equal_aspects=True, no_box_select=True, no_menus=True) as plot:
                 dpg.add_plot_legend()
 
     # global_theme = create_theme()

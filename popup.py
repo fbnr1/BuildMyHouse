@@ -51,7 +51,17 @@ def add_popup_content():
         dpg.add_text(str(floor_count), tag="floor_count")
         dpg.add_spacer(width=5)
 
-    dpg.add_button(label="+", tag="add_floor", callback=window_house_input.add_new_floor_popup)
+    dpg.add_button(label="+", tag="add_floor", callback=lambda: dpg.show_item("add_new_floor"))
+    with dpg.popup(parent="add_floor", modal=True, mousebutton=dpg.mvMouseButton_Left, no_move=True,
+                   tag="add_new_floor") as fl_pop:
+        window_house_input.add_new_floor_popup()
+
+    fl_wid = dpg.get_item_width(fl_pop)
+    fl_hei = dpg.get_item_height(fl_pop)
+    dpg.set_item_pos(fl_pop,
+                     [dpg.get_viewport_width() // 2 - fl_wid // 2, dpg.get_viewport_height() // 2 - fl_hei // 2])
+
+
     with dpg.tooltip(parent="add_floor"):
         dpg.add_text("Add a new Floor")
     with dpg.group(horizontal=True, before="end_floor_task", tag="parent_floor"):
@@ -63,9 +73,17 @@ def add_popup_content():
         dpg.add_text(str(window_count), tag="window_count")
         dpg.add_spacer(width=5)
     dpg.add_text("Add a Floor before adding a window")
-    dpg.add_button(label="+", tag="add_window", callback=window_house_input.add_new_window_popup)
-    '''if int(dpg.get_value("window_count")) > 0:
-        dpg.configure_item("add_window", show=True)'''
+    dpg.add_button(label="+", tag="add_window", callback=lambda: dpg.show_item("add_new_window"))
+    with dpg.popup(parent="add_window", modal=True, mousebutton=dpg.mvMouseButton_Left, no_move=True,
+                   tag="add_new_window") as win_pop:
+        window_house_input.add_new_window_popup()
+
+    '''dpg.configure_item(item="add_window", status=)'''
+    win_wid = dpg.get_item_width(win_pop)
+    win_hei = dpg.get_item_height(win_pop)
+    dpg.set_item_pos(win_pop,
+                     [dpg.get_viewport_width() // 2 - win_wid // 2, dpg.get_viewport_height() // 2 - win_hei // 2])
+
     with dpg.tooltip(parent="add_window"):
         dpg.add_text("Add a new Window")
     with dpg.group(horizontal=True, before="end_window_task", tag="parent_window"):
