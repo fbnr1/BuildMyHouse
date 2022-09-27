@@ -47,6 +47,8 @@ def new_floor():
     popup.floors.append((dpg.get_value(item="floor_name")))
     dpg.add_button(tag=new_id, label=dpg.get_value("floor_name"), parent="parent_floor")
     popup.floor_count += 1
+    if int(dpg.get_value(item="floor_count")) > 0:
+        dpg.configure_item(item="add_window", show=True)
     dpg.set_value(item="floor_count", value=popup.floor_count)
     with dpg.tooltip(parent=new_id):
         with dpg.group():
@@ -63,64 +65,64 @@ def new_floor():
 
 
 def add_new_floor_popup():
-    with dpg.popup(parent="add_floor", modal=True, mousebutton=dpg.mvMouseButton_Left, no_move=True,
-                   tag="add_new_floor"):
-        with dpg.group(horizontal=True):
-            dpg.add_button(label="Save the Floor", callback=new_floor)
-            dpg.add_spacer(width=10)
-            dpg.add_button(label="Close", callback=lambda: dpg.configure_item("add_new_floor", show=False))
-        dpg.add_separator()
-        dpg.add_spacer(height=5)
-        dpg.add_input_text(label="Name your Floor", hint="Input the Name here", tag="floor_name")
-        dpg.add_separator()
-        dpg.add_spacer(height=5)
-        dpg.add_slider_float(label="How high is the Wall? (LE)", max_value=40, min_value=10, tag="wall_length",
-                             format="%.2f")
-        dpg.add_separator()
-        dpg.add_spacer(height=5)
-        dpg.add_slider_float(label="How wide is the Wall? (LE)", max_value=40, min_value=10, tag="wall_width",
-                             format="%.2f")
+    '''with dpg.popup(parent="add_floor", modal=True, mousebutton=dpg.mvMouseButton_Left, no_move=True,
+                   tag="add_new_floor"):'''
+    with dpg.group(horizontal=True):
+        dpg.add_button(label="Save the Floor", callback=new_floor)
+        dpg.add_spacer(width=10)
+        dpg.add_button(label="Close", callback=lambda: dpg.configure_item(item="add_new_floor", show=False))
+    dpg.add_separator()
+    dpg.add_spacer(height=5)
+    dpg.add_input_text(label="Name your Floor", hint="Input the Name here", tag="floor_name")
+    dpg.add_separator()
+    dpg.add_spacer(height=5)
+    dpg.add_slider_float(label="How high is the Wall? (LE)", max_value=40, min_value=10, tag="wall_length",
+                                     format="%.2f")
+    dpg.add_separator()
+    dpg.add_spacer(height=5)
+    dpg.add_slider_float(label="How wide is the Wall? (LE)", max_value=40, min_value=10, tag="wall_width",
+                                     format="%.2f")
 
 
 def add_new_window_popup():
     window_values = ["Double Hung", "Normal Window", "2 Slide Window"]
-    with dpg.popup(parent="add_window", modal=True, mousebutton=dpg.mvMouseButton_Left, no_move=True,
-                   tag="add_new_window"):
-        with dpg.group(horizontal=True):
-            dpg.add_button(label="Save the Window", callback=new_window)
-            dpg.add_button(label="Close", callback=lambda: dpg.configure_item("add_new_window", show=False))
-        dpg.add_separator()
-        dpg.add_spacer(height=5)
-        dpg.add_input_text(label="Name your Window", hint="Input the Name here", tag="window_name")
-        dpg.add_separator()
-        dpg.add_spacer(height=5)
-        dpg.add_text("Which Floor does this Window belong to?")
-        with dpg.group(horizontal=True):
-            s = dpg.add_text("<None>", tag="floor_win_select")
-            with dpg.tree_node(label="Floors", tag="win_on_floor"):
-                dpg.add_text("Options")
-                dpg.add_separator()
+    '''with dpg.popup(parent="add_window", modal=True, mousebutton=dpg.mvMouseButton_Left, no_move=True,
+                   tag="add_new_window"):'''
+    with dpg.group(horizontal=True):
+        dpg.add_button(label="Save the Window", callback=new_window)
+        dpg.add_button(label="Close", callback=lambda: dpg.configure_item(item="add_new_window", show=False))
+    dpg.add_separator()
+    dpg.add_spacer(height=5)
+    dpg.add_input_text(label="Name your Window", hint="Input the Name here", tag="window_name")
+    dpg.add_separator()
+    dpg.add_spacer(height=5)
+    dpg.add_text("Which Floor does this Window belong to?")
+    with dpg.group(horizontal=True):
+        s = dpg.add_text("<None>", tag="floor_win_select")
+        with dpg.tree_node(label="Floors", tag="win_on_floor"):
+            dpg.add_text("Options")
+            dpg.add_separator()
 
-                for i in popup.floors:
-                    dpg.add_button(label=i, user_data=[s, i], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
-                dpg.add_separator()
-                dpg.add_spacer(height=12)
-        dpg.add_text("What kind of Window?")
-        with dpg.group(horizontal=True):
-            t = dpg.add_text("<None>", tag="select_win")
-            with dpg.tree_node(label="Window Selector", tag="win"):
-                dpg.add_text("Options")
-                dpg.add_separator()
+            for i in popup.floors:
+                dpg.add_button(label=i, user_data=[s, i], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
+            dpg.add_separator()
+            dpg.add_spacer(height=12)
+    dpg.add_text("What kind of Window?")
+    with dpg.group(horizontal=True):
+        t = dpg.add_text("<None>", tag="select_win")
+        with dpg.tree_node(label="Window Selector", tag="win"):
+            dpg.add_text("Options")
+            dpg.add_separator()
 
-                for i in window_values:
-                    dpg.add_button(label=i, user_data=[t, i], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
-                dpg.add_separator()
-                dpg.add_spacer(height=12)
-        dpg.add_separator()
-        dpg.add_spacer(height=5)
-        dpg.add_slider_float(label="How high is the window? (LE)", max_value=5, min_value=2, tag="window_length",
+            for i in window_values:
+                dpg.add_button(label=i, user_data=[t, i], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
+            dpg.add_separator()
+            dpg.add_spacer(height=12)
+    dpg.add_separator()
+    dpg.add_spacer(height=5)
+    dpg.add_slider_float(label="How high is the window? (LE)", max_value=5, min_value=2, tag="window_length",
                              format="%.2f")
-        dpg.add_separator()
-        dpg.add_spacer(height=5)
-        dpg.add_slider_float(label="How wide is the window? (LE)", max_value=5, min_value=2, tag="window_width",
+    dpg.add_separator()
+    dpg.add_spacer(height=5)
+    dpg.add_slider_float(label="How wide is the window? (LE)", max_value=5, min_value=2, tag="window_width",
                              format="%.2f")
