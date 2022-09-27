@@ -58,7 +58,7 @@ def create_gui():
                     dpg.add_button(label="Left Side", tag="left", callback=configurationWindow.house_side)
                     dpg.add_button(label="Back", tag="back", callback=configurationWindow.house_side)
             with dpg.child_window(width=-1, height=600):
-                with dpg.tree_node(label="House"):
+                with dpg.tree_node(label="House", tag="house_node"):
                     dpg.add_button(label="does nothing")
             with dpg.group(horizontal=True):
                 dpg.add_button(label="Popup", tag="parent", callback=lambda: dpg.show_item("popup_window"))
