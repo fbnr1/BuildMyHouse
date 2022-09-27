@@ -14,8 +14,9 @@ def new_window():
     window_len = dpg.get_value(item="window_length")
     window_width = dpg.get_value(item="window_width")
     floor_win = dpg.get_value(item="floor_win_select")
+    window_name = dpg.get_value("window_name")
     popup.window_paras.extend((window_type, floor_win, window_len, window_width))
-    dpg.add_button(tag=unique_id, parent="parent_window", label=dpg.get_value("window_name"))
+    dpg.add_button(tag=unique_id, parent="parent_window", label=window_name)
     popup.window_count += 1
     dpg.set_value(item="window_count", value=popup.window_count)
     with dpg.tooltip(parent=unique_id):
@@ -35,6 +36,8 @@ def new_window():
             dpg.add_text("Window Width: ")
             dpg.add_text(popup.window_paras[3])
         dpg.add_separator()
+    print(popup.window_paras)
+    gui.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_len": window_len, "window_width": window_width})
     popup.window_paras.clear()
 
 
@@ -58,7 +61,7 @@ def new_floor():
         with dpg.group():
             dpg.add_text("Floor Width: ")
             dpg.add_text(popup.floor_paras[1])
-    liste = {"floor_name": popup.floors[popup.floor_count-1], "floor_len": popup.floor_paras[0], "floor_width": popup.floor_paras[1], "deleted": False}
+    liste = {"floor_name": popup.floors[popup.floor_count-1], "floor_len": popup.floor_paras[0], "floor_width": popup.floor_paras[1], "deleted": False, "Windows": {}}
     print(liste)
     gui.append_floor(liste)
     popup.floor_paras.clear()
