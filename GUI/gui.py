@@ -29,13 +29,24 @@ def saving():
 
 
 def nodes():
-    dpg.tree_node()
     for house in house_list:
-        with dpg.tree_node(label=house, parent="node_win"):
+        try:
+            dpg.delete_item(house)
+        except:
+            pass
+        with dpg.tree_node(label=house, parent="node_win", tag=house, default_open=True, leaf=True):
             for floor in house_list[house]:
-                with dpg.tree_node(label=floor, parent=house):
+                try:
+                    dpg.delete_item(floor)
+                except:
                     pass
-        dpg.add_button(label="does nothing")
+                with dpg.tree_node(label=house_list[house][floor]["floor_name"], parent=house, tag=floor):
+                    # with dpg.tooltip(parent=floor):
+                    #     dpg.add_text(house_list[house][floor])
+                    for i in house_list[house][floor]:
+                        if i != "floor_name" and i != "deleted":
+                            with dpg.tree_node(label=i+": "+str(house_list[house][floor][i]), parent=floor, tag=floor+"_"+i, leaf=True):
+                                pass
 
 
 def create_gui():
@@ -45,10 +56,8 @@ def create_gui():
 
     dpg.create_viewport(title='Build My House', width=width, height=height,
                         resizable=True)
-
     # with dpg.font_registry():
     #    default_font = dpg.add_font("../OpenSans-VariableFont_wdth,wght.ttf", 18)
-
     with dpg.window(width=width, height=height, no_move=True, no_scrollbar=True, no_resize=True, no_collapse=True,
                     no_title_bar=True, no_close=True) as main_window:
         with dpg.child_window(tag="config_win", pos=[0, 0], label="Configuration", autosize_y=True,
@@ -118,14 +127,12 @@ def append_floor(liste):
     house_list["House"]["Floor" + str(i)] = liste
     draw_floor(liste["floor_len"], liste["floor_width"], i)
     nodes()
-    print(house_list)
 
 
 def draw_floor(len, width, i):
     global house_list
     if i > 0:
         paras = house_list["House"]["Floor" + str(i - 1)]
-        print(paras)
         house_list["House"]["Floor" + str(i)]["height"] = width + paras["height"]
         heights = house_list["House"]["Floor" + str(i)]["height"]
         dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
