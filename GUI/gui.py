@@ -28,6 +28,16 @@ def saving():
     save.save(house_list, "testen")
 
 
+def nodes():
+    dpg.tree_node()
+    for house in house_list:
+        with dpg.tree_node(label=house, parent="node_win"):
+            for floor in house_list[house]:
+                with dpg.tree_node(label=floor, parent=house):
+                    pass
+        dpg.add_button(label="does nothing")
+
+
 def create_gui():
     dpg.create_context()
     global height
@@ -57,12 +67,12 @@ def create_gui():
                     dpg.add_button(label="Right Side", tag="right", callback=configurationWindow.house_side)
                     dpg.add_button(label="Left Side", tag="left", callback=configurationWindow.house_side)
                     dpg.add_button(label="Back", tag="back", callback=configurationWindow.house_side)
-            with dpg.child_window(width=-1, height=600):
-                with dpg.tree_node(label="House"):
-                    dpg.add_button(label="does nothing")
+            with dpg.child_window(width=-1, height=600, tag="node_win"):
+                nodes()
             with dpg.group(horizontal=True):
                 dpg.add_button(label="Popup", tag="parent", callback=lambda: dpg.show_item("popup_window"))
-                with dpg.window(width=600, height=600, no_move=True, no_scrollbar=True, no_resize=True, no_collapse=True,
+                with dpg.window(width=600, height=600, no_move=True, no_scrollbar=True, no_resize=True,
+                                no_collapse=True,
                                 no_title_bar=True, no_close=True, show=False, tag="popup_window") as pop:
                     popup.add_popup_content()
 
@@ -72,7 +82,8 @@ def create_gui():
 
         with dpg.child_window(width=int((width / 4) * 3), height=height, pos=[480, 0], tag="house_editor",
                               autosize_y=True, autosize_x=True):
-            with dpg.plot(tag="plot", label="House Editor", height=-1, width=-1, no_mouse_pos=True, equal_aspects=True, no_box_select=True, no_menus=True) as plot:
+            with dpg.plot(tag="plot", label="House Editor", height=-1, width=-1, no_mouse_pos=True, equal_aspects=True,
+                          no_box_select=True, no_menus=True) as plot:
                 dpg.add_plot_legend()
 
     # global_theme = create_theme()
@@ -100,12 +111,15 @@ def print_val(sender, app_data):
     print(sender)
     print(app_data)
 
+
 def append_floor(liste):
     global house_list
     i = len(house_list["House"])
     house_list["House"]["Floor" + str(i)] = liste
     draw_floor(liste["floor_len"], liste["floor_width"], i)
+    nodes()
     print(house_list)
+
 
 def draw_floor(len, width, i):
     global house_list
@@ -115,11 +129,12 @@ def draw_floor(len, width, i):
         house_list["House"]["Floor" + str(i)]["height"] = width + paras["height"]
         heights = house_list["House"]["Floor" + str(i)]["height"]
         dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
-                (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
-                parent="plot", thickness=0.001)
+                      (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
+                      parent="plot", thickness=0.001)
     else:
         dpg.draw_quad((0, 0), (0, width), (len, width), (len, 0), parent="plot", thickness=0.001)
         house_list["House"]["Floor0"]["height"] = width
+
 
 class Gui(object):
     def __int__(self, name):
