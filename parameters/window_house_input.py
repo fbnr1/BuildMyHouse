@@ -68,23 +68,23 @@ def new_floor():
 
 
 def add_new_floor_popup():
-    with dpg.popup(parent="add_floor", modal=True, mousebutton=dpg.mvMouseButton_Left, no_move=True,
-                   tag="add_new_floor"):
-        with dpg.group(horizontal=True):
-            dpg.add_button(label="Save the Floor", callback=new_floor)
-            dpg.add_spacer(width=10)
-            dpg.add_button(label="Close", callback=lambda: dpg.configure_item("add_new_floor", show=False))
-        dpg.add_separator()
-        dpg.add_spacer(height=5)
-        dpg.add_input_text(label="Name your Floor", hint="Input the Name here", tag="floor_name")
-        dpg.add_separator()
-        dpg.add_spacer(height=5)
-        dpg.add_slider_float(label="How high is the Wall? (LE)", max_value=40, min_value=10, tag="wall_length",
-                             format="%.2f", default_value=10)
-        dpg.add_separator()
-        dpg.add_spacer(height=5)
-        dpg.add_slider_float(label="How wide is the Wall? (LE)", max_value=40, min_value=10, tag="wall_width",
-                             format="%.2f", default_value=10)
+    '''with dpg.popup(parent="add_floor", modal=True, mousebutton=dpg.mvMouseButton_Left, no_move=True,
+                   tag="add_new_floor"):'''
+    with dpg.group(horizontal=True):
+        dpg.add_button(label="Save the Floor", callback=new_floor)
+        dpg.add_spacer(width=10)
+        dpg.add_button(label="Close", callback=lambda: dpg.configure_item("add_new_floor", show=False))
+    dpg.add_separator()
+    dpg.add_spacer(height=5)
+    dpg.add_input_text(label="Name your Floor", hint="Input the Name here", tag="floor_name")
+    dpg.add_separator()
+    dpg.add_spacer(height=5)
+    dpg.add_slider_float(label="How high is the Wall? (LE)", max_value=40, min_value=10, tag="wall_length",
+                         format="%.2f", default_value=10)
+    dpg.add_separator()
+    dpg.add_spacer(height=5)
+    dpg.add_slider_float(label="How wide is the Wall? (LE)", max_value=40, min_value=10, tag="wall_width",
+                         format="%.2f", default_value=10)
 
 
 def add_new_window_popup():
