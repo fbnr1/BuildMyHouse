@@ -26,13 +26,3 @@ def load(filename):
         GUI.gui.append_floor(liste['House'][floor])
     return liste
 
-class Save(object):
-    def __int__(self, name):
-        self.name = name
-
-
-'''if __name__ == '__main__':
-    list = {'test': "test"}
-    #save(list, "test")
-    liste = load("test")
-    print(liste)'''
