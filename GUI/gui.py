@@ -4,6 +4,7 @@ import popup
 import save
 
 # from gui_theme import create_theme
+from GUI import nodetree
 from drawing import draw
 
 global height
@@ -26,35 +27,6 @@ def test(sender, app_data, user_data, file_path_name):
 def saving():
     global house_list
     save.save(house_list, "testen")
-
-
-def nodes():
-    for house in house_list:
-        try:
-            dpg.delete_item(house)
-        except:
-            pass
-        with dpg.tree_node(label=house, parent="node_win", tag=house, default_open=True, leaf=True):
-            for floor in house_list[house]:
-                try:
-                    dpg.delete_item(floor)
-                except:
-                    pass
-                with dpg.tree_node(label=house_list[house][floor]["floor_name"], parent=house, tag=floor):
-                    # with dpg.tooltip(parent=floor):
-                    #     dpg.add_text(house_list[house][floor])
-                    for i in house_list[house][floor]:
-                        if i != "floor_name" and i != "deleted" and i != "Windows":
-                            with dpg.tree_node(label=i + ": " + str(house_list[house][floor][i]), parent=floor,
-                                               tag=floor + "_" + i, leaf=True):
-                                pass
-                        elif i == "Windows":
-                            with dpg.tree_node(label=i, parent=floor,
-                                               tag=floor + "_" + i):
-                                for j in house_list[house][floor][i]:
-                                    with dpg.tree_node(label=j + ": " + str(house_list[house][floor][i][j]),
-                                                       parent=floor + "_" + i, leaf=True):
-                                        pass
 
 
 def create_gui():
@@ -80,12 +52,12 @@ def create_gui():
                     dpg.add_button(label="Load", callback=lambda: dpg.show_item("file_dialog_id"))
                     dpg.add_button(label="Export", callback=configurationWindow.on_export)
                 with dpg.menu(label="Perspective"):
-                    dpg.add_button(label="Front", tag="front", callback=configurationWindow.house_side)
-                    dpg.add_button(label="Right Side", tag="right", callback=configurationWindow.house_side)
-                    dpg.add_button(label="Left Side", tag="left", callback=configurationWindow.house_side)
-                    dpg.add_button(label="Back", tag="back", callback=configurationWindow.house_side)
+                    dpg.add_button(label="Front", tag="front", callback=lambda: draw.switch_side("front"))
+                    dpg.add_button(label="Right Side", tag="right", callback=lambda: draw.switch_side("right"))
+                    dpg.add_button(label="Left Side", tag="left", callback=lambda: draw.switch_side("left"))
+                    dpg.add_button(label="Back", tag="back", callback=lambda: draw.switch_side("back"))
             with dpg.child_window(width=-1, height=600, tag="node_win"):
-                nodes()
+                nodetree.nodes()
             with dpg.group(horizontal=True):
                 dpg.add_button(label="Popup", tag="parent", callback=lambda: dpg.show_item("popup_window"))
                 with dpg.window(width=600, height=600, no_move=True, no_scrollbar=True, no_resize=True,
