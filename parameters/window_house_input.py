@@ -78,11 +78,11 @@ def add_new_floor_popup():
         dpg.add_separator()
         dpg.add_spacer(height=5)
         dpg.add_slider_float(label="How high is the Wall? (LE)", max_value=40, min_value=10, tag="wall_length",
-                             format="%.2f")
+                             format="%.2f", default_value=10)
         dpg.add_separator()
         dpg.add_spacer(height=5)
         dpg.add_slider_float(label="How wide is the Wall? (LE)", max_value=40, min_value=10, tag="wall_width",
-                             format="%.2f")
+                             format="%.2f", default_value=10)
 
 
 def add_new_window_popup():
@@ -122,8 +122,8 @@ def add_new_window_popup():
         dpg.add_separator()
         dpg.add_spacer(height=5)
         dpg.add_slider_float(label="How high is the window? (LE)", max_value=5, min_value=2, tag="window_length",
-                             format="%.2f")
+                             format="%.2f", default_value=2)
         dpg.add_separator()
         dpg.add_spacer(height=5)
         dpg.add_slider_float(label="How wide is the window? (LE)", max_value=5, min_value=2, tag="window_width",
-                             format="%.2f")
+                             format="%.2f", default_value=2)
