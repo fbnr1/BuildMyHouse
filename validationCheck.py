@@ -1,32 +1,32 @@
 import GUI.gui
 
 
-def constructbuilding():
-    a = buildingconstructable()
+def construct_building():
+    a = building_constructable()
     if a:
         pass  # code zum konstruieren des Gebäudes
 
 
-def buildingconstructable():
-    a = windowsvalid()
-    b = widthandheightvalid()
+def building_constructable():
+    a = windows_valid()
+    b = width_and_height_valid()
     c = collision()
-    d = roofheightnothigherthanbuildingheight()
+    d = roofheight_not_higher_than_buildingheight()
     return a and b and c and d
 
 
-def windowsvalid(windows, buildingheight, buildinglength):
-    if (buildingheight * buildinglength) >= windows:
+def windows_valid(window_count, wall_width, wall_len):
+
+    return True
+
+
+def width_and_height_valid(wall_len, wall_width):
+    if wall_width != 0 and wall_len != 0:
         return True
 
 
-def widthandheightvalid(buildingheight, buildingwidth):
-    if buildingheight != 0 and buildingwidth != 0:
-        return True
-
-
-def roofheightnothigherthanbuildingheight(buildingheight, roofheight):
-    if buildingheight > roofheight:
+def roofheight_not_higher_than_buildingheight(wall_width, roofheight):
+    if wall_width > roofheight:
         return True
 
 
