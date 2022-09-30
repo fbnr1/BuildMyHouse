@@ -12,4 +12,6 @@ def start():
 
 
 if __name__ == '__main__':
-    start()
+    i = "Floor2"
+    a = i.split("Floor")
+    print(int(a[1])-1)

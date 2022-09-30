@@ -25,7 +25,6 @@ def open_load(sender, app_data, user_data, file_path_name):
 
 def saving():
     global house_list
-    print(house_list)
     save.save(house_list, "testen")
 
 
@@ -52,7 +51,6 @@ def nodes():
                         elif i == "Windows":
                             with dpg.tree_node(label=i, parent=floor,
                                                tag=floor + "_" + i):
-                                print(house_list[house][floor][i])
                                 for j in house_list[house][floor][i]:
                                     with dpg.tree_node(label=j + ": " + str(house_list[house][floor][i][j]),
                                                        parent=floor + "_" + i, leaf=True):
@@ -157,24 +155,31 @@ def draw_floor(len, width, i):
 def draw_window(liste):
     global house_list
     for i in house_list["House"]:
-        print(i)
         for j in house_list["House"][i]:
             if house_list["House"][i][j] == liste["floor_win"]:
-                house_list["House"][i]["Windows"] = liste
+                house_list["House"][i]["Windows"][liste["window_name"]] = liste
+                print("")
+                print("")
+                print(house_list["House"][i]["Windows"])
                 print(house_list)
-                middle = (house_list["House"][i]["height"] - house_list["House"][i]["floor_width"]) / 2
+                print("")
+                print("")
                 wmiddle = house_list["House"][i]["floor_len"] / 2
                 wlen = liste["window_len"] / 2
                 wwidth = liste["window_width"] / 2
-                if middle != 0:
+                if i != "Floor0":
+                    middle = house_list["House"][i]["height"] - house_list["House"][i]["floor_width"] / 2
                     dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
                                   (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen), parent="plot",
                                   thickness=0.001)
                 else:
-                    dpg.draw_quad((wmiddle - wwidth, int((house_list["House"][i]["floor_width"]) / 2 - wlen)), (wmiddle + wwidth, int((house_list["House"][i]["floor_width"]) / 2 - wlen)),
-                                  (wmiddle + wwidth, int((house_list["House"][i]["floor_width"]) / 2 + wlen)), (wmiddle - wwidth, int((house_list["House"][i]["floor_width"]) / 2 + wlen)), parent="plot",
+                    middle = house_list["House"][i]["height"] / 2
+                    dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
+                                  (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen), parent="plot",
                                   thickness=0.001)
     nodes()
+    # len breite
+    #width höhe
 
 
 class Gui(object):
