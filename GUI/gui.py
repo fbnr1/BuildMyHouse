@@ -20,6 +20,7 @@ def test(sender, app_data, user_data, file_path_name):
     print("Sender: ", sender)
     print("App Data: ", app_data)
     print(app_data['file_path_name'])
+    save.load(app_data['file_path_name'])
 
 
 def saving():
@@ -58,6 +59,7 @@ def nodes():
                                         pass
 
 
+
 def create_gui():
     dpg.create_context()
     global height
@@ -72,7 +74,7 @@ def create_gui():
         with dpg.child_window(tag="config_win", pos=[0, 0], label="Configuration", autosize_y=True,
                               width=int(width / 4), height=int(height), menubar=True):
             with dpg.file_dialog(directory_selector=False, show=False, callback=test, id="file_dialog_id",
-                                 default_path=".\save", ):
+                                 default_path=".\save", height=200):
                 dpg.add_file_extension(".jsonl", color=(150, 255, 150, 255))
                 dpg.add_file_extension(".*", color=(0, 255, 255, 255))
             with dpg.menu_bar():
