@@ -1,3 +1,4 @@
+import validationCheck
 from GUI import gui, nodetree
 
 global layer
@@ -11,12 +12,36 @@ def draw_floor(len, width, i):
     global side
     house_list = gui.house_list
     if i > 0:
+
         paras = house_list["House"]["Floor" + str(i - 1)]
         house_list["House"]["Floor" + str(i)]["height"] = width + paras["height"]
         heights = house_list["House"]["Floor" + str(i)]["height"]
+
         gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
                           (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
-                          parent="plot", thickness=0.001)
+                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"]+"f",
+                          show=False)
+        layer["layers"]["front"].append(house_list["House"]["Floor"+str(i)]["floor_name"] + "f")
+
+        gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
+                          (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
+                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"]+"l",
+                          show=False)
+        layer["layers"]["left"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "l")
+
+        gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
+                          (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
+                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"]+"r",
+                          show=False)
+        layer["layers"]["right"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "r")
+
+        gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
+                          (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
+                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"]+"b",
+                          show=False)
+        layer["layers"]["back"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "b")
+
+        switch_layer()
     else:
         gui.dpg.draw_quad((0, 0), (0, width), (len, width), (len, 0), parent="plot", thickness=0.001,
                           tag=house_list["House"]["Floor0"]["floor_name"]+"f", show=False)
@@ -40,13 +65,13 @@ def draw_floor(len, width, i):
 
 
 def append_floor(liste):
-    print(liste)
     house_list = gui.house_list
     i = len(house_list["House"])
-    print(i)
-    house_list["House"]["Floor" + str(i)] = liste
-    draw_floor(liste["floor_len"], liste["floor_width"], i)
-    nodetree.nodes()
+    if validationCheck.name_collision_floor(liste["floor_name"]):
+        print(i)
+        house_list["House"]["Floor" + str(i)] = liste
+        draw_floor(liste["floor_len"], liste["floor_width"], i)
+        nodetree.nodes()
 
 
 def draw_window(liste):

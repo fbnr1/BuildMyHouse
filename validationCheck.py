@@ -1,3 +1,6 @@
+from GUI import gui
+
+
 def constructbuilding():
     a = buildingconstructable()
     if a:
@@ -29,3 +32,12 @@ def roofheightnothigherthanbuildingheight(buildingheight, roofheight):
 
 def collision(object1, object2):
     pass  # if object1.pos != object2.pos --> return True, 2 Objekte sollen nicht die gleiche Position haben
+
+
+def name_collision_floor(name):
+    house_list = gui.house_list
+    for i in house_list["House"]:
+        for j in house_list["House"][i]["floor_name"]:
+            if name == j:
+                return False
+    return True
