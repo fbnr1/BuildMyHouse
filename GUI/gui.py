@@ -44,7 +44,7 @@ def create_gui():
                     no_title_bar=True, no_close=True) as main_window:
         with dpg.child_window(tag="config_win", pos=[0, 0], label="Configuration", autosize_y=True,
                               width=int(width / 4), height=int(height), menubar=True):
-            with dpg.file_dialog(directory_selector=False, show=False, callback=test, id="file_dialog_id",
+            with dpg.file_dialog(directory_selector=False, show=False, callback=saving, id="file_dialog_id",
                                  default_path=".\save", ):
                 dpg.add_file_extension(".jsonl", color=(150, 255, 150, 255))
                 dpg.add_file_extension(".*", color=(0, 255, 255, 255))
