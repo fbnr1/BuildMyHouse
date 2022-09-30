@@ -2,14 +2,14 @@ import dearpygui.dearpygui as dpg
 import configurationWindow
 import popup
 import save
+from parameters import window_house_input
 
 # from gui_theme import create_theme
 from GUI import nodetree
 from drawing import draw
 
-global height
-global width
-width = 1920
+
+width = 1900
 height = 1080
 global house_list
 house_list = {"House": {}}
@@ -82,15 +82,15 @@ def create_gui():
 
     dpg.setup_dearpygui()
     dpg.show_viewport()
-    '''while dpg.is_dearpygui_running():
+    while dpg.is_dearpygui_running():
         # print("hello")
         # global height
-        height = dpg.get_viewport_height()
+        #height = dpg.get_viewport_height()
         # global width
-        width = dpg.get_viewport_width()
+        #width = dpg.get_viewport_width()
         # print(height)
         # print(width)
-        dpg.render_dearpygui_frame()'''
+        dpg.render_dearpygui_frame()
     dpg.maximize_viewport()
     dpg.set_primary_window(main_window, True)
     dpg.start_dearpygui()
