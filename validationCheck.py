@@ -34,7 +34,7 @@ def window_not_bigger_than_wall(window_len, window_width, wall_len, wall_width):
     if wall_len > window_len and wall_width > window_width:
         return True
 
-def house_len_and_house_width(house_len, house_width, wall_len, wall_width, roof_len, roof_width):
+def house_len_and_house_width(wall_len, wall_width, roof_len, roof_width):
     house_len = wall_len + (roof_len - wall_len)
     house_width = wall_width + (roof_width - wall_width)
     return house_len, house_width
