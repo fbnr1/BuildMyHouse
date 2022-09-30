@@ -1,3 +1,6 @@
+from GUI import gui
+
+
 def construct_building():
     a = building_constructable()
     if a:
@@ -9,8 +12,7 @@ def building_constructable():
     b = width_and_height_valid()
     c = collision()
     d = roofheight_not_higher_than_buildingheight()
-    e = window_not_bigger_than_wall()
-    return a and b and c and d and e
+    return a and b and c and d
 
 
 def windows_valid(window_count, wall_width, wall_len):
@@ -30,11 +32,11 @@ def roofheight_not_higher_than_buildingheight(wall_width, roofheight):
 def collision(object1, object2):
     pass  # if object1.pos != object2.pos --> return True, 2 Objekte sollen nicht die gleiche Position haben
 
-def window_not_bigger_than_wall(window_len, window_width, wall_len, wall_width):
-    if wall_len > window_len and wall_width > window_width:
-        return True
 
-def house_len_and_house_width(wall_len, wall_width, roof_len, roof_width):
-    house_len = wall_len + (roof_len - wall_len)
-    house_width = wall_width + (roof_width - wall_width)
-    return house_len, house_width
+def name_collision_floor(name):
+    house_list = gui.house_list
+    for i in house_list["House"]:
+        for j in house_list["House"][i]["floor_name"]:
+            if name == j:
+                return False
+    return True

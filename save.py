@@ -17,7 +17,7 @@ def save(lists, filename):
 def load(filename):
     save_path = '.\save'
     name = os.path.join(save_path, filename)
-    # name = name + '.jsonl'
+    #name = name + '.jsonl'
     newfile = codecs.open(name, "r+", encoding="utf8", errors="ignore")
     liste = {}
     for i in newfile:

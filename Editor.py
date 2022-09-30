@@ -10,7 +10,7 @@ def init():
 
 
 def option_window(sender, app_data):
-
+    return
 
 
 def option_floor(app_data, position, height, width):
