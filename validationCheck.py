@@ -1,3 +1,6 @@
+from GUI import gui
+
+
 def construct_building():
     a = building_constructable()
     if a:

@@ -8,8 +8,9 @@ from parameters import window_house_input
 from GUI import nodetree
 from drawing import draw
 
-
-width = 1900
+global height
+global width
+width = 1920
 height = 1080
 global house_list
 house_list = {"House": {}}
@@ -43,8 +44,8 @@ def create_gui():
                     no_title_bar=True, no_close=True) as main_window:
         with dpg.child_window(tag="config_win", pos=[0, 0], label="Configuration", autosize_y=True,
                               width=int(width / 4), height=int(height), menubar=True):
-            with dpg.file_dialog(directory_selector=False, show=False, callback=open_load, id="file_dialog_id",
-                                 default_path=".\save", height=200):
+            with dpg.file_dialog(directory_selector=False, show=False, callback=test, id="file_dialog_id",
+                                 default_path=".\save", ):
                 dpg.add_file_extension(".jsonl", color=(150, 255, 150, 255))
                 dpg.add_file_extension(".*", color=(0, 255, 255, 255))
             with dpg.menu_bar():
@@ -82,15 +83,15 @@ def create_gui():
 
     dpg.setup_dearpygui()
     dpg.show_viewport()
-    while dpg.is_dearpygui_running():
+    '''while dpg.is_dearpygui_running():
         # print("hello")
         # global height
-        #height = dpg.get_viewport_height()
+        height = dpg.get_viewport_height()
         # global width
-        #width = dpg.get_viewport_width()
+        width = dpg.get_viewport_width()
         # print(height)
         # print(width)
-        dpg.render_dearpygui_frame()
+        dpg.render_dearpygui_frame()'''
     dpg.maximize_viewport()
     dpg.set_primary_window(main_window, True)
     dpg.start_dearpygui()
