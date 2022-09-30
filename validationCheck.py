@@ -1,6 +1,3 @@
-import GUI.gui
-
-
 def construct_building():
     a = building_constructable()
     if a:
@@ -16,7 +13,6 @@ def building_constructable():
 
 
 def windows_valid(window_count, wall_width, wall_len):
-
     return True
 
 
