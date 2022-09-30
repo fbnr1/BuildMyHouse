@@ -117,10 +117,10 @@ def add_new_window_popup():
             dpg.add_text("Options")
             dpg.add_separator()
 
-                for i in window_values:
-                    dpg.add_button(label=i, user_data=[t, i], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
-                dpg.add_separator()
-                dpg.add_spacer(height=12)
+            for i in window_values:
+                dpg.add_button(label=i, user_data=[t, i], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
+            dpg.add_separator()
+            dpg.add_spacer(height=12)
         dpg.add_separator()
         dpg.add_spacer(height=5)
         dpg.add_slider_float(label="How high is the window? (LE)", max_value=5, min_value=2, tag="window_length",

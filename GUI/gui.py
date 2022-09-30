@@ -168,8 +168,6 @@ def draw_window(liste):
                 wlen = liste["window_len"] / 2
                 wwidth = liste["window_width"] / 2
                 if i != "Floor0":
-                    # a = i.split("Floor")
-                    # middle = house_list["House"]["Floor"+str(int(a[1]) - 1)]["height"] + liste["window_width"] / 2
                     middle = house_list["House"][i]["height"] - house_list["House"][i]["floor_width"] / 2
                     dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
                                   (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen), parent="plot",
