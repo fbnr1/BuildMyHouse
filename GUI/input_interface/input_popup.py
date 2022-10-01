@@ -1,6 +1,5 @@
 import dearpygui.dearpygui as dpg
-import GUI
-from GUI.parameters import window_house_input
+from GUI.input_interface import window_floor_input
 
 global window_type
 global window_len
@@ -45,7 +44,7 @@ def add_popup_content():
         dpg.add_text(str(floor_count), tag="floor_count")
         dpg.add_spacer(width=5)
 
-    dpg.add_button(label="+", tag="add_floor", callback=window_house_input.add_new_floor_popup)
+    dpg.add_button(label="+", tag="add_floor", callback=window_floor_input.add_new_floor_popup)
     with dpg.window(label="Floor", modal=True,
                     tag="add_new_floor", no_title_bar=True, no_resize=True, autosize=True) as fl_pop:
         dpg.configure_item(item="add_new_floor", show=False)
@@ -67,7 +66,7 @@ def add_popup_content():
         dpg.add_text(str(window_count), tag="window_count")
         dpg.add_spacer(width=5)
     dpg.add_text("Add a Floor before adding a window")
-    dpg.add_button(label="+", tag="add_window", callback=window_house_input.add_new_window_popup)
+    dpg.add_button(label="+", tag="add_window", callback=window_floor_input.add_new_window_popup)
     with dpg.window(label="Window", modal=True, no_title_bar=True,
                    tag="add_new_window", no_resize=True, autosize=True) as win_pop:
 

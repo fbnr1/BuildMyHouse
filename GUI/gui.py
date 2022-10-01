@@ -1,8 +1,9 @@
 import dearpygui.dearpygui as dpg
 import save
+import GUI.input_interface.input_popup as popup
 
 # from gui_theme import create_theme
-from GUI import nodetree, popup
+from GUI import nodetree
 from GUI.drawing import draw
 
 global height

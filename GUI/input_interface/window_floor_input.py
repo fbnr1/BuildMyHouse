@@ -1,7 +1,8 @@
 import dearpygui.dearpygui as dpg
+import GUI.input_interface.input_popup as popup
+from GUI import gui
 
 import validationCheck
-from GUI import popup
 from GUI.drawing import draw
 
 '''def get_win_type():
