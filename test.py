@@ -11,7 +11,7 @@ def start():
             print(house_list[house][floor])
 
 
-if __name__ == '__main__':
+if __name__ == 'test':
     i = "Floor2"
     a = i.split("Floor")
     print(int(a[1])-1)

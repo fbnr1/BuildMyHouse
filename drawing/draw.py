@@ -67,6 +67,8 @@ def draw_floor(len, width, i):
 def append_floor(liste):
     house_list = gui.house_list
     i = len(house_list["House"])
+    if liste["floor_name"] == "":
+        liste["floor_name"] = "Floor" + str(i)
     if validationCheck.name_collision_floor(liste["floor_name"]):
         print(i)
         house_list["House"]["Floor" + str(i)] = liste

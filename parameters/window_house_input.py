@@ -48,12 +48,17 @@ def new_window():
 def new_floor():
     global floor_count
     new_id = dpg.generate_uuid()
+    house_list = gui.house_list
+    floor_len = dpg.get_value(item="wall_length")
+    floor_width = dpg.get_value(item="wall_width")
+    popup.floor_paras.extend((floor_len, floor_width))
+    popup.floors.append((dpg.get_value(item="floor_name")))
+    i = len(house_list["House"])
+    name = dpg.get_value("floor_name")
+    if dpg.get_value(item="floor_name") == "":
+        name = popup.floors[popup.floor_count - 1] = "Floor" + str(i)
     if validationCheck.name_collision_floor(dpg.get_value(item="floor_name")):
-        floor_len = dpg.get_value(item="wall_length")
-        floor_width = dpg.get_value(item="wall_width")
-        popup.floor_paras.extend((floor_len, floor_width))
-        popup.floors.append((dpg.get_value(item="floor_name")))
-        dpg.add_button(tag=new_id, label=dpg.get_value("floor_name"), parent="parent_floor")
+        dpg.add_button(tag=new_id, label=name, parent="parent_floor")
         popup.floor_count += 1
         dpg.set_value(item="floor_count", value=popup.floor_count)
         with dpg.tooltip(parent=new_id):
