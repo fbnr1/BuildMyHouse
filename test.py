@@ -14,6 +14,10 @@ def start():
         print(house)
         print(house)
 
+        print(house_list)
+        print(house_list)
+        print(house_list)
+        print(house_list)
 
 
 if __name__ == 'test':
