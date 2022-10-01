@@ -1,9 +1,8 @@
 import dearpygui.dearpygui as dpg
 
 import validationCheck
-from GUI import gui
-import popup
-from drawing import draw
+from GUI import popup
+from GUI.drawing import draw
 
 '''def get_win_type():
     list = popup.on_save()
@@ -69,7 +68,7 @@ def new_floor():
             with dpg.group():
                 dpg.add_text("Floor Width: ")
                 dpg.add_text(popup.floor_paras[1])
-            liste = {"floor_name": popup.floors[popup.floor_count-1], "floor_len": popup.floor_paras[0], "floor_width": popup.floor_paras[1], "deleted": False, "Windows": {}}
+            liste = {"floor_name": popup.floors[popup.floor_count - 1], "floor_len": popup.floor_paras[0], "floor_width": popup.floor_paras[1], "deleted": False, "Windows": {}}
         draw.append_floor(liste)
         popup.floor_paras.clear()
     dpg.delete_item(item="add_new_floor", children_only=True)

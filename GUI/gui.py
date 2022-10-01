@@ -1,12 +1,9 @@
 import dearpygui.dearpygui as dpg
-import configurationWindow
-import popup
 import save
-from parameters import window_house_input
 
 # from gui_theme import create_theme
-from GUI import nodetree
-from drawing import draw
+from GUI import nodetree, popup
+from GUI.drawing import draw
 
 global height
 global width
@@ -47,7 +44,7 @@ def create_gui():
                 with dpg.menu(label="Menu"):
                     dpg.add_button(label="Save", callback=saving)
                     dpg.add_button(label="Load", callback=lambda: dpg.show_item("file_dialog_id"))
-                    dpg.add_button(label="Export", callback=configurationWindow.on_export)
+                    dpg.add_button(label="Export")
                 with dpg.menu(label="Perspective"):
                     dpg.add_button(label="Front", tag="front", callback=lambda: draw.switch_side("front"))
                     dpg.add_button(label="Right Side", tag="right", callback=lambda: draw.switch_side("right"))

@@ -1,6 +1,5 @@
 import dearpygui.dearpygui as dpg
 from parameters import window_house_input
-from GUI import gui
 
 global window_type
 global window_len
@@ -102,3 +101,4 @@ def add_popup_content():
             for r in texture_values:
                 dpg.add_button(label=r, user_data=[m, r], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
             dpg.add_separator()
+

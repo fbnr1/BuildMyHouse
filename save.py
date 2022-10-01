@@ -2,8 +2,7 @@ import codecs
 import json
 import os.path
 
-import GUI.gui
-from drawing import draw
+from GUI.drawing import draw
 
 
 def save(lists, filename):
