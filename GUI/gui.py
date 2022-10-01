@@ -16,10 +16,7 @@ global house_list
 house_list = {"House": {}}
 
 
-# def _get_window_type
-
-
-def open_load(sender, app_data, user_data, file_path_name):
+def test(sender, app_data, user_data, file_path_name):
     print("Sender: ", sender)
     print("App Data: ", app_data)
     print(app_data['file_path_name'])
@@ -38,14 +35,12 @@ def create_gui():
 
     dpg.create_viewport(title='Build My House', width=width, height=height,
                         resizable=True)
-    # with dpg.font_registry():
-    #    default_font = dpg.add_font("../OpenSans-VariableFont_wdth,wght.ttf", 18)
     with dpg.window(width=width, height=height, no_move=True, no_scrollbar=True, no_resize=True, no_collapse=True,
                     no_title_bar=True, no_close=True) as main_window:
         with dpg.child_window(tag="config_win", pos=[0, 0], label="Configuration", autosize_y=True,
                               width=int(width / 4), height=int(height), menubar=True):
-            with dpg.file_dialog(directory_selector=False, show=False, callback=saving, id="file_dialog_id",
-                                 default_path=".\save", ):
+            with dpg.file_dialog(directory_selector=False, show=False, callback=test, id="file_dialog_id",
+                                 default_path=".\save", height=200):
                 dpg.add_file_extension(".jsonl", color=(150, 255, 150, 255))
                 dpg.add_file_extension(".*", color=(0, 255, 255, 255))
             with dpg.menu_bar():
@@ -77,21 +72,8 @@ def create_gui():
                           no_box_select=True, no_menus=True) as plot:
                 dpg.add_plot_legend()
 
-    # global_theme = create_theme()
-    # dpg.bind_theme(global_theme)
-    # dpg.bind_font(default_font)
-
     dpg.setup_dearpygui()
     dpg.show_viewport()
-    '''while dpg.is_dearpygui_running():
-        # print("hello")
-        # global height
-        height = dpg.get_viewport_height()
-        # global width
-        width = dpg.get_viewport_width()
-        # print(height)
-        # print(width)
-        dpg.render_dearpygui_frame()'''
     dpg.maximize_viewport()
     dpg.set_primary_window(main_window, True)
     dpg.start_dearpygui()

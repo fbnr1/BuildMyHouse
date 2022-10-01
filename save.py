@@ -3,6 +3,7 @@ import json
 import os.path
 
 import GUI.gui
+from drawing import draw
 
 
 def save(lists, filename):
@@ -23,5 +24,5 @@ def load(filename):
     for i in newfile:
         liste = json.loads(i)
     for floor in liste['House']:
-        GUI.gui.append_floor(liste['House'][floor])
+        draw.append_floor(liste['House'][floor])
     return liste

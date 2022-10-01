@@ -40,3 +40,11 @@ def name_collision_floor(name):
             if name == j:
                 return False
     return True
+
+
+def check_for_door():
+    house_list = gui.house_list
+    for i in house_list["House"]["Floor0"]:
+        if i == "Door":
+            return True
+    return False
