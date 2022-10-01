@@ -1,5 +1,4 @@
 from GUI import gui
-from GUI import gui_demo
 import save
 
 
