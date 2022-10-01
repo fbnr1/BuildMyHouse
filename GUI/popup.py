@@ -1,5 +1,6 @@
 import dearpygui.dearpygui as dpg
-from parameters import window_house_input
+import GUI
+from GUI.parameters import window_house_input
 
 global window_type
 global window_len
