@@ -71,7 +71,7 @@ def append_floor(liste):
         liste["floor_name"] = "Floor" + str(i)
     if validationCheck.name_collision_floor(liste["floor_name"]):
         house_list["House"]["Floor" + str(i)] = liste
-        draw_floor(liste["floor_len"], liste["floor_width"], i)
+        draw_floor(liste["floor_height"], liste["floor_width"], i)
         nodetree.nodes()
 
 
@@ -81,8 +81,8 @@ def draw_window(liste):
         for j in house_list["House"][i]:
             if house_list["House"][i][j] == liste["floor_win"]:
                 house_list["House"][i]["Windows"][liste["window_name"]] = liste
-                wmiddle = house_list["House"][i]["floor_len"] / 2
-                wlen = liste["window_len"] / 2
+                wmiddle = house_list["House"][i]["floor_height"] / 2
+                wlen = liste["window_height"] / 2
                 wwidth = liste["window_width"] / 2
                 if i != "Floor0":
                     middle = house_list["House"][i]["height"] - house_list["House"][i]["floor_width"] / 2

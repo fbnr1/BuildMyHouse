@@ -14,26 +14,34 @@ house_list = {"House": {}}
 def create_gui():
     dpg.create_context()
 
+    # create the viewport
     dpg.create_viewport(title='Build My House', width=width, height=height,
                         resizable=True)
+
+    # main window
     with dpg.window(width=width, height=height, no_move=True, no_scrollbar=True, no_resize=True, no_collapse=True,
                     no_title_bar=True, no_close=True) as main_window:
+        # configuration window
         with dpg.child_window(tag="config_win", pos=[0, 0], label="Configuration", autosize_y=True,
                               width=int(width / 4), height=int(height), menubar=True):
+
+            # file dialog
             with dpg.file_dialog(directory_selector=False, show=False, callback=saving, id="file_dialog_id",
                                  default_path=".\\save", ):
                 dpg.add_file_extension(".jsonl", color=(150, 255, 150, 255))
                 dpg.add_file_extension(".*", color=(0, 255, 255, 255))
 
+            # menu for save load, export and perspectives
             with dpg.menu_bar():
                 with dpg.menu(label="Menu"):
                     add_menu_buttons()
                 with dpg.menu(label="Perspective"):
                     add_side_buttons()
 
+            # node window
             with dpg.child_window(width=-1, height=600, tag="node_win"):
                 nodetree.nodes()
-
+            # input popup
             with dpg.group(horizontal=True):
                 dpg.add_button(label="Popup", tag="parent", callback=lambda: dpg.show_item("popup_window"))
 
@@ -42,6 +50,7 @@ def create_gui():
                                 no_title_bar=True, no_close=True, show=False, tag="popup_window") as popup_window:
                     popup.add_popup_content()
 
+        # position of input popup
         popup_width = dpg.get_item_width(popup_window)
         popup_height = dpg.get_item_height(popup_window)
         x_pos = dpg.get_viewport_width() / 2 - popup_width / 2
@@ -49,6 +58,7 @@ def create_gui():
 
         dpg.set_item_pos(popup_window, [x_pos, y_pos])
 
+        # plot window
         with dpg.child_window(width=int((width / 4) * 3), height=height, pos=[480, 0], tag="house_editor",
                               autosize_y=True, autosize_x=True):
             with dpg.plot(tag="plot", label="House Editor", height=-1, width=-1, no_mouse_pos=True, equal_aspects=True,
