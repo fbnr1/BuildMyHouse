@@ -6,7 +6,14 @@ house_list = {"House": {"Floor0": {"floor_len": 28.559999465942383, "floor_width
 def start():
     global house_list
     for house in house_list:
-        print(house_list)
+        print(house)
+        print(house)
+        print(house)
+        print(house)
+        print(house)
+        print(house)
+        print(house)
+
 
 
 if __name__ == 'test':
