@@ -4,6 +4,7 @@ from GUI import gui
 from GUI.input_interface import window_input
 from GUI.input_interface import floor_input
 from GUI.input_interface import door_input
+from GUI.input_interface import roof_input
 
 global window_type
 global window_len
@@ -16,6 +17,8 @@ parameters = []
 window_paras = []
 door_paras = []
 floor_paras = []
+roof_paras = []
+roof_count = 0
 door_count = 0
 floor_count = 0
 window_count = 0
@@ -126,6 +129,30 @@ def add_popup_content():
     dpg.add_separator()
     dpg.add_spacer(height=12)
 
+
+    # Roof: section to add a roof
+    dpg.add_text("Roof")
+    dpg.add_text("Add a Floor before adding a roof")
+    dpg.add_button(label="+", tag="add_roof", callback=roof_input.add_new_roof_popup)
+    with dpg.window(label="Door", modal=True, no_title_bar=True, tag="add_new_roof", no_resize=True,
+                    autosize=True) as roof_pop:
+        dpg.configure_item(item="add_new_roof", show=False)
+        dpg.add_spacer(width=5)
+
+    # Roof: parameters for position of roof window
+    roof_wid = dpg.get_item_width(roof_pop)
+    roof_hei = dpg.get_item_height(roof_pop)
+    dpg.set_item_pos(roof_pop,
+                     [dpg.get_viewport_width() // 2 - roof_wid // 2, dpg.get_viewport_height() // 2 - roof_hei // 2])
+
+    # hovering over button shows text
+    with dpg.tooltip(parent="add_roof"):
+        dpg.add_text("Add a new Roof")
+    with dpg.group(horizontal=True, before="end_roof_task", tag="parent_roof"):
+        dpg.add_spacer(height=5)
+
+    dpg.add_separator()
+    dpg.add_spacer(height=12)
     # section to add a texture
     dpg.add_text("Texture")
 

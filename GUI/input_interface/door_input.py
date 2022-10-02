@@ -42,7 +42,7 @@ def add_new_door_popup():
         dpg.add_spacer(height=10, parent="add_new_door")
 
         # Height of Door
-        dpg.add_input_float(label="How tall is the Door? (LE)", max_value=40, min_value=10, tag="wall_height",
+        dpg.add_input_float(label="How tall is the Door? (LE)", max_value=40, min_value=10, tag="door_height",
                              format="%.2f", default_value=10, parent="add_new_door")
 
         dpg.add_separator(parent="add_new_door")
@@ -51,7 +51,7 @@ def add_new_door_popup():
         dpg.add_spacer(height=5, parent="add_new_door")
 
         # Width of Door
-        dpg.add_input_float(label="How wide is the Door? (LE)", max_value=40, min_value=10, tag="wall_width",
+        dpg.add_input_float(label="How wide is the Door? (LE)", max_value=40, min_value=10, tag="door_width",
                              format="%.2f", default_value=10, parent="add_new_door")
 
     # cant add another door
@@ -80,9 +80,11 @@ def new_door():
         with dpg.group():
             dpg.add_text("Door Type: ")
             dpg.add_text(popup.door_paras[0])
+        dpg.add_separator()
         with dpg.group():
             dpg.add_text("Door Height: ")
             dpg.add_text(popup.door_paras[1])
+        dpg.add_separator()
         with dpg.group():
             dpg.add_text("Door Width: ")
             dpg.add_text(popup.door_paras[2])
