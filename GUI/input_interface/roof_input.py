@@ -5,11 +5,11 @@ from GUI.input_interface import input_popup
 
 def add_new_roof_popup():
 
-    # different doors
+    # different roofs
     roof_values = ["Flat roof", "Triangular Roof"]
     dpg.configure_item(item="add_new_roof", show=True)
 
-    # condition that only one door can be added
+    # condition that only one roof can be added and checks if floor exists or not
     if popup.roof_count == 0 and input_popup.floor_count > 0:
         with dpg.group(horizontal=True, parent="add_new_roof"):
             dpg.add_button(label="Save the Roof", callback=new_roof)
@@ -18,12 +18,12 @@ def add_new_roof_popup():
         dpg.add_separator(parent="add_new_roof")
         dpg.add_spacer(height=5, parent="add_new_roof")
 
-        # Name of door
+        # Name of roof
         dpg.add_input_text(label="Name your Roof", hint="Input the Name here", tag="roof_name", parent="add_new_roof")
         dpg.add_separator(parent="add_new_roof")
         dpg.add_spacer(height=5, parent="add_new_roof")
 
-        # choice of doors
+        # choice of roofs
         with dpg.group(horizontal=True, parent="add_new_roof"):
             f = dpg.add_text("<None>", tag="select_roof")
             with dpg.tree_node(label="Roof Selector", tag="roof"):
@@ -37,7 +37,7 @@ def add_new_roof_popup():
         dpg.add_separator(parent="add_new_roof")
         dpg.add_spacer(height=10, parent="add_new_roof")
 
-        # Height of Door
+        # Height of Roof
         dpg.add_input_float(label="How tall is the Roof? (LE)", max_value=40, min_value=10, tag="roof_height",
                              format="%.2f", default_value=10, parent="add_new_roof")
 
@@ -46,11 +46,11 @@ def add_new_roof_popup():
         dpg.add_separator(parent="add_new_roof")
         dpg.add_spacer(height=5, parent="add_new_roof")
 
-        # Width of Door
+        # Width of Roof
         dpg.add_input_float(label="How wide is the Roof? (LE)", max_value=40, min_value=10, tag="roof_width",
                              format="%.2f", default_value=10, parent="add_new_roof")
 
-    # cant add another door
+    # cant add another roof
     else:
         dpg.add_text("A Roof already exists on this side of the house", parent="add_new_roof")
         dpg.add_spacer(height=10, parent="add_new_roof")
@@ -58,11 +58,11 @@ def add_new_roof_popup():
         dpg.add_spacer(height=10, parent="add_new_roof")
         dpg.add_button(label="Close", callback=close_pop_roof, parent="add_new_roof")
 
-# saves parameters of door + creates button for door
+# saves parameters of roof + creates button for roof
 def new_roof():
     roof_id = dpg.generate_uuid()
 
-    # door parameters
+    # roof parameters
     roof_type = dpg.get_value(item="select_roof")
     roof_height = dpg.get_value(item="roof_height")
     roof_width = dpg.get_value(item="roof_width")
@@ -70,7 +70,7 @@ def new_roof():
     popup.door_paras.extend((roof_type, roof_height, roof_width))
     popup.roof_count += 1
 
-    # button in popup to visualize given parameters of door
+    # button in popup to visualize given parameters of roof
     dpg.add_button(tag=roof_id, parent="parent_roof", label=roof_name)
     with dpg.tooltip(parent=roof_id):
         with dpg.group():
