@@ -1,6 +1,7 @@
 import dearpygui.dearpygui as dpg
 import GUI.input_interface.input_popup as popup
 from GUI import gui
+from GUI.input_interface import input_popup
 
 import validationCheck
 from GUI.drawing import draw
@@ -13,7 +14,7 @@ def add_new_door_popup():
     dpg.configure_item(item="add_new_door", show=True)
 
     # condition that only one door can be added
-    if popup.door_count == 0:
+    if popup.door_count == 0 and input_popup.floor_count > 0:
         with dpg.group(horizontal=True, parent="add_new_door"):
             dpg.add_button(label="Save the Door", callback=new_door)
             dpg.add_spacer(width=10)
@@ -55,8 +56,10 @@ def add_new_door_popup():
 
     # cant add another door
     else:
-        dpg.add_text("A Door already exists on this side of the door", parent="add_new_door")
-        dpg.add_spacer(height=10)
+        dpg.add_text("A Door already exists on this side of the house", parent="add_new_door")
+        dpg.add_spacer(height=10, parent="add_new_door")
+        dpg.add_text("If you haven't added a door yet, you might not have added a floor", parent="add_new_door")
+        dpg.add_spacer(height=10, parent="add_new_door")
         dpg.add_button(label="Close", callback=close_pop_door, parent="add_new_door")
 
 # saves parameters of door + creates button for door

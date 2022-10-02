@@ -32,7 +32,7 @@ def add_new_window_popup():
             dpg.add_separator()
             for s in gui.house_list["House"]:
                 m = gui.house_list["House"][s]["floor_name"]
-                dpg.add_button(label=m, user_data=[n, s], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
+                dpg.add_button(label=m, user_data=[n, m], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
 
             dpg.add_separator()
             dpg.add_spacer(height=12)

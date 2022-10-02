@@ -105,6 +105,7 @@ def add_popup_content():
 
     # Door: section to add a new window
     dpg.add_text("Door")
+    dpg.add_text("Add a Floor before adding a door")
     dpg.add_button(label="+", tag="add_door", callback=door_input.add_new_door_popup)
     with dpg.window(label="Door", modal=True, no_title_bar=True, tag="add_new_door", no_resize=True, autosize=True) as door_pop:
 
