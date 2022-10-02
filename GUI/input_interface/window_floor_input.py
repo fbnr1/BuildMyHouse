@@ -61,17 +61,31 @@ def new_floor():
         dpg.add_button(tag=new_id, label=name, parent="parent_floor")
         popup.floor_count += 1
         dpg.set_value(item="floor_count", value=popup.floor_count)
-        with dpg.tooltip(parent=new_id):
-            with dpg.group():
-                dpg.add_text("Floor Length: ")
-                dpg.add_text(popup.floor_paras[0])
-            dpg.add_separator()
-            with dpg.group():
-                dpg.add_text("Floor Width: ")
-                dpg.add_text(popup.floor_paras[1])
-            liste = {"floor_name": popup.floors[popup.floor_count - 1], "floor_len": popup.floor_paras[0], "floor_width": popup.floor_paras[1], "deleted": False, "Windows": {}}
+        if dpg.get_value("door_count"):
+            with dpg.tooltip(parent=new_id):
+                with dpg.group():
+                    dpg.add_text("Floor Length: ")
+                    dpg.add_text(popup.floor_paras[0])
+                dpg.add_separator()
+                with dpg.group():
+                    dpg.add_text("Floor Width: ")
+                    dpg.add_text(popup.floor_paras[1])
+                liste = {"floor_name": popup.floors[popup.floor_count - 1], "floor_len": popup.floor_paras[0], "floor_width": popup.floor_paras[1], "deleted": False, "Windows": {}, "Door": {
+                    "side_width": dpg.get_value("door_pos"), "height": dpg.get_value("door_height"), "width": dpg.get_value("door_width")}}
+                draw.draw_door(liste)
+        else:
+            with dpg.tooltip(parent=new_id):
+                with dpg.group():
+                    dpg.add_text("Floor Length: ")
+                    dpg.add_text(popup.floor_paras[0])
+                dpg.add_separator()
+                with dpg.group():
+                    dpg.add_text("Floor Width: ")
+                    dpg.add_text(popup.floor_paras[1])
+                liste = {"floor_name": popup.floors[popup.floor_count - 1], "floor_len": popup.floor_paras[0], "floor_width": popup.floor_paras[1], "deleted": False, "Windows": {}}
         draw.append_floor(liste)
         popup.floor_paras.clear()
+
     dpg.delete_item(item="add_new_floor", children_only=True)
     dpg.configure_item(item="add_new_floor", show=False)
 
@@ -95,6 +109,32 @@ def add_new_floor_popup():
     dpg.add_spacer(height=5, parent="add_new_floor")
     dpg.add_slider_float(label="How wide is the Wall? (LE)", max_value=40, min_value=10, tag="wall_width",
                          format="%.2f", default_value=10, parent="add_new_floor")
+    if len(gui.house_list["House"]) == 0:
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
+        dpg.add_checkbox(label="Door", tag="door_count", parent="add_new_floor") #
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
+        dpg.add_slider_float(label="How far is the door from the left side? (LE)", max_value=35, min_value=1, tag="door_pos",
+                             format="%.2f", default_value=1, parent="add_new_floor") #
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
+        dpg.add_slider_float(label="How wide is the door? (LE)", max_value=5, min_value=1,
+                             tag="door_width",
+                             format="%.2f", default_value=1.5, parent="add_new_floor") #
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
+        dpg.add_slider_float(label="How high is the door? (LE)", max_value=3, min_value=1.5,
+                             tag="door_height",
+                             format="%.2f", default_value=2, parent="add_new_floor") #
 
 
 def add_new_window_popup():
@@ -150,5 +190,6 @@ def close_pop_window():
 def close_pop_floor():
     dpg.delete_item(item="add_new_floor", children_only=True)
     dpg.configure_item(item="add_new_floor", show=False)
+
 
 

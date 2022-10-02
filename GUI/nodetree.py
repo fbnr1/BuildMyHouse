@@ -16,14 +16,22 @@ def nodes():
                 except:
                     pass
                 with dpg.tree_node(label=house_list[house][floor]["floor_name"], parent=house, tag=floor):
-                    # with dpg.tooltip(parent=floor):
-                    #     dpg.add_text(house_list[house][floor])
                     for i in house_list[house][floor]:
-                        if i != "floor_name" and i != "deleted" and i != "Windows":
+                        if i != "floor_name" and i != "deleted" and i != "Windows" and i != "Door":
                             with dpg.tree_node(label=i + ": " + str(house_list[house][floor][i]), parent=floor,
                                                tag=floor + "_" + i, leaf=True):
                                 pass
                         elif i == "Windows":
+                            with dpg.tree_node(label=i, parent=floor,
+                                               tag=floor + "_" + i):
+                                for j in house_list[house][floor][i]:
+                                    with dpg.tree_node(label=j, parent=floor + "_" + i,
+                                                       tag=str(house_list[house][floor][i][j])):
+                                        for a in house_list[house][floor][i][j]:
+                                            with dpg.tree_node(label=a + ": " + str(house_list[house][floor][i][j][a]),
+                                                               parent=str(house_list[house][floor][i][j]), leaf=True):
+                                                pass
+                        elif i == "Door":
                             with dpg.tree_node(label=i, parent=floor,
                                                tag=floor + "_" + i):
                                 for j in house_list[house][floor][i]:

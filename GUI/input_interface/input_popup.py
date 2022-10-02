@@ -1,4 +1,6 @@
 import dearpygui.dearpygui as dpg
+
+from GUI import gui
 from GUI.input_interface import window_floor_input
 
 global window_type
@@ -68,7 +70,7 @@ def add_popup_content():
     dpg.add_text("Add a Floor before adding a window")
     dpg.add_button(label="+", tag="add_window", callback=window_floor_input.add_new_window_popup)
     with dpg.window(label="Window", modal=True, no_title_bar=True,
-                   tag="add_new_window", no_resize=True, autosize=True) as win_pop:
+                    tag="add_new_window", no_resize=True, autosize=True) as win_pop:
 
         dpg.configure_item(item="add_new_window", show=False)
         '''if not(dpg.does_item_exist(item="add_new_window")):
@@ -85,13 +87,10 @@ def add_popup_content():
     with dpg.group(horizontal=True, before="end_window_task", tag="parent_window"):
         dpg.add_spacer(height=5)
     dpg.add_separator(tag="end_window_task")
-    dpg.add_spacer(height=12)
 
-    dpg.add_text("Door")
-    dpg.add_checkbox(label="Is there a door?", tag="door_count")
-    dpg.add_separator()
     dpg.add_spacer(height=12)
     dpg.add_text("Texture")
+
     with dpg.group(horizontal=True):
         m = dpg.add_text("<None>", tag="select_texture")
         with dpg.tree_node(label="Texture Selector", tag="texture"):

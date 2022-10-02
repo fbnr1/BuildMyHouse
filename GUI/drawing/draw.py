@@ -70,7 +70,6 @@ def append_floor(liste):
     if liste["floor_name"] == "":
         liste["floor_name"] = "Floor" + str(i)
     if validationCheck.name_collision_floor(liste["floor_name"]):
-        print(i)
         house_list["House"]["Floor" + str(i)] = liste
         draw_floor(liste["floor_len"], liste["floor_width"], i)
         nodetree.nodes()
@@ -103,7 +102,6 @@ def draw_window(liste):
 def switch_layer():
     global layer
     global side
-    print(side)
     if side == "front":
         for i in layer["layers"]["front"]:
             gui.dpg.show_item(item=i)
@@ -146,3 +144,9 @@ def switch_side(s):
     global side
     side = s
     switch_layer()
+
+def draw_door(liste):
+    paras = liste["Door"]
+    gui.dpg.draw_quad((paras["side_width"], 0), (paras["side_width"], paras["height"]), (paras["side_width"] + paras["width"], paras["height"]), (paras["side_width"] + paras["width"], 0),
+                      parent="plot",
+                      thickness=0.001)
