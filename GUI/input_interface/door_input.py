@@ -56,6 +56,7 @@ def add_new_door_popup():
     # cant add another door
     else:
         dpg.add_text("A Door already exists on this side of the door", parent="add_new_door")
+        dpg.add_spacer(height=10)
         dpg.add_button(label="Close", callback=close_pop_door, parent="add_new_door")
 
 # saves parameters of door + creates button for door
