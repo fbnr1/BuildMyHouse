@@ -17,7 +17,7 @@ def nodes():
                     pass
                 with dpg.tree_node(label=house_list[house][floor]["floor_name"], parent=house, tag=floor):
                     for i in house_list[house][floor]:
-                        if i != "floor_name" and i != "deleted" and i != "Windows" and i != "Door":
+                        if i != "floor_name" and i != "deleted" and i != "Windows" and i != "Doors":
                             with dpg.tree_node(label=i + ": " + str(house_list[house][floor][i]), parent=floor,
                                                tag=floor + "_" + i, leaf=True):
                                 pass
@@ -31,10 +31,13 @@ def nodes():
                                             with dpg.tree_node(label=a + ": " + str(house_list[house][floor][i][j][a]),
                                                                parent=str(house_list[house][floor][i][j]), leaf=True):
                                                 pass
-                        elif i == "Door":
+                        elif i == "Doors" and floor == "Floor0":
                             with dpg.tree_node(label=i, parent=floor,
                                                tag=floor + "_" + i):
                                 for j in house_list[house][floor][i]:
-                                    with dpg.tree_node(label=j + ": " + str(house_list[house][floor][i][j]),
-                                                       parent=floor + "_" + i, leaf=True):
-                                        pass
+                                    with dpg.tree_node(label=j, parent=i,
+                                                       tag=i + "_" + j):
+                                        for a in house_list[house][floor][i][j]:
+                                            with dpg.tree_node(label=a + ": " + str(house_list[house][floor][i][j][a]),
+                                                               parent=i + "_" + j, leaf=True):
+                                                pass
