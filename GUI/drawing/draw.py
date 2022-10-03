@@ -1,4 +1,4 @@
-import validationCheck
+from processing.parameters import validationCheck
 from GUI import gui, nodetree
 
 global layer

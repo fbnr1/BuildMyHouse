@@ -3,7 +3,7 @@ import GUI.input_interface.input_popup as popup
 from GUI import gui
 from GUI.input_interface import input_popup
 
-import validationCheck
+from processing.parameters import validationCheck
 from GUI.drawing import draw
 
 # create popup for door parameters

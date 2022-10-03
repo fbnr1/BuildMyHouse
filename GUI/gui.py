@@ -1,5 +1,5 @@
 import dearpygui.dearpygui as dpg
-import save
+from processing.fileLoading import save
 import GUI.input_interface.input_popup as popup
 
 # from gui_theme import create_theme
@@ -26,7 +26,7 @@ def create_gui():
                               width=int(width / 4), height=int(height), menubar=True):
 
             # file dialog
-            with dpg.file_dialog(directory_selector=False, show=False, callback=saving, id="file_dialog_id",
+            with dpg.file_dialog(directory_selector=False, show=False, callback=load_file, id="file_dialog_id", height=200,
                                  default_path=".\\save", ):
                 dpg.add_file_extension(".jsonl", color=(150, 255, 150, 255))
                 dpg.add_file_extension(".*", color=(0, 255, 255, 255))
@@ -68,7 +68,7 @@ def create_gui():
     start_dpg(main_window)
 
 
-def test(sender, app_data):
+def load_file(sender, app_data):
     print("Sender: ", sender)
     print("App Data: ", app_data)
     print(app_data['file_path_name'])

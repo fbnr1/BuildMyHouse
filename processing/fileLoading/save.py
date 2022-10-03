@@ -7,7 +7,7 @@ from GUI.drawing import draw
 
 def save(lists, filename):
     print(lists)
-    save_path = '.\save'
+    save_path = '../../save'
     name = os.path.join(save_path, filename)
     name = name + '.jsonl'
     newfile = codecs.open(name, "w+", encoding="utf8", errors="ignore")
@@ -15,7 +15,8 @@ def save(lists, filename):
 
 
 def load(filename):
-    save_path = '.\save'
+    print("loading...")
+    save_path = '../../save'
     name = os.path.join(save_path, filename)
     newfile = codecs.open(name, "r+", encoding="utf8", errors="ignore")
     liste = {}

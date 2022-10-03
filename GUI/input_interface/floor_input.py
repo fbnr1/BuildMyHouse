@@ -2,7 +2,7 @@ import dearpygui.dearpygui as dpg
 import GUI.input_interface.input_popup as popup
 from GUI import gui
 
-import validationCheck
+from processing.parameters import validationCheck
 from GUI.drawing import draw
 
 # create popup for floor parameters
