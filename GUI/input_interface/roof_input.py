@@ -37,12 +37,12 @@ def add_new_roof_popup():
         dpg.add_separator(parent="add_new_roof")
         dpg.add_spacer(height=10, parent="add_new_roof")
 
+
+        # Height and Width necessarry for roof?
         # Height of Roof
         dpg.add_input_float(label="How tall is the Roof? (LE)", max_value=40, min_value=10, tag="roof_height",
                              format="%.2f", default_value=10, parent="add_new_roof")
 
-        dpg.add_separator(parent="add_new_roof")
-        dpg.add_spacer(height=5, parent="add_new_roof")
         dpg.add_separator(parent="add_new_roof")
         dpg.add_spacer(height=5, parent="add_new_roof")
 

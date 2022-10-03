@@ -1,10 +1,13 @@
 import dearpygui.dearpygui as dpg
 import GUI.input_interface.input_popup as popup
 from GUI.input_interface import input_popup
+from GUI.input_interface import floor_input
 from GUI import gui
 
 import validationCheck
 from GUI.drawing import draw
+
+
 
 # popup for the window parameters
 def add_new_window_popup():
@@ -19,7 +22,7 @@ def add_new_window_popup():
 
         # Name of Window
         dpg.add_input_text(label="Name your Window", hint="Input the Name here", tag="window_name", parent="add_new_window")
-        dpg.add_text(label=dpg.get_value(item="floor_name"), parent="add_new_window")
+        dpg.add_text(label=dpg.get_value(item="window_name"), parent="add_new_window")
         dpg.add_separator(parent="add_new_window")
         dpg.add_spacer(height=5, parent="add_new_window")
         dpg.add_text("Which Floor does this Window belong to?", parent="add_new_window")
@@ -54,16 +57,27 @@ def add_new_window_popup():
         dpg.add_separator(parent="add_new_window")
         dpg.add_spacer(height=5, parent="add_new_window")
 
-        # Height of Window
-        dpg.add_input_float(label="How tall is the window? (LE)", max_value=5, min_value=2, tag="window_height",
-                             format="%.2f", parent="add_new_window", default_value=2)
+        # Manuel Placement of Window
+        dpg.add_text("Position and Parameters of the window", parent="add_new_window")
+        dpg.add_button(label="+", parent="add_new_window", callback=place_window)
+        with dpg.child_window(label="Window Placement", show=False, width=600, height=300, tag="placement_child_win", parent="add_new_window"):
+            dpg.add_spacer(height=5)
 
         dpg.add_separator(parent="add_new_window")
         dpg.add_spacer(height=5, parent="add_new_window")
 
-        # Width of Window
-        dpg.add_input_float(label="How wide is the window? (LE)", max_value=5, min_value=2, tag="window_width",
-                             format="%.2f", parent="add_new_window", default_value=2)
+
+
+        # # Height of Window
+        # dpg.add_input_float(label="How tall is the window? (LE)", max_value=correct_floor_height/2, min_value=0.5, min_clamped=True, max_clamped=True, tag="window_height",
+        #                      format="%.2f", parent="add_new_window", default_value=2)
+        #
+        # dpg.add_separator(parent="add_new_window")
+        # dpg.add_spacer(height=5, parent="add_new_window")
+        #
+        # # Width of Window
+        # dpg.add_input_float(label="How wide is the window? (LE)", max_value=correct_floor_width/2, min_value=0.5, min_clamped=True, max_clamped=True, tag="window_width",
+        #                      format="%.2f", parent="add_new_window", default_value=2)
     else:
         dpg.add_text("You can't add a window without a floor", parent="add_new_window")
         dpg.add_spacer(height=10, parent="add_new_window")
@@ -78,12 +92,14 @@ def new_window():
 
     # window parameters
     unique_id = dpg.generate_uuid()
+    wind_dist_left = dpg.get_value(item="win_dist_left")
+    wind_dist_up = dpg.get_value(item="win_dist_up")
     window_type = dpg.get_value(item="select_win")
     window_height = dpg.get_value(item="window_height")
     window_width = dpg.get_value(item="window_width")
     floor_win = dpg.get_value(item="floor_win_select")
     window_name = dpg.get_value("window_name")
-    popup.window_paras.extend((window_type, floor_win, window_height, window_width))
+    popup.window_paras.extend((window_type, floor_win, window_height, window_width, wind_dist_left, wind_dist_up))
 
     # button in popup to visualize given parameters of window
     dpg.add_button(tag=unique_id, parent="parent_window", label=window_name)
@@ -113,6 +129,58 @@ def new_window():
     # close input popup after saving
     dpg.delete_item(item="add_new_window", children_only=True)
     dpg.configure_item(item="add_new_window", show=False)
+
+# function add Placement window
+def place_window():
+
+    global correct_floor_width, correct_floor_height
+    dpg.configure_item(item="placement_child_win", show=True)
+    for i in gui.house_list["House"]:
+        s = gui.house_list["House"][i]["floor_name"]
+        if s == dpg.get_value(item="floor_win_select"):
+            correct_floor_height = gui.house_list["House"][i]["floor_height"]
+            correct_floor_width = gui.house_list["House"][i]["floor_width"]
+    dpg.add_text("You can give the width and height of the window here", parent="placement_child_win")
+
+    dpg.add_spacer(height=5, parent="placement_child_win")
+    dpg.add_separator(parent="placement_child_win")
+    dpg.add_spacer(height=5, parent="placement_child_win")
+
+    # Height of Window
+    dpg.add_input_float(label="How tall is the window? (LE)", max_value=correct_floor_height / 2, min_value=0.5,
+                        min_clamped=True, max_clamped=True, tag="window_height",
+                        format="%.2f", parent="placement_child_win", default_value=2)
+
+    dpg.add_spacer(height=5, parent="placement_child_win")
+    dpg.add_separator(parent="placement_child_win")
+    dpg.add_spacer(height=5, parent="placement_child_win")
+
+    # Width of Window
+    dpg.add_input_float(label="How wide is the window? (LE)", max_value=correct_floor_width / 2, min_value=0.5,
+                        min_clamped=True, max_clamped=True, tag="window_width",
+                        format="%.2f", parent="placement_child_win", default_value=2)
+
+    dpg.add_spacer(height=5, parent="placement_child_win")
+    dpg.add_separator(parent="placement_child_win")
+    dpg.add_spacer(height=5, parent="placement_child_win")
+
+    dpg.add_text("Give the Position of the Window", parent="placement_child_win")
+
+    # Position of Window
+    with dpg.group(horizontal=True, parent="placement_child_win"):
+        dpg.add_input_float(label="How far away from the left wall is the window", parent="placement_child_win",
+                            max_value=correct_floor_width-10, min_value=1, min_clamped=True, max_clamped=True,
+                            format="%.2f", default_value=10, tag="win_dist_left")
+        dpg.add_spacer(height=5, parent="placement_child_win")
+        dpg.add_separator(parent="placement_child_win")
+        dpg.add_spacer(height=5, parent="placement_child_win")
+
+        dpg.add_input_float(label="How far away from the upper wall is the window", parent="placement_child_win",
+                            max_value=correct_floor_height-10, min_value=1, min_clamped=True, max_clamped=True,
+                            format="%.2f", default_value=10, tag="win_dist_up")
+
+
+
 
 
 # function to close window popup

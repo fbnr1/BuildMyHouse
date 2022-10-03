@@ -21,16 +21,15 @@ def add_new_floor_popup():
     dpg.add_spacer(height=5, parent="add_new_floor")
 
     # Height of Floor
-    dpg.add_input_float(label="How tall is the Wall? (LE)", max_value=40, min_value=10, tag="wall_height",
+    dpg.add_input_float(label="How tall is the Wall? (LE)", min_value=10, min_clamped=True, tag="wall_height",
                          format="%.2f", default_value=10, parent="add_new_floor")
 
     dpg.add_separator(parent="add_new_floor")
     dpg.add_spacer(height=5, parent="add_new_floor")
-    dpg.add_separator(parent="add_new_floor")
-    dpg.add_spacer(height=5, parent="add_new_floor")
+
 
     # Width of Floor
-    dpg.add_input_float(label="How wide is the Wall? (LE)", max_value=40, min_value=10, tag="wall_width",
+    dpg.add_input_float(label="How wide is the Wall? (LE)", min_value=10, min_clamped=True, tag="wall_width",
                          format="%.2f", default_value=10, parent="add_new_floor")
 
 # saves parameters of floor + creates button for floor

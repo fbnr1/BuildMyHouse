@@ -6,9 +6,10 @@ from GUI.input_interface import input_popup
 import validationCheck
 from GUI.drawing import draw
 
+
+
 # create popup for door parameters
 def add_new_door_popup():
-
     # different doors
     door_values = ["Double Door", "Normal Door"]
     dpg.configure_item(item="add_new_door", show=True)
@@ -41,18 +42,22 @@ def add_new_door_popup():
         dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=10, parent="add_new_door")
 
-        # Height of Door
-        dpg.add_input_float(label="How tall is the Door? (LE)", max_value=40, min_value=10, tag="door_height",
-                             format="%.2f", default_value=10, parent="add_new_door")
-
         dpg.add_separator(parent="add_new_door")
-        dpg.add_spacer(height=5, parent="add_new_door")
+        dpg.add_spacer(height=10, parent="add_new_door")
+
+
+        # Height of Door
+        dpg.add_input_float(label="How tall is the Door? (LE)", max_value=10, min_value=5,
+                            min_clamped=True, max_clamped=True, tag="door_height",
+                            format="%.2f", default_value=10, parent="add_new_door")
+
         dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=5, parent="add_new_door")
 
         # Width of Door
-        dpg.add_input_float(label="How wide is the Door? (LE)", max_value=40, min_value=10, tag="door_width",
-                             format="%.2f", default_value=10, parent="add_new_door")
+        dpg.add_input_float(label="How wide is the Door? (LE)", max_value=10, min_value=5,
+                            min_clamped=True, max_clamped=True, tag="door_width",
+                            format="%.2f", default_value=10, parent="add_new_door")
 
     # cant add another door
     else:
@@ -62,16 +67,18 @@ def add_new_door_popup():
         dpg.add_spacer(height=10, parent="add_new_door")
         dpg.add_button(label="Close", callback=close_pop_door, parent="add_new_door")
 
+
 # saves parameters of door + creates button for door
 def new_door():
     door_id = dpg.generate_uuid()
 
     # door parameters
     door_type = dpg.get_value(item="select_door")
+    door_dist_left = dpg.get_value(item="door_dist_left")
     door_height = dpg.get_value(item="door_height")
     door_width = dpg.get_value(item="door_width")
     door_name = dpg.get_value(item="door_name")
-    popup.door_paras.extend((door_type, door_height, door_width))
+    popup.door_paras.extend((door_type, door_height, door_width, door_dist_left))
     popup.door_count += 1
 
     # button in popup to visualize given parameters of door
@@ -88,11 +95,14 @@ def new_door():
         with dpg.group():
             dpg.add_text("Door Width: ")
             dpg.add_text(popup.door_paras[2])
+        with dpg.group():
+            dpg.add_text("Click the Button to change or delete the door")
     popup.window_paras.clear()
 
     # close input popup after saving
     dpg.delete_item(item="add_new_door", children_only=True)
     dpg.configure_item(item="add_new_door", show=False)
+
 
 # function to close the door input popup
 def close_pop_door():
