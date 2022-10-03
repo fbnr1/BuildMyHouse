@@ -65,7 +65,7 @@ def new_floor():
             with dpg.group():
                 dpg.add_text("Floor Width: ")
                 dpg.add_text(popup.floor_paras[1])
-            liste = {"floor_name": popup.floors[popup.floor_count - 1], "floor_height": popup.floor_paras[0], "floor_width": popup.floor_paras[1], "deleted": False, "Windows": {}}
+            liste = {"floor_name": popup.floors[popup.floor_count - 1], "floor_height": popup.floor_paras[0], "floor_width": popup.floor_paras[1], "deleted": False, "Windows": {}, "Doors": {}}
         draw.append_floor(liste)
         popup.floor_paras.clear()
 

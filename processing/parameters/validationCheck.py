@@ -36,15 +36,39 @@ def collision(object1, object2):
 def name_collision_floor(name):
     house_list = gui.house_list
     for i in house_list["House"]:
-        for j in house_list["House"][i]["floor_name"]:
-            if name == j:
-                return False
+        if name == house_list["House"][i]["floor_name"]:
+            return False
+    return True
+
+
+def name_collision_door(name):
+    for i in gui.house_list["House"]["Floor0"]["Doors"]:
+        print(i)
+        if name == i:
+            return False
     return True
 
 
 def check_for_door():
     house_list = gui.house_list
-    for i in house_list["House"]["Floor0"]:
+    for i in house_list["House"]["Floor0"]["Doors"]:
         if i == "Door":
             return True
     return False
+
+
+def door_side(side):
+    house_list = gui.house_list
+    for i in house_list["House"]["Floor0"]["Doors"]:
+        if house_list["House"]["Floor0"]["Doors"][i]["side"] == side:
+            return False
+    return True
+
+
+def name_collision_window(param):
+    house_list = gui.house_list
+    for i in house_list["House"]:
+        for j in house_list["House"][i]["Windows"]:
+            if param == j:
+                return False
+    return True

@@ -86,28 +86,29 @@ def new_window():
     popup.window_paras.extend((window_type, floor_win, window_height, window_width))
 
     # button in popup to visualize given parameters of window
-    dpg.add_button(tag=unique_id, parent="parent_window", label=window_name)
-    popup.window_count += 1
-    dpg.set_value(item="window_count", value=popup.window_count)
-    with dpg.tooltip(parent=unique_id):
-        with dpg.group():
-            dpg.add_text("Window Type: ")
-            dpg.add_text(popup.window_paras[0])
-        dpg.add_separator()
-        with dpg.group():
-            dpg.add_text("Wind on Floor: ")
-            dpg.add_text(popup.window_paras[1])
-        dpg.add_separator()
-        with dpg.group():
-            dpg.add_text("Window Length: ")
-            dpg.add_text(popup.window_paras[2])
-        dpg.add_separator()
-        with dpg.group():
-            dpg.add_text("Window Width: ")
-            dpg.add_text(popup.window_paras[3])
-        dpg.add_separator()
-    print(popup.window_paras)
-    draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width})
+    if validationCheck.name_collision_window(dpg.get_value("window_name")):
+        dpg.add_button(tag=unique_id, parent="parent_window", label=window_name)
+        popup.window_count += 1
+        dpg.set_value(item="window_count", value=popup.window_count)
+        with dpg.tooltip(parent=unique_id):
+            with dpg.group():
+                dpg.add_text("Window Type: ")
+                dpg.add_text(popup.window_paras[0])
+            dpg.add_separator()
+            with dpg.group():
+                dpg.add_text("Wind on Floor: ")
+                dpg.add_text(popup.window_paras[1])
+            dpg.add_separator()
+            with dpg.group():
+                dpg.add_text("Window Length: ")
+                dpg.add_text(popup.window_paras[2])
+            dpg.add_separator()
+            with dpg.group():
+                dpg.add_text("Window Width: ")
+                dpg.add_text(popup.window_paras[3])
+            dpg.add_separator()
+        print(popup.window_paras)
+        draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width})
     popup.window_paras.clear()
 
     # close input popup after saving
