@@ -60,7 +60,7 @@ def add_new_window_popup():
         # Manuel Placement of Window
         dpg.add_text("Position and Parameters of the window", parent="add_new_window")
         dpg.add_button(label="+", parent="add_new_window", callback=place_window)
-        with dpg.child_window(label="Window Placement", show=False, width=600, height=300, tag="placement_child_win", parent="add_new_window"):
+        with dpg.child_window(label="Window Placement", show=False, width=700, height=300, tag="placement_child_win", parent="add_new_window"):
             dpg.add_spacer(height=5)
 
         dpg.add_separator(parent="add_new_window")
@@ -68,16 +68,6 @@ def add_new_window_popup():
 
 
 
-        # # Height of Window
-        # dpg.add_input_float(label="How tall is the window? (LE)", max_value=correct_floor_height/2, min_value=0.5, min_clamped=True, max_clamped=True, tag="window_height",
-        #                      format="%.2f", parent="add_new_window", default_value=2)
-        #
-        # dpg.add_separator(parent="add_new_window")
-        # dpg.add_spacer(height=5, parent="add_new_window")
-        #
-        # # Width of Window
-        # dpg.add_input_float(label="How wide is the window? (LE)", max_value=correct_floor_width/2, min_value=0.5, min_clamped=True, max_clamped=True, tag="window_width",
-        #                      format="%.2f", parent="add_new_window", default_value=2)
     else:
         dpg.add_text("You can't add a window without a floor", parent="add_new_window")
         dpg.add_spacer(height=10, parent="add_new_window")
@@ -169,14 +159,14 @@ def place_window():
 
     # Position of Window
     with dpg.group(horizontal=True, parent="placement_child_win"):
-        dpg.add_input_float(label="How far away from the left wall is the window", parent="placement_child_win",
+        dpg.add_input_float(label="How far from left wall", parent="placement_child_win",
                             max_value=correct_floor_width-10, min_value=1, min_clamped=True, max_clamped=True,
                             format="%.2f", default_value=10, tag="win_dist_left")
         dpg.add_spacer(height=5, parent="placement_child_win")
         dpg.add_separator(parent="placement_child_win")
         dpg.add_spacer(height=5, parent="placement_child_win")
 
-        dpg.add_input_float(label="How far away from the upper wall is the window", parent="placement_child_win",
+        dpg.add_input_float(label="How far away from upper wall ", parent="placement_child_win",
                             max_value=correct_floor_height-10, min_value=1, min_clamped=True, max_clamped=True,
                             format="%.2f", default_value=10, tag="win_dist_up")
 
