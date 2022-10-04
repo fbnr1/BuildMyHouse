@@ -8,6 +8,8 @@ from GUI.drawing import draw
 from processing.parameters import validationCheck
 from GUI.drawing import draw
 
+from processing.parameters import validationCheck
+
 
 def add_new_roof_popup():
 

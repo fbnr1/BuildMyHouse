@@ -16,25 +16,25 @@ def draw_floor(len, width, i, house_list):
 
         gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
                           (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
-                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"]+"f",
+                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"] + "f",
                           show=False)
-        layer["layers"]["front"].append(house_list["House"]["Floor"+str(i)]["floor_name"] + "f")
+        layer["layers"]["front"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "f")
 
         gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
                           (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
-                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"]+"l",
+                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"] + "l",
                           show=False)
         layer["layers"]["left"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "l")
 
         gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
                           (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
-                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"]+"r",
+                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"] + "r",
                           show=False)
         layer["layers"]["right"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "r")
 
         gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
                           (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
-                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"]+"b",
+                          parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"] + "b",
                           show=False)
         layer["layers"]["back"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "b")
 
