@@ -15,35 +15,30 @@ def nodes():
                     dpg.delete_item(floor)
                 except:
                     pass
-                if floor == "Roof":
-                    with dpg.tree_node(label="Roof", parent=house, tag="Roof"):
-                        for i in house_list[house][floor]:
-                           with dpg.tree_node(label=i+": "+str(house_list[house][floor][i]), parent="Roof", leaf=True):
-                               pass
-                else:
-                    with dpg.tree_node(label=house_list[house][floor]["floor_name"], parent=house, tag=floor):
-                        for i in house_list[house][floor]:
-                            if i != "floor_name" and i != "deleted" and i != "Windows" and i != "Doors":
-                                with dpg.tree_node(label=i + ": " + str(house_list[house][floor][i]), parent=floor,
-                                                   tag=floor + "_" + i, leaf=True):
-                                    pass
-                            elif i == "Windows":
-                                with dpg.tree_node(label=i, parent=floor,
-                                                   tag=floor + "_" + i):
-                                    for j in house_list[house][floor][i]:
-                                        with dpg.tree_node(label=j, parent=floor + "_" + i,
-                                                           tag=str(house_list[house][floor][i][j])):
-                                            for a in house_list[house][floor][i][j]:
-                                                with dpg.tree_node(label=a + ": " + str(house_list[house][floor][i][j][a]),
-                                                                   parent=str(house_list[house][floor][i][j]), leaf=True):
-                                                    pass
-                            elif i == "Doors" and floor == "Floor0":
-                                with dpg.tree_node(label=i, parent=floor,
-                                                   tag=floor + "_" + i):
-                                    for j in house_list[house][floor][i]:
-                                        with dpg.tree_node(label=j, parent=i,
-                                                           tag=i + "_" + j):
-                                            for a in house_list[house][floor][i][j]:
-                                                with dpg.tree_node(label=a + ": " + str(house_list[house][floor][i][j][a]),
-                                                                   parent=i + "_" + j, leaf=True):
-                                                    pass
+                current_floor = house_list[house][floor]
+                with dpg.tree_node(label=current_floor["floor_name"], parent=house, tag=floor):
+                    # todo: is deleted?
+                    add_tree_node("Height", current_floor["floor_height"])
+                    add_tree_node("Width", current_floor["floor_width"])
+                    # todo: only create if not empty
+                    with dpg.tree_node(label="Windows"):
+                        for window in current_floor["Windows"]:
+                            current_window = current_floor["Windows"][window]
+                            with dpg.tree_node(label=window):
+                                add_tree_node("Type", current_window["window_type"])
+                                add_tree_node("Height", current_window["window_height"])
+                                add_tree_node("Width", current_window["window_width"])
+                                add_tree_node("Side", current_window["side"])
+                    with dpg.tree_node(label="Doors"):
+                        for door in current_floor["Doors"]:
+                            current_door = current_floor["Doors"][door]
+                            with dpg.tree_node(label=door):
+                                add_tree_node("Type", current_door["door_type"])
+                                add_tree_node("Height", current_door["height"])
+                                add_tree_node("Width", current_door["width"])
+                                add_tree_node("Side", current_door["side"])
+
+
+def add_tree_node(parameter_name, value):
+    with dpg.tree_node(label=parameter_name + ": " + str(value), leaf=True):
+        pass
