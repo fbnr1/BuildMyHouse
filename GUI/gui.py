@@ -26,8 +26,8 @@ def create_gui():
                               width=int(width / 4), height=int(height), menubar=True):
 
             # file dialog
-            with dpg.file_dialog(directory_selector=False, show=False, callback=load_file, id="file_dialog_id", height=200,
-                                 default_path=".\\save", ):
+            with dpg.file_dialog(directory_selector=False, show=False, callback=load_file, id="file_dialog_id",
+                                 height=200, default_path=".\\save", ):
                 dpg.add_file_extension(".jsonl", color=(150, 255, 150, 255))
                 dpg.add_file_extension(".*", color=(0, 255, 255, 255))
 
@@ -36,7 +36,7 @@ def create_gui():
                 with dpg.menu(label="Menu"):
                     add_menu_buttons()
                 with dpg.menu(label="Perspective"):
-                    add_side_buttons()
+                    add_perspective_buttons()
 
             # node window
             with dpg.child_window(width=-1, height=600, tag="node_win"):
@@ -79,7 +79,7 @@ def saving():
     save.save(house_list, "house")
 
 
-def add_side_buttons():
+def add_perspective_buttons():
     dpg.add_button(label="Front", tag="front", callback=lambda: draw.switch_side("front"))
     dpg.add_button(label="Right Side", tag="right", callback=lambda: draw.switch_side("right"))
     dpg.add_button(label="Left Side", tag="left", callback=lambda: draw.switch_side("left"))
