@@ -5,32 +5,41 @@ from GUI import gui
 from processing.parameters import validationCheck
 from GUI.drawing import draw
 
+
 # create popup for floor parameters
 def add_new_floor_popup():
     dpg.configure_item(item="add_new_floor", show=True)
-    with dpg.group(horizontal=True, parent="add_new_floor"):
-        dpg.add_button(label="Save the Floor", callback=new_floor)
-        dpg.add_spacer(width=10)
-        dpg.add_button(label="Close", callback=close_pop_floor)
-    dpg.add_separator(parent="add_new_floor")
-    dpg.add_spacer(height=5, parent="add_new_floor")
+    if not validationCheck.check_for_roof():
+        with dpg.group(horizontal=True, parent="add_new_floor"):
+            dpg.add_button(label="Save the Floor", callback=new_floor)
+            dpg.add_spacer(width=10)
+            dpg.add_button(label="Close", callback=close_pop_floor)
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
 
-    # Name of Floor
-    dpg.add_input_text(label="Name your Floor", hint="Input the Name here", tag="floor_name", parent="add_new_floor")
-    dpg.add_separator(parent="add_new_floor")
-    dpg.add_spacer(height=5, parent="add_new_floor")
+        # Name of Floor
+        dpg.add_input_text(label="Name your Floor", hint="Input the Name here", tag="floor_name", parent="add_new_floor")
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
 
-    # Height of Floor
-    dpg.add_input_float(label="How tall is the Wall? (LE)", min_value=10, min_clamped=True, tag="wall_height",
-                         format="%.2f", default_value=10, parent="add_new_floor")
+        # Height of Floor
+        dpg.add_input_float(label="How tall is the Wall? (LE)", min_value=10, min_clamped=True, tag="wall_height",
+                             format="%.2f", default_value=10, parent="add_new_floor")
 
-    dpg.add_separator(parent="add_new_floor")
-    dpg.add_spacer(height=5, parent="add_new_floor")
+        dpg.add_separator(parent="add_new_floor")
+        dpg.add_spacer(height=5, parent="add_new_floor")
 
+        # Width of Floor
+        dpg.add_input_float(label="How wide is the Wall? (LE)", min_value=10, min_clamped=True, tag="wall_width",
+                             format="%.2f", default_value=10, parent="add_new_floor")
 
-    # Width of Floor
-    dpg.add_input_float(label="How wide is the Wall? (LE)", min_value=10, min_clamped=True, tag="wall_width",
-                         format="%.2f", default_value=10, parent="add_new_floor")
+    else:
+        dpg.add_text("You can't add a Floor while you have a Roof!", parent="add_new_window")
+        dpg.add_spacer(height=10, parent="add_new_window")
+        dpg.add_text("Please add a floor", parent="add_new_window")
+        dpg.add_spacer(height=10, parent="add_new_window")
+        dpg.add_button(label="Close", callback=close_pop_floor, parent="add_new_window")
+
 
 # saves parameters of floor + creates button for floor
 def new_floor():

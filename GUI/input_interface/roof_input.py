@@ -2,6 +2,8 @@ import dearpygui.dearpygui as dpg
 import GUI.input_interface.input_popup as popup
 from GUI import gui
 from GUI.input_interface import input_popup
+from processing.parameters import validationCheck
+
 
 def add_new_roof_popup():
 
@@ -10,7 +12,7 @@ def add_new_roof_popup():
     dpg.configure_item(item="add_new_roof", show=True)
 
     # condition that only one roof can be added and checks if floor exists or not
-    if popup.roof_count == 0 and input_popup.floor_count > 0:
+    if not validationCheck.check_for_roof():
         with dpg.group(horizontal=True, parent="add_new_roof"):
             dpg.add_button(label="Save the Roof", callback=new_roof)
             dpg.add_spacer(width=10)
@@ -58,6 +60,7 @@ def add_new_roof_popup():
         dpg.add_spacer(height=10, parent="add_new_roof")
         dpg.add_button(label="Close", callback=close_pop_roof, parent="add_new_roof")
 
+
 # saves parameters of roof + creates button for roof
 def new_roof():
     roof_id = dpg.generate_uuid()
@@ -89,6 +92,7 @@ def new_roof():
     # close input popup after saving
     dpg.delete_item(item="add_new_roof", children_only=True)
     dpg.configure_item(item="add_new_roof", show=False)
+
 
 # function to close the roof input popup
 def close_pop_roof():
