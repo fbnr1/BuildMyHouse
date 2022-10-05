@@ -4,6 +4,7 @@ from GUI import gui
 from GUI.input_interface import input_popup
 from processing.parameters import validationCheck
 from GUI.drawing import draw
+from GUI.drawing import draw
 
 from processing.parameters import validationCheck
 from GUI.drawing import draw
