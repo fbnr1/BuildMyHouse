@@ -34,11 +34,11 @@ def add_new_floor_popup():
                              format="%.2f", default_value=10, parent="add_new_floor")
 
     else:
-        dpg.add_text("You can't add a Floor while you have a Roof!", parent="add_new_window")
-        dpg.add_spacer(height=10, parent="add_new_window")
-        dpg.add_text("Please add a floor", parent="add_new_window")
-        dpg.add_spacer(height=10, parent="add_new_window")
-        dpg.add_button(label="Close", callback=close_pop_floor, parent="add_new_window")
+        dpg.add_text("You can't add a Floor while you have a Roof!", parent="add_new_floor")
+        dpg.add_spacer(height=10, parent="add_new_floor")
+        dpg.add_text("Please add a floor", parent="add_new_floor")
+        dpg.add_spacer(height=10, parent="add_new_floor")
+        dpg.add_button(label="Close", callback=close_pop_floor, parent="add_new_floor")
 
 
 # saves parameters of floor + creates button for floor

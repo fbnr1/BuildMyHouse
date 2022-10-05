@@ -3,6 +3,7 @@ import GUI.input_interface.input_popup as popup
 from GUI import gui
 from GUI.input_interface import input_popup
 from processing.parameters import validationCheck
+from GUI.drawing import draw
 
 
 def add_new_roof_popup():
@@ -73,20 +74,23 @@ def new_roof():
     popup.door_paras.extend((roof_type, roof_height, roof_width))
     popup.roof_count += 1
 
-    # button in popup to visualize given parameters of roof
-    dpg.add_button(tag=roof_id, parent="parent_roof", label=roof_name)
-    with dpg.tooltip(parent=roof_id):
-        with dpg.group():
-            dpg.add_text("Roof Type: ")
-            dpg.add_text(popup.door_paras[0])
-        dpg.add_separator()
-        with dpg.group():
-            dpg.add_text("Roof Height: ")
-            dpg.add_text(popup.door_paras[1])
-        dpg.add_separator()
-        with dpg.group():
-            dpg.add_text("Roof Width: ")
-            dpg.add_text(popup.door_paras[2])
+    if not validationCheck.check_for_roof():
+        # button in popup to visualize given parameters of roof
+        dpg.add_button(tag=roof_id, parent="parent_roof", label=roof_name)
+        with dpg.tooltip(parent=roof_id):
+            with dpg.group():
+                dpg.add_text("Roof Type: ")
+                dpg.add_text(popup.door_paras[0])
+            dpg.add_separator()
+            with dpg.group():
+                dpg.add_text("Roof Height: ")
+                dpg.add_text(popup.door_paras[1])
+            dpg.add_separator()
+            with dpg.group():
+                dpg.add_text("Roof Width: ")
+                dpg.add_text(popup.door_paras[2])
+        draw.draw_roof({"roof_type": roof_type, "roof_height": roof_height, "roof_width": roof_width, "roof_name": roof_name})
+
     popup.window_paras.clear()
 
     # close input popup after saving

@@ -176,7 +176,24 @@ def draw_door(liste):
 
 def draw_roof(liste):
     house_list = gui.house_list
-    l = len(house_list["House"])
+    l = len(house_list["House"])-1
     floor = "Floor" + str(l)
     height = house_list["House"][floor]["height"]
     width = house_list["House"][floor]["height"]
+    r_width = liste["roof_width"]
+    r_height = liste["roof_height"]
+    if not width - r_width > 0:
+        if liste["roof_type"] == "Triangular Roof":
+            if width - r_width < 0:
+                gui.dpg.draw_triangle(((width-r_width)/2, height), (width / 2, r_height + height), (((width-r_width)/2)*-1+width,
+                                                                                                    height), parent="plot", thickness=0.001)
+            else:
+                gui.dpg.draw_triangle((0,height),(width/2,r_height+height),(width,height), parent="plot", thickness=0.001)
+        else:
+            gui.dpg.draw_quad((0,height),(0,height+r_height),(width,height+r_height),(width,height), parent="plot", thickness=0.001)
+        switch_layer()
+        gui.house_list["House"]["Roof"] = liste
+        gui.house_list["House"]["Roof"]["roof_width"] = width
+        nodetree.nodes()
+    else:
+        pass
