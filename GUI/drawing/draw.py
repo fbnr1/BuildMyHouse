@@ -6,15 +6,12 @@ layer = {"layers": {"front": [], "right": [], "left": [], "back": []}}
 global side
 side = "front"
 
-
-def draw_floor(len, width, i):
+def draw_floor(len, width, i, house_list):
     global layer
     global side
-    house_list = gui.house_list
     if i > 0:
-
         paras = house_list["House"]["Floor" + str(i - 1)]
-        house_list["House"]["Floor" + str(i)]["height"] = width + paras["height"]
+        gui.house_list["House"]["Floor" + str(i)]["height"] = width + paras["height"]
         heights = house_list["House"]["Floor" + str(i)]["height"]
 
         gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
@@ -61,27 +58,25 @@ def draw_floor(len, width, i):
 
         switch_layer()
 
-        house_list["House"]["Floor0"]["height"] = width
+        gui.house_list["House"]["Floor0"]["height"] = width
 
 
-def append_floor(liste):
-    house_list = gui.house_list
+def append_floor(liste, house_list):
     i = len(house_list["House"])
     if liste["floor_name"] == "":
         liste["floor_name"] = "Floor" + str(i)
     if validationCheck.name_collision_floor(liste["floor_name"]):
-        house_list["House"]["Floor" + str(i)] = liste
-        draw_floor(liste["floor_height"], liste["floor_width"], i)
+        gui.house_list["House"]["Floor" + str(i)] = liste
+        draw_floor(liste["floor_height"], liste["floor_width"], i, gui.house_list)
         nodetree.nodes()
 
 
-def draw_window(liste):
-    house_list = gui.house_list
+def draw_window(liste, house_list):
     for i in house_list["House"]:
         for j in house_list["House"][i]:
             if house_list["House"][i][j] == liste["floor_win"]:
-                house_list["House"][i]["Windows"][liste["window_name"]] = liste
-                house_list["House"][i]["Windows"][liste["window_name"]]["side"] = side
+                gui.house_list["House"][i]["Windows"][liste["window_name"]] = liste
+                gui.house_list["House"][i]["Windows"][liste["window_name"]]["side"] = side
                 wmiddle = house_list["House"][i]["floor_height"] / 2
                 wlen = liste["window_height"] / 2
                 wwidth = liste["window_width"] / 2

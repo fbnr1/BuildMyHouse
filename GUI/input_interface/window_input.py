@@ -114,7 +114,7 @@ def new_window():
                 dpg.add_text(popup.window_paras[3])
             dpg.add_separator()
         print(popup.window_paras)
-        draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width})
+        draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width}, gui.house_list)
     popup.window_paras.clear()
 
     # close input popup after saving

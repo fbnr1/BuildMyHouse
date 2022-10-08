@@ -65,7 +65,7 @@ def new_floor():
                 dpg.add_text("Floor Width: ")
                 dpg.add_text(popup.floor_paras[1])
             liste = {"floor_name": popup.floors[popup.floor_count - 1], "floor_height": popup.floor_paras[0], "floor_width": popup.floor_paras[1], "deleted": False, "Windows": {}, "Doors": {}}
-        draw.append_floor(liste)
+        draw.append_floor(liste, gui.house_list)
         popup.floor_paras.clear()
 
     # close input popup after saving

@@ -23,7 +23,7 @@ def load(filename):
     for i in newfile:
         liste = json.loads(i)
     for floor in liste['House']:
-        draw.append_floor(liste['House'][floor])
+        draw.append_floor(liste['House'][floor], liste)
         for window in liste['House'][floor]['Windows']:
             print(liste['House'][floor]['Windows'])
             draw.draw_window(liste['House'][floor]['Windows'][window])
