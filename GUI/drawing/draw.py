@@ -190,8 +190,7 @@ def draw_door(liste, seite=side):
     nodetree.nodes()
 
 
-def draw_roof(liste, house_list):
-    l = len(house_list["House"])-2
+def draw_roof(liste, l, house_list):
     floor = "Floor" + str(l)
     height = house_list["House"][floor]["height"]
     width = house_list["House"][floor]["floor_width"]
