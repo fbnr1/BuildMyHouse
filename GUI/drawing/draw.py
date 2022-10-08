@@ -71,8 +71,7 @@ def append_floor(liste, house_list):
         nodetree.nodes()
 
 
-def draw_window(liste,house_list
-):
+def draw_window(liste, house_list):
     for i in house_list["House"]:
         for j in house_list["House"][i]:
             if house_list["House"][i][j] == liste["floor_win"]:
