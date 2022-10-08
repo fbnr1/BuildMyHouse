@@ -195,7 +195,7 @@ def draw_roof(liste, house_list):
     l = len(house_list["House"])-1
     floor = "Floor" + str(l)
     height = house_list["House"][floor]["height"]
-    width = house_list["House"][floor]["height"]
+    width = house_list["House"][floor]["floor_width"]
     r_width = liste["roof_width"]
     r_height = liste["roof_height"]
     if not width - r_width > 0:
@@ -212,4 +212,4 @@ def draw_roof(liste, house_list):
         gui.house_list["House"]["Roof"]["roof_width"] = width
         nodetree.nodes()
     else:
-        pass
+        print("ERRORORORR")
