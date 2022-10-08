@@ -67,7 +67,7 @@ def draw_floor(len, width, i, house_list):
         gui.dpg.create_context()
         with gui.dpg.window(label="Test"):
             gui.dpg.add_text(a)
-        """
+"""""
 
 def append_floor(liste, house_list):
     i = len(house_list["House"])
