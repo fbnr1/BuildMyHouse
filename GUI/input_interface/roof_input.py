@@ -93,8 +93,8 @@ def new_roof():
     dpg.configure_item(item="add_new_roof", show=False)
 
 
-    wall_height = gui.dpg.get_value(item="wall_height")
-    a = validationCheck.roof_height_not_higher_than_building_height(wall_height, roof_height)
+    wall_width = gui.dpg.get_value(item="wall_width")
+    a = validationCheck.roof_height_not_higher_than_building_height(wall_width, roof_height)
     gui.dpg.create_context()
     with gui.dpg.window(label="Test"):
         gui.dpg.add_text(a)
