@@ -73,10 +73,9 @@ def append_floor(liste, house_list):
     i = len(house_list["House"])
     if liste["floor_name"] == "":
         liste["floor_name"] = "Floor" + str(i)
-    if validationCheck.name_collision_floor(liste["floor_name"]):
-        gui.house_list["House"]["Floor" + str(i)] = liste
-        draw_floor(liste["floor_height"], liste["floor_width"], i, gui.house_list)
-        nodetree.nodes()
+    gui.house_list["House"]["Floor" + str(i)] = liste
+    draw_floor(liste["floor_height"], liste["floor_width"], i, gui.house_list)
+    nodetree.nodes()
 
 
 def draw_window(liste, house_list, seite=side):
