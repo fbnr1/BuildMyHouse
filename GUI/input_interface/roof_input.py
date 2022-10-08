@@ -4,6 +4,12 @@ from GUI import gui
 from GUI.input_interface import input_popup
 from processing.parameters import validationCheck
 
+from processing.parameters import validationCheck
+from GUI.drawing import draw
+
+from processing.parameters import validationCheck
+
+
 def add_new_roof_popup():
 
     # different roofs
@@ -11,7 +17,7 @@ def add_new_roof_popup():
     dpg.configure_item(item="add_new_roof", show=True)
 
     # condition that only one roof can be added and checks if floor exists or not
-    if popup.roof_count == 0 and input_popup.floor_count > 0:
+    if not validationCheck.check_for_roof():
         with dpg.group(horizontal=True, parent="add_new_roof"):
             dpg.add_button(label="Save the Roof", callback=new_roof)
             dpg.add_spacer(width=10)
@@ -59,9 +65,11 @@ def add_new_roof_popup():
         dpg.add_spacer(height=10, parent="add_new_roof")
         dpg.add_button(label="Close", callback=close_pop_roof, parent="add_new_roof")
 
+
 # saves parameters of roof + creates button for roof
 def new_roof():
     roof_id = dpg.generate_uuid()
+
     # roof parameters
     roof_type = dpg.get_value(item="select_roof")
     roof_height = dpg.get_value(item="roof_height")
@@ -70,35 +78,28 @@ def new_roof():
     popup.door_paras.extend((roof_type, roof_height, roof_width))
     popup.roof_count += 1
 
-    # button in popup to visualize given parameters of roof
-    dpg.add_button(tag=roof_id, parent="parent_roof", label=roof_name)
-    with dpg.tooltip(parent=roof_id):
-        with dpg.group():
-            dpg.add_text("Roof Type: ")
-            dpg.add_text(popup.door_paras[0])
-        dpg.add_separator()
-        with dpg.group():
-            dpg.add_text("Roof Height: ")
-            dpg.add_text(popup.door_paras[1])
-        dpg.add_separator()
-        with dpg.group():
-            dpg.add_text("Roof Width: ")
-            dpg.add_text(popup.door_paras[2])
+    if not validationCheck.check_for_roof():
+        # button in popup to visualize given parameters of roof
+        dpg.add_button(tag=roof_id, parent="parent_roof", label=roof_name)
+        with dpg.tooltip(parent=roof_id):
+            with dpg.group():
+                dpg.add_text("Roof Type: ")
+                dpg.add_text(popup.door_paras[0])
+            dpg.add_separator()
+            with dpg.group():
+                dpg.add_text("Roof Height: ")
+                dpg.add_text(popup.door_paras[1])
+            dpg.add_separator()
+            with dpg.group():
+                dpg.add_text("Roof Width: ")
+                dpg.add_text(popup.door_paras[2])
+        draw.draw_roof({"roof_type": roof_type, "roof_height": roof_height, "roof_width": roof_width, "roof_name": roof_name})
+
     popup.window_paras.clear()
 
     # close input popup after saving
     dpg.delete_item(item="add_new_roof", children_only=True)
     dpg.configure_item(item="add_new_roof", show=False)
-
-
-    wall_width = gui.dpg.get_value(item="wall_width")
-    a = validationCheck.roof_height_not_higher_than_building_height(wall_width, roof_height)
-"""""
-        gui.dpg.create_context()
-        with gui.dpg.window(label="Test"):
-            gui.dpg.add_text(a)
-"""""
-
 
 
 # function to close the roof input popup

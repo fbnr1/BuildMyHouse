@@ -168,10 +168,10 @@ def draw_door(liste):
     if paras["door_type"] != "Normal Door":
         gui.dpg.draw_line((paras["side_width"]+paras["width"]/2,0),(paras["side_width"]+paras["width"]/2,paras["height"]), tag=paras["door_name"] + "ld", parent="plot", thickness=0.001, show=False)
     gui.dpg.draw_quad((paras["side_width"], 0), (paras["side_width"], paras["height"]), (paras["side_width"] +
-                                                                                     paras["width"],
-                                                                                     paras["height"]),
-                  (paras["side_width"] + paras["width"], 0),
-                  tag=paras["door_name"] + "d", parent="plot", thickness=0.001, show=False)
+                                                                                         paras["width"],
+                                                                                         paras["height"]),
+                      (paras["side_width"] + paras["width"], 0),
+                      tag=paras["door_name"] + "d", parent="plot", thickness=0.001, show=False)
     gui.house_list["House"]["Floor0"]["Doors"][liste["Door"]["door_name"]] = paras
     gui.house_list["House"]["Floor0"]["Doors"][liste["Door"]["door_name"]]["side"] = side
     if gui.house_list["House"]["Floor0"]["Doors"][liste["Door"]["door_name"]]["side"] == "front":
