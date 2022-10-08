@@ -191,7 +191,7 @@ def draw_door(liste, seite=side):
 
 
 def draw_roof(liste, house_list):
-    l = len(house_list["House"])-1
+    l = len(house_list["House"])-2
     floor = "Floor" + str(l)
     height = house_list["House"][floor]["height"]
     width = house_list["House"][floor]["floor_width"]
