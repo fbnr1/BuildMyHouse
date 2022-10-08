@@ -60,3 +60,10 @@ def door_side(side):
         if house_list["House"]["Floor0"]["Doors"][i]["side"] == side:
             return False
     return True
+
+
+def check_for_roof():
+    for i in gui.house_list["House"]:
+        if i == "Roof":
+            return True
+    return False

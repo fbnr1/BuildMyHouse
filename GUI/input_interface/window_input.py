@@ -8,7 +8,6 @@ from processing.parameters import validationCheck
 from GUI.drawing import draw
 
 
-
 # popup for the window parameters
 def add_new_window_popup():
     window_values = ["Double Hung", "Normal Window", "2 Slide Window"]
@@ -34,9 +33,11 @@ def add_new_window_popup():
             dpg.add_text("Options")
             dpg.add_separator()
             for s in gui.house_list["House"]:
-                m = gui.house_list["House"][s]["floor_name"]
-                dpg.add_button(label=m, user_data=[n, m], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
-
+                try:
+                    m = gui.house_list["House"][s]["floor_name"]
+                    dpg.add_button(label=m, user_data=[n, m], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
+                except:
+                    pass
             dpg.add_separator()
             dpg.add_spacer(height=12)
 
@@ -65,8 +66,6 @@ def add_new_window_popup():
 
         dpg.add_separator(parent="add_new_window")
         dpg.add_spacer(height=5, parent="add_new_window")
-
-
 
     else:
         dpg.add_text("You can't add a window without a floor", parent="add_new_window")
@@ -113,13 +112,13 @@ def new_window():
                 dpg.add_text("Window Width: ")
                 dpg.add_text(popup.window_paras[3])
             dpg.add_separator()
-        print(popup.window_paras)
         draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width}, gui.house_list)
     popup.window_paras.clear()
 
     # close input popup after saving
     dpg.delete_item(item="add_new_window", children_only=True)
     dpg.configure_item(item="add_new_window", show=False)
+
 
 # function add Placement window
 def place_window():
@@ -169,9 +168,6 @@ def place_window():
         dpg.add_input_float(label="How far away from upper wall ", parent="placement_child_win",
                             max_value=correct_floor_height-10, min_value=1, min_clamped=True, max_clamped=True,
                             format="%.2f", default_value=10, tag="win_dist_up")
-
-
-
 
 
 # function to close window popup

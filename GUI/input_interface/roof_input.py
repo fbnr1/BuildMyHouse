@@ -2,8 +2,6 @@ import dearpygui.dearpygui as dpg
 import GUI.input_interface.input_popup as popup
 from GUI import gui
 from GUI.input_interface import input_popup
-from processing.parameters import validationCheck
-from GUI.drawing import draw
 
 def add_new_roof_popup():
 
@@ -91,14 +89,6 @@ def new_roof():
     # close input popup after saving
     dpg.delete_item(item="add_new_roof", children_only=True)
     dpg.configure_item(item="add_new_roof", show=False)
-
-
-    wall_width = gui.dpg.get_value(item="wall_width")
-    a = validationCheck.roof_height_not_higher_than_building_height(wall_width, roof_height)
-    gui.dpg.create_context()
-    with gui.dpg.window(label="Test"):
-        gui.dpg.add_text(a)
-
 
 # function to close the roof input popup
 def close_pop_roof():

@@ -26,5 +26,5 @@ def load(filename):
         draw.append_floor(liste['House'][floor], liste)
         for window in liste['House'][floor]['Windows']:
             print(liste['House'][floor]['Windows'])
-            draw.draw_window(liste['House'][floor]['Windows'][window])
+            draw.draw_window(liste['House'][floor]['Windows'][window], liste)
     return liste
