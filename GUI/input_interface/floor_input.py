@@ -57,7 +57,7 @@ def new_floor():
 
     # condition if no name given, use number of floor
     if dpg.get_value(item="floor_name") == "":
-        name = popup.floors[popup.floor_count - 1] = "Floor" + str(i)
+        name = popup.floors[popup.floor_count-1] = "Floor" + str(i)
 
     # floors cant have the same name
     if validationCheck.name_collision_floor(dpg.get_value(item="floor_name")):

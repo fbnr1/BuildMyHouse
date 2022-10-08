@@ -10,6 +10,7 @@ from GUI.drawing import draw
 
 # popup for the window parameters
 def add_new_window_popup():
+    global win_max_height, win_max_width
     window_values = ["Double Hung", "Normal Window", "2 Slide Window"]
     dpg.configure_item(item="add_new_window", show=True)
 
@@ -62,12 +63,11 @@ def add_new_window_popup():
         dpg.add_spacer(height=5, parent="add_new_window")
 
 
-
         # Height of Window
         dpg.add_text("Window Height", parent="add_new_window")
-        dpg.add_input_float(label="How tall is the window? (LE)", min_value=0.5,
+        dpg.add_input_float(label="How tall is the window? (LE)", max_value=10, min_value=0.5,
                             min_clamped=True, tag="window_height",
-                            format="%.2f", parent="add_new_window", default_value=2)
+                            format="%.2f", parent="add_new_window", default_value=2, callback=set_max_height)
 
         dpg.add_spacer(height=5, parent="add_new_window")
         dpg.add_separator(parent="add_new_window")
@@ -75,9 +75,9 @@ def add_new_window_popup():
 
         # Width of Window
         dpg.add_text("Window Width", parent="add_new_window")
-        dpg.add_input_float(label="How wide is the window? (LE)", min_value=0.5,
+        dpg.add_input_float(label="How wide is the window? (LE)", max_value=10, min_value=0.5,
                             min_clamped=True, tag="window_width",
-                            format="%.2f", parent="add_new_window", default_value=2)
+                            format="%.2f", parent="add_new_window", default_value=2, callback=set_max_width)
 
         dpg.add_spacer(height=5, parent="add_new_window")
         dpg.add_separator(parent="add_new_window")
@@ -102,6 +102,22 @@ def add_new_window_popup():
         dpg.add_button(label="Close", callback=close_pop_window, parent="add_new_window")
 
 
+def set_max_height():
+    global win_max_height
+    for i in gui.house_list["House"]:
+        if dpg.get_value(item="floor_win_select") == gui.house_list["House"][i]["floor_name"]:
+            win_max_height = gui.house_list["House"][i]["floor_height"]
+            dpg.configure_item(item="window_height", max_value=win_max_height / 2)
+
+
+
+def set_max_width():
+    global win_max_width
+    for i in gui.house_list["House"]:
+        if dpg.get_value(item="floor_win_select") == gui.house_list["House"][i]["floor_name"]:
+            win_max_width = gui.house_list["House"][i]["floor_width"]
+            dpg.configure_item(item="window_width", max_value=win_max_width / 2)
+
 # saves values from window + creates button for window
 def new_window():
     global window_count
@@ -114,8 +130,15 @@ def new_window():
     window_height = dpg.get_value(item="window_height")
     window_width = dpg.get_value(item="window_width")
     floor_win = dpg.get_value(item="floor_win_select")
-    window_name = dpg.get_value("window_name")
+    popup.windows.append(dpg.get_value(item="window_name"))
+    window_name = dpg.get_value(item="window_name")
     popup.window_paras.extend((window_type, floor_win, window_height, window_width, wind_dist_left, wind_dist_up))
+
+
+    # condition if no name given, use number of window
+    if dpg.get_value(item="window_name") == "":
+        window_name = "Window" + str(popup.window_count)
+
 
     # button in popup to visualize given parameters of window
     if validationCheck.name_collision_window(dpg.get_value("window_name")):
