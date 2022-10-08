@@ -12,6 +12,8 @@ from GUI.drawing import draw
 def add_new_window_popup():
     window_values = ["Double Hung", "Normal Window", "2 Slide Window"]
     dpg.configure_item(item="add_new_window", show=True)
+
+
     if input_popup.floor_count > 0:
         with dpg.group(horizontal=True, parent="add_new_window"):
             dpg.add_button(label="Save the Window", callback=new_window)
@@ -55,17 +57,42 @@ def add_new_window_popup():
                 dpg.add_separator()
                 dpg.add_spacer(height=12)
 
+        dpg.add_spacer(height=5, parent="add_new_window")
+        dpg.add_separator(parent="add_new_window")
+        dpg.add_spacer(height=5, parent="add_new_window")
+
+
+
+        # Height of Window
+        dpg.add_text("Window Height", parent="add_new_window")
+        dpg.add_input_float(label="How tall is the window? (LE)", min_value=0.5,
+                            min_clamped=True, tag="window_height",
+                            format="%.2f", parent="add_new_window", default_value=2)
+
+        dpg.add_spacer(height=5, parent="add_new_window")
+        dpg.add_separator(parent="add_new_window")
+        dpg.add_spacer(height=5, parent="add_new_window")
+
+        # Width of Window
+        dpg.add_text("Window Width", parent="add_new_window")
+        dpg.add_input_float(label="How wide is the window? (LE)", min_value=0.5,
+                            min_clamped=True, tag="window_width",
+                            format="%.2f", parent="add_new_window", default_value=2)
+
+        dpg.add_spacer(height=5, parent="add_new_window")
         dpg.add_separator(parent="add_new_window")
         dpg.add_spacer(height=5, parent="add_new_window")
 
         # Manuel Placement of Window
-        dpg.add_text("Position and Parameters of the window", parent="add_new_window")
+        dpg.add_text("Position of the window", parent="add_new_window")
         dpg.add_button(label="+", parent="add_new_window", callback=place_window)
         with dpg.child_window(label="Window Placement", show=False, width=700, height=300, tag="placement_child_win", parent="add_new_window"):
             dpg.add_spacer(height=5)
 
         dpg.add_separator(parent="add_new_window")
         dpg.add_spacer(height=5, parent="add_new_window")
+
+
 
     else:
         dpg.add_text("You can't add a window without a floor", parent="add_new_window")
@@ -130,30 +157,6 @@ def place_window():
         if s == dpg.get_value(item="floor_win_select"):
             correct_floor_height = gui.house_list["House"][i]["floor_height"]
             correct_floor_width = gui.house_list["House"][i]["floor_width"]
-    dpg.add_text("You can give the width and height of the window here", parent="placement_child_win")
-
-    dpg.add_spacer(height=5, parent="placement_child_win")
-    dpg.add_separator(parent="placement_child_win")
-    dpg.add_spacer(height=5, parent="placement_child_win")
-
-    # Height of Window
-    dpg.add_input_float(label="How tall is the window? (LE)", max_value=correct_floor_height / 2, min_value=0.5,
-                        min_clamped=True, max_clamped=True, tag="window_height",
-                        format="%.2f", parent="placement_child_win", default_value=2)
-
-    dpg.add_spacer(height=5, parent="placement_child_win")
-    dpg.add_separator(parent="placement_child_win")
-    dpg.add_spacer(height=5, parent="placement_child_win")
-
-    # Width of Window
-    dpg.add_input_float(label="How wide is the window? (LE)", max_value=correct_floor_width / 2, min_value=0.5,
-                        min_clamped=True, max_clamped=True, tag="window_width",
-                        format="%.2f", parent="placement_child_win", default_value=2)
-
-    dpg.add_spacer(height=5, parent="placement_child_win")
-    dpg.add_separator(parent="placement_child_win")
-    dpg.add_spacer(height=5, parent="placement_child_win")
-
     dpg.add_text("Give the Position of the Window", parent="placement_child_win")
 
     # Position of Window
@@ -168,6 +171,8 @@ def place_window():
         dpg.add_input_float(label="How far away from upper wall ", parent="placement_child_win",
                             max_value=correct_floor_height-10, min_value=1, min_clamped=True, max_clamped=True,
                             format="%.2f", default_value=10, tag="win_dist_up")
+
+
 
 
 # function to close window popup
