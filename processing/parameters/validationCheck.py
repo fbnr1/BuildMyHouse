@@ -14,9 +14,6 @@ def building_constructable():
     return a and b
 
 
-
-
-
 def width_and_height_valid(wall_len, wall_width):
     if wall_width != 0 and wall_len != 0:
         return True
@@ -25,8 +22,6 @@ def width_and_height_valid(wall_len, wall_width):
 def roof_height_not_higher_than_building_height(wall_width, roofheight):
     if wall_width > roofheight:
         return True
-
-
 
 
 def name_collision_floor(name):
