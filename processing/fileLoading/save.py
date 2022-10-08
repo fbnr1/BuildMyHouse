@@ -33,6 +33,8 @@ def load(filename):
             for window in liste['House'][floor]['Windows']:
                 print(liste['House'][floor]['Windows'])
                 draw.draw_window(liste['House'][floor]['Windows'][window], liste)
+            if liste['House'][floor]['Doors']:
+                draw.draw_door(liste['House'][floor]['Doors'], liste['House'][floor]['Doors']['Door']['side'])
     else:
         draw.draw_roof(liste['House'][floor], len(liste["House"])-2, liste)
     return liste
