@@ -60,8 +60,9 @@ def draw_floor(len, width, i, house_list):
 
         gui.house_list["House"]["Floor0"]["height"] = width
 
-        a = validationCheck.building_constructable()
-        print(a)
+        a = validationCheck.width_and_height_valid(len, width)
+        if a:
+            print(a)
 
 def append_floor(liste, house_list):
     i = len(house_list["House"])
