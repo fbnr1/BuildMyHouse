@@ -8,15 +8,13 @@ def construct_building():
 
 
 def building_constructable():
-    a = windows_valid()
-    b = width_and_height_valid()
-    c = collision()
-    d = roof_height_not_higher_than_building_height()
-    return a and b and c and d
+
+    a = width_and_height_valid()
+    b = roof_height_not_higher_than_building_height()
+    return a and b
 
 
-def windows_valid(window_count, wall_width, wall_len):
-    return True
+
 
 
 def width_and_height_valid(wall_len, wall_width):
@@ -29,8 +27,6 @@ def roof_height_not_higher_than_building_height(wall_width, roofheight):
         return True
 
 
-def collision(object1, object2):
-    pass  # if object1.pos != object2.pos --> return True, 2 Objekte sollen nicht die gleiche Position haben
 
 
 def name_collision_floor(name):
