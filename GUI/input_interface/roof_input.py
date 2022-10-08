@@ -22,7 +22,7 @@ def add_new_roof_popup():
     dpg.configure_item(item="add_new_roof", show=True)
 
     # condition that only one roof can be added and checks if floor exists or not
-    if not validationCheck.check_for_roof():
+    if not validationCheck.check_for_roof() and input_popup.floor_count > 0:
         with dpg.group(horizontal=True, parent="add_new_roof"):
             dpg.add_button(label="Save the Roof", callback=new_roof)
             dpg.add_spacer(width=10)
