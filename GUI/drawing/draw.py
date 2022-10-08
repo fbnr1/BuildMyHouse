@@ -63,11 +63,14 @@ def draw_floor(len, width, i, house_list):
 
 
         a = validationCheck.width_and_height_valid(len, width)
-        """""
-        gui.dpg.create_context()
-        with gui.dpg.window(label="Test"):
-            gui.dpg.add_text(a)
-"""""
+        if a:
+            gui.dpg.create_context()
+            with gui.dpg.window(label="Test"):
+                gui.dpg.add_text(a)
+        else:
+            gui.dpg.create_context()
+            with gui.dpg.window(label="Test"):
+                gui.dpg.add_text("False")
 
 def append_floor(liste, house_list):
     i = len(house_list["House"])
