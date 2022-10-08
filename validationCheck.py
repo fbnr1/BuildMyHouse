@@ -12,11 +12,17 @@ def building_constructable():
     b = width_and_height_valid()
     c = collision()
     d = roofheight_not_higher_than_buildingheight()
-    return a and b and c and d
+    e = window_not_bigger_than_wall()
+    return a and b and c and d and e
 
 
 def windows_valid(window_count, wall_width, wall_len):
-    return True
+    if window_count <= 0 or window_count == 1:
+        return True
+    if window_count > 1:
+        if window_count <= (wall_len - 2) + ((window_count - 1) * 0.5):   #links und rechts an den Ecken der Wand jeweils 1 Meter frei
+            return True                                                   # zwischen den Fenstern mindestens 0.5 m Platz
+
 
 
 def width_and_height_valid(wall_len, wall_width):
@@ -31,6 +37,10 @@ def roofheight_not_higher_than_buildingheight(wall_width, roofheight):
 
 def collision(object1, object2):
     pass  # if object1.pos != object2.pos --> return True, 2 Objekte sollen nicht die gleiche Position haben
+
+def window_not_bigger_than_wall(window_width, window_len, wall_len, wall_width):
+    if wall_len > window_len and wall_width > window_len:
+        return True
 
 
 def name_collision_floor(name):
