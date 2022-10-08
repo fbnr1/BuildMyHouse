@@ -183,8 +183,7 @@ def draw_door(liste):
     nodetree.nodes()
 
 
-def draw_roof(liste):
-    house_list = gui.house_list
+def draw_roof(liste, house_list):
     l = len(house_list["House"])-1
     floor = "Floor" + str(l)
     height = house_list["House"][floor]["height"]

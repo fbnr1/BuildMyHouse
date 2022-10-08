@@ -98,7 +98,7 @@ def new_roof():
             with dpg.group():
                 dpg.add_text("Roof Width: ")
                 dpg.add_text(popup.door_paras[2])
-        draw.draw_roof({"roof_type": roof_type, "roof_height": roof_height, "roof_width": roof_width, "roof_name": roof_name})
+        draw.draw_roof({"roof_type": roof_type, "roof_height": roof_height, "roof_width": roof_width, "roof_name": roof_name}, gui.house_list)
 
     popup.window_paras.clear()
 
