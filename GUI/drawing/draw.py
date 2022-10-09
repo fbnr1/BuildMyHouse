@@ -157,8 +157,9 @@ def switch_side(s):
     switch_layer()
 
 
-def draw_door(liste, seite=side):
-    paras = liste["Door"]
+def draw_door(paras, seite=None):
+    if seite is None:
+        seite = side
     if paras["door_type"] != "Normal Door":
         gui.dpg.draw_line((paras["side_width"]+paras["width"]/2,0),(paras["side_width"]+paras["width"]/2,paras["height"]), tag=paras["door_name"] + "ld", parent="plot", thickness=0.001, show=False)
     gui.dpg.draw_quad((paras["side_width"], 0), (paras["side_width"], paras["height"]), (paras["side_width"] +
