@@ -41,23 +41,27 @@ def add_new_door_popup():
         dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=10, parent="add_new_door")
 
+        max_door_height = gui.house_list["House"]["Floor0"]["floor_height"]
+
         # Height of Door
-        dpg.add_input_float(label="How tall is the Door? (LE)", max_value=10, min_value=5,
+        dpg.add_input_float(label="How tall is the Door? (LE)", max_value=max_door_height/2, min_value=2,
                             min_clamped=True, max_clamped=True, tag="door_height",
-                            format="%.2f", default_value=10, parent="add_new_door")
+                            format="%.2f", default_value=5, parent="add_new_door")
 
         dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=5, parent="add_new_door")
 
+        max_door_width = gui.house_list["House"]["Floor0"]["floor_width"]
+
         # Width of Door
-        dpg.add_input_float(label="How wide is the Door? (LE)", max_value=5, min_value=1, tag="door_width",
+        dpg.add_input_float(label="How wide is the Door? (LE)", max_value=max_door_width/2, min_value=1, min_clamped=True, max_clamped=True, tag="door_width",
                             format="%.2f", default_value=2, parent="add_new_door")
 
         dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=5, parent="add_new_door")
 
 
-        # Width of Door
+        # Distance from Left Wall
         dpg.add_input_float(label="How far is the door from the left wall? (LE)", max_value=35, min_value=0, tag="door_width_wall",
                             format="%.2f", default_value=5, parent="add_new_door")
 
@@ -82,6 +86,10 @@ def new_door():
     door_width_wall = dpg.get_value(item="door_width_wall")
     popup.door_paras.extend((door_type, door_height, door_width))
     popup.door_count += 1
+
+    # condition if no name given, use number of window
+    if dpg.get_value(item="door_name") == "":
+        door_name = "Door" + str(popup.window_count-1)
 
     if validationCheck.name_collision_door(dpg.get_value(item="door_name")):
         # button in popup to visualize given parameters of door

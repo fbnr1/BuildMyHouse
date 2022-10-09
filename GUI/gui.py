@@ -45,7 +45,7 @@ def create_gui():
             with dpg.group(horizontal=True):
                 dpg.add_button(label="Popup", tag="parent", callback=lambda: dpg.show_item("popup_window"))
 
-                with dpg.window(width=600, height=600, no_move=True, no_scrollbar=True, no_resize=True,
+                with dpg.window(width=600, height=600, no_scrollbar=True, no_resize=True,
                                 no_collapse=True,
                                 no_title_bar=True, no_close=True, show=False, tag="popup_window") as popup_window:
                     popup.add_popup_content()

@@ -12,6 +12,7 @@ global window_width
 global texture_type
 global wall_len
 global wall_width
+windows = []
 floors = []
 parameters = []
 window_paras = []

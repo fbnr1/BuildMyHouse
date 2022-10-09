@@ -45,9 +45,8 @@ def add_new_roof_popup():
         dpg.add_spacer(height=10, parent="add_new_roof")
 
 
-        # Height and Width necessarry for roof?
         # Height of Roof
-        dpg.add_input_float(label="How tall is the Roof? (LE)", max_value=40, min_value=10, tag="roof_height",
+        dpg.add_input_float(label="How tall is the Roof? (LE)", min_value=10, min_clamped=True, tag="roof_height",
                              format="%.2f", default_value=10, parent="add_new_roof")
 
         dpg.add_separator(parent="add_new_roof")
@@ -75,8 +74,12 @@ def new_roof():
     roof_height = dpg.get_value(item="roof_height")
     roof_width = dpg.get_value(item="roof_width")
     roof_name = dpg.get_value(item="roof_name")
-    popup.door_paras.extend((roof_type, roof_height, roof_width))
+    popup.roof_paras.extend((roof_type, roof_height, roof_width))
     popup.roof_count += 1
+
+    # condition if no name given, use number of window
+    if dpg.get_value(item="roof_name") == "":
+        roof_name = "Roof"
 
     if not validationCheck.check_for_roof():
         # button in popup to visualize given parameters of roof
@@ -84,16 +87,16 @@ def new_roof():
         with dpg.tooltip(parent=roof_id):
             with dpg.group():
                 dpg.add_text("Roof Type: ")
-                dpg.add_text(popup.door_paras[0])
+                dpg.add_text(popup.roof_paras[0])
             dpg.add_separator()
             with dpg.group():
                 dpg.add_text("Roof Height: ")
-                dpg.add_text(popup.door_paras[1])
+                dpg.add_text(popup.roof_paras[1])
             dpg.add_separator()
             with dpg.group():
                 dpg.add_text("Roof Width: ")
-                dpg.add_text(popup.door_paras[2])
-        draw.draw_roof({"roof_type": roof_type, "roof_height": roof_height, "roof_width": roof_width, "roof_name": roof_name}, gui.house_list)
+                dpg.add_text(popup.roof_paras[2])
+        draw.draw_roof({"roof_type": roof_type, "roof_height": roof_height, "roof_width": roof_width, "roof_name": roof_name}, len(gui.house_list["House"])-1, gui.house_list)
 
     popup.window_paras.clear()
 
