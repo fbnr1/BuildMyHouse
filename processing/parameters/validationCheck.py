@@ -29,9 +29,12 @@ from GUI import gui
 
 def object_collision(parameter, side):
     liste = gui.house_list
+    #p1, p2
 
     if parameter['door_name']:
         for window_name in liste["House"]["Floor0"]["Windows"]:
+            # liste["House"]["Floor0"]["Windows"][window_name]['p1']
+            #do_overlap(p1,p2, s1,s2)
             if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
                 pass
     elif parameter['window_name']:
@@ -41,6 +44,21 @@ def object_collision(parameter, side):
                     pass
 
 
+# check overlapping rectangles
+def do_overlap(p1, p2, s1, s2):
+    # if rectangle has area 0, no overlap
+    if p1[0] == p2[0] or p1[1] == p2[1] or s2[0] == s1[0] or s1[1] == s2[1]:
+        return False
+
+    # If one rectangle is on left side of other
+    if p1[0] > s2[0] or s1[0] > p2[0]:
+        return False
+
+    # If one rectangle is above other
+    if p2[1] > s1[1] or s2[1] > p1[1]:
+        return False
+
+    return True
 
 
 def name_collision_floor(name):
