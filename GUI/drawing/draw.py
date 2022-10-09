@@ -7,61 +7,58 @@ global side
 side = "front"
 
 
-def draw_floor(len, width, i, house_list):
+def draw_floor(width, height, i, house_list):
     global layer
     global side
     if i > 0:
         paras = house_list["House"]["Floor" + str(i - 1)]
-        gui.house_list["House"]["Floor" + str(i)]["height"] = width + paras["height"]
+        gui.house_list["House"]["Floor" + str(i)]["height"] = height + paras["height"]
         heights = house_list["House"]["Floor" + str(i)]["height"]
 
         gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
-                          (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
+                          (width, heights), (width, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
                           parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"] + "f",
                           show=False)
         layer["layers"]["front"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "f")
 
         gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
-                          (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
+                          (width, heights), (width, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
                           parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"] + "l",
                           show=False)
         layer["layers"]["left"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "l")
 
         gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
-                          (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
+                          (width, heights), (width, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
                           parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"] + "r",
                           show=False)
         layer["layers"]["right"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "r")
 
         gui.dpg.draw_quad((0, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]), (0, heights),
-                          (len, heights), (len, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
+                          (width, heights), (width, 0 + house_list["House"]["Floor" + str(i - 1)]["height"]),
                           parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"] + "b",
                           show=False)
         layer["layers"]["back"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "b")
         switch_layer()
     else:
-        gui.dpg.draw_quad((0, 0), (0, width), (len, width), (len, 0), parent="plot", thickness=0.001,
+        gui.dpg.draw_quad((0, 0), (0, height), (width, height), (width, 0), parent="plot", thickness=0.001,
                           tag=house_list["House"]["Floor0"]["floor_name"] + "f", show=False)
         layer["layers"]["front"].append(house_list["House"]["Floor0"]["floor_name"] + "f")
 
-        gui.dpg.draw_quad((0, 0), (0, width), (len, width), (len, 0), parent="plot", thickness=0.001,
+        gui.dpg.draw_quad((0, 0), (0, height), (width, height), (width, 0), parent="plot", thickness=0.001,
                           tag=house_list["House"]["Floor0"]["floor_name"] + "l", show=False)
         layer["layers"]["left"].append(house_list["House"]["Floor0"]["floor_name"] + "l")
 
-        gui.dpg.draw_quad((0, 0), (0, width), (len, width), (len, 0), parent="plot", thickness=0.001,
+        gui.dpg.draw_quad((0, 0), (0, height), (width, height), (width, 0), parent="plot", thickness=0.001,
                           tag=house_list["House"]["Floor0"]["floor_name"] + "r", show=False)
         layer["layers"]["right"].append(house_list["House"]["Floor0"]["floor_name"] + "r")
 
-        gui.dpg.draw_quad((0, 0), (0, width), (len, width), (len, 0), parent="plot", thickness=0.001,
+        gui.dpg.draw_quad((0, 0), (0, height), (width, height), (width, 0), parent="plot", thickness=0.001,
                           tag=house_list["House"]["Floor0"]["floor_name"] + "b", show=False)
         layer["layers"]["back"].append(house_list["House"]["Floor0"]["floor_name"] + "b")
 
         switch_layer()
 
-        gui.house_list["House"]["Floor0"]["height"] = width
-
-
-
+        gui.house_list["House"]["Floor0"]["height"] = height
 
 
 def append_floor(liste, house_list):
@@ -88,14 +85,14 @@ def draw_window(liste, house_list, seite=None):
                 if i != "Floor0":
                     middle = house_list["House"][i]["height"] - house_list["House"][i]["floor_width"] / 2
                     gui.dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
-                                  (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
-                                  parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
+                                      (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
+                                      parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
 
                 else:
                     middle = house_list["House"][i]["height"] / 2
                     gui.dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
-                                  (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
-                                  parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
+                                      (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
+                                      parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
 
                 if house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "front":
                     layer["layers"]["front"].append(liste["window_name"] + "w")
@@ -161,7 +158,9 @@ def draw_door(paras, seite=None):
     if seite is None:
         seite = side
     if paras["door_type"] != "Normal Door":
-        gui.dpg.draw_line((paras["side_width"]+paras["width"]/2,0),(paras["side_width"]+paras["width"]/2,paras["height"]), tag=paras["door_name"] + "ld", parent="plot", thickness=0.001, show=False)
+        gui.dpg.draw_line((paras["side_width"] + paras["width"] / 2, 0),
+                          (paras["side_width"] + paras["width"] / 2, paras["height"]), tag=paras["door_name"] + "ld",
+                          parent="plot", thickness=0.001, show=False)
     gui.dpg.draw_quad((paras["side_width"], 0), (paras["side_width"], paras["height"]), (paras["side_width"] +
                                                                                          paras["width"],
                                                                                          paras["height"]),
@@ -198,12 +197,15 @@ def draw_roof(liste, l, house_list):
     if not width - r_width > 0:
         if liste["roof_type"] == "Triangular Roof":
             if width - r_width < 0:
-                gui.dpg.draw_triangle(((width-r_width)/2, height), (width / 2, r_height + height), (((width-r_width)/2)*-1+width,
-                                                                                                    height), parent="plot", thickness=0.001)
+                gui.dpg.draw_triangle(((width - r_width) / 2, height), (width / 2, r_height + height),
+                                      (((width - r_width) / 2) * -1 + width,
+                                       height), parent="plot", thickness=0.001)
             else:
-                gui.dpg.draw_triangle((0,height),(width/2,r_height+height),(width,height), parent="plot", thickness=0.001)
+                gui.dpg.draw_triangle((0, height), (width / 2, r_height + height), (width, height), parent="plot",
+                                      thickness=0.001)
         else:
-            gui.dpg.draw_quad((0,height),(0,height+r_height),(width,height+r_height),(width,height), parent="plot", thickness=0.001)
+            gui.dpg.draw_quad((0, height), (0, height + r_height), (width, height + r_height), (width, height),
+                              parent="plot", thickness=0.001)
         switch_layer()
         gui.house_list["House"]["Roof"] = liste
         gui.house_list["House"]["Roof"]["roof_width"] = width

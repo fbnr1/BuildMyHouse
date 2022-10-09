@@ -29,12 +29,12 @@ from GUI import gui
 
 def object_collision(parameter, side):
     liste = gui.house_list
-    #p1, p2
+    # p1, p2
 
     if parameter['door_name']:
         for window_name in liste["House"]["Floor0"]["Windows"]:
             # liste["House"]["Floor0"]["Windows"][window_name]['p1']
-            #do_overlap(p1,p2, s1,s2)
+            # do_overlap(p1,p2, s1,s2)
             if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
                 pass
     elif parameter['window_name']:
@@ -81,7 +81,6 @@ def name_collision_window(param):
 
 def name_collision_door(name):
     for i in gui.house_list["House"]["Floor0"]["Doors"]:
-        print(i)
         if name == i:
             return False
     return True
