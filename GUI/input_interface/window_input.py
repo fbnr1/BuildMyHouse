@@ -162,7 +162,7 @@ def new_window():
                 dpg.add_text("Window Width: ")
                 dpg.add_text(popup.window_paras[3])
             dpg.add_separator()
-        draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width}, gui.house_list)
+        draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width, "wind_dist_left": wind_dist_left, "wind_dist_up": wind_dist_up}, gui.house_list, draw.side)
     popup.window_paras.clear()
 
     # close input popup after saving
