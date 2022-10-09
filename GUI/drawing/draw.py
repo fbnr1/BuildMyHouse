@@ -69,7 +69,7 @@ def append_floor(liste, house_list):
     if liste["floor_name"] == "":
         liste["floor_name"] = "Floor" + str(i)
     gui.house_list["House"]["Floor" + str(i)] = liste
-    draw_floor(liste["floor_height"], liste["floor_width"], i, gui.house_list)
+    draw_floor(liste["floor_width"], liste["floor_height"], i, gui.house_list)
     nodetree.nodes()
 
 
