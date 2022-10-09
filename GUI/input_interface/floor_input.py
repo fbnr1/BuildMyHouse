@@ -24,8 +24,8 @@ def add_new_floor_popup():
 
         # Floor does not have max_value for first floor, but get max_value according to previous floor
         # Height of Floor
-        dpg.add_input_float(label="How tall is the Wall? (LE)", min_value=10, min_clamped=True, tag="wall_height",
-                             format="%.2f", default_value=10, parent="add_new_floor", callback=change_max_height)
+        dpg.add_input_float(label="How tall is the Wall? (LE)", min_value=2, min_clamped=True, tag="wall_height",
+                             format="%.2f", default_value=5, parent="add_new_floor", callback=change_max_width)
 
         dpg.add_separator(parent="add_new_floor")
         dpg.add_spacer(height=5, parent="add_new_floor")
@@ -34,8 +34,8 @@ def add_new_floor_popup():
 
         # Floor does not have max_value for first floor, but get max_value according to previous floor
         # Width of Floor
-        dpg.add_input_float(label="How wide is the Wall? (LE)", min_value=10, min_clamped=True, tag="wall_width",
-                             format="%.2f", default_value=10, parent="add_new_floor", callback=change_max_width)
+        dpg.add_input_float(label="How wide is the Wall? (LE)", min_value=5, min_clamped=True, tag="wall_width",
+                             format="%.2f", default_value=2, parent="add_new_floor")
 
     else:
         dpg.add_text("You can't add a Floor while you have a Roof!", parent="add_new_floor")
@@ -86,24 +86,15 @@ def new_floor():
     dpg.configure_item(item="add_new_floor", show=False)
 
 
-# Function for giving max height when previous floor exists
-def change_max_height():
-    if popup.floor_count > 0:
-        l = len(gui.house_list["House"])-1
-        previous_floor = "Floor" + str(l)
-        max_floor_height = gui.house_list["House"][previous_floor]["floor_height"]
-        dpg.configure_item(item="wall_height", max_value=max_floor_height)
-        dpg.configure_item(item="wall_height", max_clamped=True)
-
-
 # Function for giving max width when previous floor exists
 def change_max_width():
     if popup.floor_count > 0:
         l = len(gui.house_list["House"])-1
         previous_floor = "Floor" + str(l)
-        max_floor_width = gui.house_list["House"][previous_floor]["floor_width"]
-        dpg.configure_item(item="wall_width", max_value=max_floor_width)
-        dpg.configure_item(item="wall_width", max_clamped=True)
+        max_floor_width = gui.house_list["House"][previous_floor]["floor_height"]
+        dpg.configure_item(item="wall_height", max_value=max_floor_width)
+        dpg.configure_item(item="wall_height", max_clamped=True)
+
 
 
 # function to close the floor input popup

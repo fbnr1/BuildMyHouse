@@ -64,6 +64,7 @@ def draw_floor(len, width, i, house_list):
 
 
 
+
 def append_floor(liste, house_list):
     i = len(house_list["House"])
     if liste["floor_name"] == "":

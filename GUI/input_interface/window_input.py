@@ -48,7 +48,7 @@ def add_new_window_popup():
 
         # choice of windows
         with dpg.group(horizontal=True, parent="add_new_window"):
-            t = dpg.add_text("<None>", tag="select_win")
+            t = dpg.add_text("Normal Window", tag="select_win")
             with dpg.tree_node(label="Window Selector", tag="win"):
                 dpg.add_text("Options")
                 dpg.add_separator()
@@ -118,8 +118,9 @@ def set_max_height():
     global win_max_height
     for i in gui.house_list["House"]:
         if dpg.get_value(item="floor_win_select") == gui.house_list["House"][i]["floor_name"]:
-            win_max_height = gui.house_list["House"][i]["floor_height"]
+            win_max_height = gui.house_list["House"][i]["floor_width"]
             dpg.configure_item(item="window_height", max_value=win_max_height / 2)
+            dpg.configure_item(item="window_height", max_clamped=True)
 
 
 
@@ -127,8 +128,9 @@ def set_max_width():
     global win_max_width
     for i in gui.house_list["House"]:
         if dpg.get_value(item="floor_win_select") == gui.house_list["House"][i]["floor_name"]:
-            win_max_width = gui.house_list["House"][i]["floor_width"]
+            win_max_width = gui.house_list["House"][i]["floor_height"]
             dpg.configure_item(item="window_width", max_value=win_max_width / 2)
+            dpg.configure_item(item="window_width", max_clamped=True)
 
 # saves values from window + creates button for window
 def new_window():
@@ -171,7 +173,7 @@ def new_window():
                 dpg.add_text(popup.window_paras[1])
             dpg.add_separator()
             with dpg.group():
-                dpg.add_text("Window Length: ")
+                dpg.add_text("Window Height: ")
                 dpg.add_text(popup.window_paras[2])
             dpg.add_separator()
             with dpg.group():

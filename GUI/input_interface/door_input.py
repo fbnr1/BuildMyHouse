@@ -29,7 +29,7 @@ def add_new_door_popup():
 
         # choice of doors
         with dpg.group(horizontal=True, parent="add_new_door"):
-            f = dpg.add_text("<None>", tag="select_door")
+            f = dpg.add_text("Normal Door", tag="select_door")
             with dpg.tree_node(label="Door Selector", tag="door"):
                 dpg.add_text("Options")
                 dpg.add_separator()
@@ -41,7 +41,7 @@ def add_new_door_popup():
         dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=10, parent="add_new_door")
 
-        max_door_height = gui.house_list["House"]["Floor0"]["floor_height"]
+        max_door_height = gui.house_list["House"]["Floor0"]["floor_width"]
 
         # Height of Door
         dpg.add_input_float(label="How tall is the Door? (LE)", max_value=max_door_height/2, min_value=2,
@@ -51,7 +51,7 @@ def add_new_door_popup():
         dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=5, parent="add_new_door")
 
-        max_door_width = gui.house_list["House"]["Floor0"]["floor_width"]
+        max_door_width = gui.house_list["House"]["Floor0"]["floor_height"]
 
         # Width of Door
         dpg.add_input_float(label="How wide is the Door? (LE)", max_value=max_door_width/2, min_value=1, min_clamped=True, max_clamped=True, tag="door_width",
@@ -62,8 +62,8 @@ def add_new_door_popup():
 
 
         # Distance from Left Wall
-        dpg.add_input_float(label="How far is the door from the left wall? (LE)", max_value=35, min_value=0, tag="door_width_wall",
-                            format="%.2f", default_value=5, parent="add_new_door")
+        dpg.add_input_float(label="How far is the door from the left wall? (LE)", min_clamped=True, max_clamped=True, tag="door_width_wall",
+                            format="%.2f", default_value=5, parent="add_new_door", callback=checks_distance_correct)
 
     # can't add another door
     else:
@@ -114,6 +114,12 @@ def new_door():
     # close input popup after saving
     dpg.delete_item(item="add_new_door", children_only=True)
     dpg.configure_item(item="add_new_door", show=False)
+
+def checks_distance_correct():
+    first_floor_width = gui.house_list["House"]["Floor0"]["floor_height"]
+    this_door_width = dpg.get_value(item="door_width")
+    dpg.configure_item(item="door_width_wall", min_value=0)
+    dpg.configure_item(item="door_width_wall", max_value=first_floor_width-this_door_width)
 
 
 # function to close the door input popup
