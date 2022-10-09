@@ -6,6 +6,7 @@ layer = {"layers": {"front": [], "right": [], "left": [], "back": []}}
 global side
 side = "front"
 
+
 def draw_floor(len, width, i, house_list):
     global layer
     global side
@@ -37,7 +38,6 @@ def draw_floor(len, width, i, house_list):
                           parent="plot", thickness=0.001, tag=house_list["House"]["Floor" + str(i)]["floor_name"] + "b",
                           show=False)
         layer["layers"]["back"].append(house_list["House"]["Floor" + str(i)]["floor_name"] + "b")
-
         switch_layer()
     else:
         gui.dpg.draw_quad((0, 0), (0, width), (len, width), (len, 0), parent="plot", thickness=0.001,
@@ -62,12 +62,7 @@ def draw_floor(len, width, i, house_list):
 
 
 
-        a = validationCheck.width_and_height_valid(len, width)
-        """""
-        gui.dpg.create_context()
-        with gui.dpg.window(label="Test"):
-            gui.dpg.add_text(a)
-        """
+
 
 def append_floor(liste, house_list):
     i = len(house_list["House"])
@@ -78,11 +73,14 @@ def append_floor(liste, house_list):
     nodetree.nodes()
 
 
-def draw_window(liste, house_list, seite=side):
+def draw_window(liste, house_list, seite=None):
+    if seite is None:
+        seite = side
     for i in house_list["House"]:
         for j in house_list["House"][i]:
             if house_list["House"][i][j] == liste["floor_win"]:
                 gui.house_list["House"][i]["Windows"][liste["window_name"]] = liste
+
                 gui.house_list["House"][i]["Windows"][liste["window_name"]]["side"] = seite
                 wmiddle = house_list["House"][i]["floor_height"] / 2
                 wlen = liste["window_height"] / 2
@@ -90,14 +88,14 @@ def draw_window(liste, house_list, seite=side):
                 if i != "Floor0":
                     middle = house_list["House"][i]["height"] - house_list["House"][i]["floor_width"] / 2
                     gui.dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
-                                      (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
-                                      parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
+                                  (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
+                                  parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
 
                 else:
                     middle = house_list["House"][i]["height"] / 2
                     gui.dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
-                                      (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
-                                      parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
+                                  (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
+                                  parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
 
                 if house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "front":
                     layer["layers"]["front"].append(liste["window_name"] + "w")
@@ -108,8 +106,8 @@ def draw_window(liste, house_list, seite=side):
                 elif house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "left":
                     layer["layers"]["left"].append(liste["window_name"] + "w")
 
-    switch_layer()
-    nodetree.nodes()
+                switch_layer()
+                nodetree.nodes()
 
 
 def switch_layer():
@@ -168,21 +166,21 @@ def draw_door(liste, seite=side):
                                                                                          paras["height"]),
                       (paras["side_width"] + paras["width"], 0),
                       tag=paras["door_name"] + "d", parent="plot", thickness=0.001, show=False)
-    gui.house_list["House"]["Floor0"]["Doors"][liste["Door"]["door_name"]] = paras
-    gui.house_list["House"]["Floor0"]["Doors"][liste["Door"]["door_name"]]["side"] = seite
-    if gui.house_list["House"]["Floor0"]["Doors"][liste["Door"]["door_name"]]["side"] == "front":
+    gui.house_list["House"]["Floor0"]["Doors"][paras["door_name"]] = paras
+    gui.house_list["House"]["Floor0"]["Doors"][paras["door_name"]]["side"] = seite
+    if gui.house_list["House"]["Floor0"]["Doors"][paras["door_name"]]["side"] == "front":
         layer["layers"]["front"].append(paras["door_name"] + "d")
         if paras["door_type"] != "Normal Door":
             layer["layers"]["front"].append(paras["door_name"] + "ld")
-    elif gui.house_list["House"]["Floor0"]["Doors"][liste["Door"]["door_name"]]["side"] == "back":
+    elif gui.house_list["House"]["Floor0"]["Doors"][paras["door_name"]]["side"] == "back":
         layer["layers"]["back"].append(paras["door_name"] + "d")
         if paras["door_type"] != "Normal Door":
             layer["layers"]["front"].append(paras["door_name"] + "ld")
-    elif gui.house_list["House"]["Floor0"]["Doors"][liste["Door"]["door_name"]]["side"] == "right":
+    elif gui.house_list["House"]["Floor0"]["Doors"][paras["door_name"]]["side"] == "right":
         layer["layers"]["right"].append(paras["door_name"] + "d")
         if paras["door_type"] != "Normal Door":
             layer["layers"]["front"].append(paras["door_name"] + "ld")
-    elif gui.house_list["House"]["Floor0"]["Doors"][liste["Door"]["door_name"]]["side"] == "left":
+    elif gui.house_list["House"]["Floor0"]["Doors"][paras["door_name"]]["side"] == "left":
         layer["layers"]["left"].append(paras["door_name"] + "d")
         if paras["door_type"] != "Normal Door":
             layer["layers"]["front"].append(paras["door_name"] + "ld")
@@ -210,4 +208,4 @@ def draw_roof(liste, l, house_list):
         gui.house_list["House"]["Roof"]["roof_width"] = width
         nodetree.nodes()
     else:
-        print("ERRORORORR")
+        pass
