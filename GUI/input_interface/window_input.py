@@ -84,7 +84,19 @@ def add_new_window_popup():
         dpg.add_spacer(height=5, parent="add_new_window")
 
         # Manuel Placement of Window
+
         dpg.add_text("Position of the window", parent="add_new_window")
+        # with dpg.group(horizontal=True, parent="add_new_window"):
+        #     dpg.add_input_float(label="How far from left wall", parent="add_new_window",
+        #                         max_value=10, min_value=1, min_clamped=True, max_clamped=True,
+        #                         format="%.2f", default_value=10, tag="win_dist_left")
+        #     dpg.add_spacer(height=5, parent="add_new_window")
+        #     dpg.add_separator(parent="placement_child_win")
+        #     dpg.add_spacer(height=5, parent="add_new_window")
+        #
+        #     dpg.add_input_float(label="How far away from upper wall ", parent="placement_child_win",
+        #                         max_value=10, min_value=1, min_clamped=True, max_clamped=True,
+        #                         format="%.2f", default_value=10, tag="win_dist_up")
         dpg.add_button(label="+", parent="add_new_window", callback=place_window)
         with dpg.child_window(label="Window Placement", show=False, width=700, height=300, tag="placement_child_win", parent="add_new_window"):
             dpg.add_spacer(height=5)
@@ -139,7 +151,11 @@ def new_window():
     if dpg.get_value(item="window_name") == "":
         window_name = "Window" + str(popup.window_count)
 
-
+    if wind_dist_left is None:
+        wind_dist_left = gui.house_list["House"][floor_win]["floor_width"] / 2 - window_width / 2
+        wind_dist_up = gui.house_list["House"][floor_win]["floor_height"] / 2 + window_height / 2
+    p1 = (wind_dist_left, (gui.house_list["House"][floor_win]["height"] - gui.house_list["House"][floor_win]["floor_height"]/2) - window_height / 2)
+    p2 = (wind_dist_left + window_width, (gui.house_list["House"][floor_win]["height"] - gui.house_list["House"][floor_win]["floor_height"]/2) + window_height / 2)
     # button in popup to visualize given parameters of window
     if validationCheck.name_collision_window(dpg.get_value("window_name")):
         dpg.add_button(tag=unique_id, parent="parent_window", label=window_name)
@@ -162,7 +178,7 @@ def new_window():
                 dpg.add_text("Window Width: ")
                 dpg.add_text(popup.window_paras[3])
             dpg.add_separator()
-        draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width, "wind_dist_left": wind_dist_left, "wind_dist_up": wind_dist_up}, gui.house_list, draw.side)
+        draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width, "wind_dist_left": wind_dist_left, "wind_dist_up": wind_dist_up, "p1": p1, "p2": p2}, gui.house_list, draw.side)
     popup.window_paras.clear()
 
     # close input popup after saving
