@@ -118,7 +118,7 @@ def set_max_height():
     global win_max_height
     for i in gui.house_list["House"]:
         if dpg.get_value(item="floor_win_select") == gui.house_list["House"][i]["floor_name"]:
-            win_max_height = gui.house_list["House"][i]["floor_width"]
+            win_max_height = gui.house_list["House"][i]["floor_height"]
             dpg.configure_item(item="window_height", max_value=win_max_height / 2)
             dpg.configure_item(item="window_height", max_clamped=True)
 
@@ -128,7 +128,7 @@ def set_max_width():
     global win_max_width
     for i in gui.house_list["House"]:
         if dpg.get_value(item="floor_win_select") == gui.house_list["House"][i]["floor_name"]:
-            win_max_width = gui.house_list["House"][i]["floor_height"]
+            win_max_width = gui.house_list["House"][i]["floor_width"]
             dpg.configure_item(item="window_width", max_value=win_max_width / 2)
             dpg.configure_item(item="window_width", max_clamped=True)
 
