@@ -27,7 +27,7 @@ def load(filename):
     for floor in liste['House']:
         if floor != "Roof":
             floor_num += 1
-            draw.draw_floor(liste['House'][floor]["floor_height"], liste['House'][floor]["floor_width"], floor_num,
+            draw.draw_floor(liste['House'][floor]["floor_width"], liste['House'][floor]["floor_height"], floor_num,
                             liste)
             for window in liste['House'][floor]['Windows']:
                 draw.draw_window(liste['House'][floor]['Windows'][window], liste,

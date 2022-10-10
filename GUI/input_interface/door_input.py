@@ -89,7 +89,7 @@ def new_door():
 
     # condition if no name given, use number of window
     if dpg.get_value(item="door_name") == "":
-        door_name = "Door" + str(popup.window_count-1)
+        door_name = "Door" + str(popup.door_count-1)
 
     if validationCheck.name_collision_door(dpg.get_value(item="door_name")):
         # button in popup to visualize given parameters of door

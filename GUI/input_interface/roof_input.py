@@ -32,7 +32,7 @@ def add_new_roof_popup():
 
         # choice of roofs
         with dpg.group(horizontal=True, parent="add_new_roof"):
-            f = dpg.add_text("<None>", tag="select_roof")
+            f = dpg.add_text("Triangular Roof", tag="select_roof")
             with dpg.tree_node(label="Roof Selector", tag="roof"):
                 dpg.add_text("Options")
                 dpg.add_separator()
@@ -46,14 +46,14 @@ def add_new_roof_popup():
 
 
         # Height of Roof
-        dpg.add_input_float(label="How tall is the Roof? (LE)", min_value=10, min_clamped=True, tag="roof_height",
+        dpg.add_input_float(label="How tall is the Roof? (LE)", min_value=5, min_clamped=True, tag="roof_height",
                              format="%.2f", default_value=10, parent="add_new_roof")
 
         dpg.add_separator(parent="add_new_roof")
         dpg.add_spacer(height=5, parent="add_new_roof")
 
         # Width of Roof
-        dpg.add_input_float(label="How wide is the Roof? (LE)", max_value=40, min_value=10, tag="roof_width",
+        dpg.add_input_float(label="How wide is the Roof? (LE)", max_value=40, min_value=5, tag="roof_width",
                              format="%.2f", default_value=10, parent="add_new_roof")
 
     # cant add another roof
