@@ -79,20 +79,20 @@ def draw_window(liste, house_list, seite=None):
                 gui.house_list["House"][i]["Windows"][liste["window_name"]] = liste
 
                 gui.house_list["House"][i]["Windows"][liste["window_name"]]["side"] = seite
-                wmiddle = house_list["House"][i]["floor_height"] / 2
-                wlen = liste["window_height"] / 2
-                wwidth = liste["window_width"] / 2
-                if i != "Floor0":
-                    middle = house_list["House"][i]["height"] - house_list["House"][i]["floor_width"] / 2
-                    gui.dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
-                                      (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
-                                      parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
+                # wmiddle = house_list["House"][i]["floor_height"] / 2
+                # wlen = liste["window_height"] / 2
+                # wwidth = liste["window_width"] / 2
+                # if i != "Floor0":
+                #     middle = house_list["House"][i]["height"] - house_list["House"][i]["floor_width"] / 2
+                gui.dpg.draw_quad((liste["p1"]), (liste["p3"]),
+                              (liste["p2"]), (liste["p4"]),
+                              parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
 
-                else:
-                    middle = house_list["House"][i]["height"] / 2
-                    gui.dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
-                                      (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
-                                      parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
+                # else:
+                #     middle = house_list["House"][i]["height"] / 2
+                #     gui.dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
+                #                   (wmiddle + wwidth, middle + wlen), (wmiddle - wwidth, middle + wlen),
+                #                   parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
 
                 if house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "front":
                     layer["layers"]["front"].append(liste["window_name"] + "w")

@@ -156,6 +156,8 @@ def new_window():
         wind_dist_up = gui.house_list["House"][floor_win]["floor_height"] / 2 + window_height / 2
     p1 = (wind_dist_left, (gui.house_list["House"][floor_win]["height"] - gui.house_list["House"][floor_win]["floor_height"]/2) - window_height / 2)
     p2 = (wind_dist_left + window_width, (gui.house_list["House"][floor_win]["height"] - gui.house_list["House"][floor_win]["floor_height"]/2) + window_height / 2)
+    p3 = (wind_dist_left + window_width, (gui.house_list["House"][floor_win]["height"] - gui.house_list["House"][floor_win]["floor_height"]/2) - window_height / 2)
+    p4 = (wind_dist_left, (gui.house_list["House"][floor_win]["height"] - gui.house_list["House"][floor_win]["floor_height"]/2) + window_height / 2)
     # button in popup to visualize given parameters of window
     if validationCheck.name_collision_window(dpg.get_value("window_name")):
         dpg.add_button(tag=unique_id, parent="parent_window", label=window_name)
@@ -178,7 +180,7 @@ def new_window():
                 dpg.add_text("Window Width: ")
                 dpg.add_text(popup.window_paras[3])
             dpg.add_separator()
-        draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width, "wind_dist_left": wind_dist_left, "wind_dist_up": wind_dist_up, "p1": p1, "p2": p2}, gui.house_list, draw.side)
+        draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width, "wind_dist_left": wind_dist_left, "wind_dist_up": wind_dist_up, "p1": p1, "p2": p2, "p3": p3, "p4": p4}, gui.house_list, draw.side)
     popup.window_paras.clear()
 
     # close input popup after saving
@@ -190,6 +192,8 @@ def new_window():
 def place_window():
 
     global correct_floor_width, correct_floor_height
+    correct_floor_height = 20
+    correct_floor_width = 20
     dpg.configure_item(item="placement_child_win", show=True)
     for i in gui.house_list["House"]:
         s = gui.house_list["House"][i]["floor_name"]
@@ -201,17 +205,14 @@ def place_window():
     # Position of Window
     with dpg.group(horizontal=True, parent="placement_child_win"):
         dpg.add_input_float(label="How far from left wall", parent="placement_child_win",
-                            max_value=correct_floor_width-10, min_value=1, min_clamped=True, max_clamped=True,
-                            format="%.2f", default_value=10, tag="win_dist_left")
+                                max_value=correct_floor_width-10, min_value=1, min_clamped=True, max_clamped=True,
+                                format="%.2f", default_value=10, tag="win_dist_left")
         dpg.add_spacer(height=5, parent="placement_child_win")
         dpg.add_separator(parent="placement_child_win")
         dpg.add_spacer(height=5, parent="placement_child_win")
-
         dpg.add_input_float(label="How far away from upper wall ", parent="placement_child_win",
-                            max_value=correct_floor_height-10, min_value=1, min_clamped=True, max_clamped=True,
-                            format="%.2f", default_value=10, tag="win_dist_up")
-
-
+                                max_value=correct_floor_height-10, min_value=1, min_clamped=True, max_clamped=True,
+                                format="%.2f", default_value=10, tag="win_dist_up")
 
 
 # function to close window popup
