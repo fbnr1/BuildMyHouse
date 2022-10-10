@@ -153,11 +153,11 @@ def new_window():
 
     if wind_dist_left is None:
         wind_dist_left = gui.house_list["House"][floor_win]["floor_width"] / 2 - window_width / 2
-        wind_dist_up = gui.house_list["House"][floor_win]["floor_height"] / 2 + window_height / 2
-    p1 = (wind_dist_left, (gui.house_list["House"][floor_win]["height"] - gui.house_list["House"][floor_win]["floor_height"]/2) - window_height / 2)
-    p2 = (wind_dist_left + window_width, (gui.house_list["House"][floor_win]["height"] - gui.house_list["House"][floor_win]["floor_height"] / 2) - window_height / 2)
-    p3 = (wind_dist_left + window_width, (gui.house_list["House"][floor_win]["height"] - gui.house_list["House"][floor_win]["floor_height"]/2) + window_height / 2)
-    p4 = (wind_dist_left, (gui.house_list["House"][floor_win]["height"] - gui.house_list["House"][floor_win]["floor_height"]/2) + window_height / 2)
+        wind_dist_up = gui.house_list["House"][floor_win]["floor_height"] / 2 - window_height / 2
+    p1 = (wind_dist_left, gui.house_list["House"][floor_win]["height"] - wind_dist_up - window_height)
+    p2 = (wind_dist_left + window_width, gui.house_list["House"][floor_win]["height"] - wind_dist_up)
+    p3 = (wind_dist_left + window_width, gui.house_list["House"][floor_win]["height"] - wind_dist_up - window_height)
+    p4 = (wind_dist_left, gui.house_list["House"][floor_win]["height"] - wind_dist_up)
     # button in popup to visualize given parameters of window
     if validationCheck.name_collision_window(dpg.get_value("window_name")):
         dpg.add_button(tag=unique_id, parent="parent_window", label=window_name)
