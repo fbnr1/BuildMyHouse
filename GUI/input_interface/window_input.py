@@ -31,7 +31,7 @@ def add_new_window_popup():
 
         # choose which floor the window belongs to
         with dpg.group(horizontal=True, parent="add_new_window", tag="select_floor_for_win"):
-            n = dpg.add_text("<None>", tag="floor_win_select")
+            n = dpg.add_text(gui.house_list["House"]["Floor0"]["floor_name"], tag="floor_win_select")
         with dpg.tree_node(label="Floors", tag="win_on_floor", parent="select_floor_for_win"):
             dpg.add_text("Options")
             dpg.add_separator()
@@ -48,7 +48,7 @@ def add_new_window_popup():
 
         # choice of windows
         with dpg.group(horizontal=True, parent="add_new_window"):
-            t = dpg.add_text("<None>", tag="select_win")
+            t = dpg.add_text("Normal Window", tag="select_win")
             with dpg.tree_node(label="Window Selector", tag="win"):
                 dpg.add_text("Options")
                 dpg.add_separator()
