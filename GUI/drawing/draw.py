@@ -84,8 +84,8 @@ def draw_window(liste, house_list, seite=None):
                 # wwidth = liste["window_width"] / 2
                 # if i != "Floor0":
                 #     middle = house_list["House"][i]["height"] - house_list["House"][i]["floor_width"] / 2
-                gui.dpg.draw_quad((liste["p1"]), (liste["p3"]),
-                              (liste["p2"]), (liste["p4"]),
+                gui.dpg.draw_quad((liste["p1"]), (liste["p2"]),
+                              (liste["p3"]), (liste["p4"]),
                               parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
 
                 # else:
