@@ -150,14 +150,15 @@ def new_window():
     # condition if no name given, use number of window
     if dpg.get_value(item="window_name") == "":
         window_name = "Window" + str(popup.window_count)
-
-    if wind_dist_left is None:
-        wind_dist_left = gui.house_list["House"][floor_win]["floor_width"] / 2 - window_width / 2
-        wind_dist_up = gui.house_list["House"][floor_win]["floor_height"] / 2 - window_height / 2
-    p1 = (wind_dist_left, gui.house_list["House"][floor_win]["height"] - wind_dist_up - window_height)
-    p2 = (wind_dist_left, gui.house_list["House"][floor_win]["height"] - wind_dist_up)
-    p3 = (wind_dist_left + window_width, gui.house_list["House"][floor_win]["height"] - wind_dist_up)
-    p4 = (wind_dist_left + window_width, gui.house_list["House"][floor_win]["height"] - wind_dist_up - window_height)
+    for floor in gui.house_list["House"]:
+        if gui.house_list["House"][floor]["floor_name"] == floor_win:
+            if wind_dist_left is None:
+                wind_dist_left = gui.house_list["House"][floor]["floor_width"] / 2 - window_width / 2
+                wind_dist_up = gui.house_list["House"][floor]["floor_height"] / 2 - window_height / 2
+            p1 = (wind_dist_left, gui.house_list["House"][floor]["height"] - wind_dist_up - window_height)
+            p2 = (wind_dist_left, gui.house_list["House"][floor]["height"] - wind_dist_up)
+            p3 = (wind_dist_left + window_width, gui.house_list["House"][floor]["height"] - wind_dist_up)
+            p4 = (wind_dist_left + window_width, gui.house_list["House"][floor]["height"] - wind_dist_up - window_height)
     # button in popup to visualize given parameters of window
     if validationCheck.name_collision_window(dpg.get_value("window_name")):
         dpg.add_button(tag=unique_id, parent="parent_window", label=window_name)
