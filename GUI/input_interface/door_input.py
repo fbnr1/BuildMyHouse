@@ -66,13 +66,23 @@ def add_new_door_popup():
                             format="%.2f", default_value=5, parent="add_new_door", callback=check_door_inhouse)
 
     # can't add another door
-    else:
-        dpg.add_text("A Door already exists on this side of the house", parent="add_new_door")
+    elif not len(gui.house_list["House"]) > 0:
+        dpg.add_text("ERROR", color=[255, 0, 0], parent="add_new_door")
+        dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=10, parent="add_new_door")
-        dpg.add_text("If you haven't added a door yet, you might not have added a floor", parent="add_new_door")
+        dpg.add_text("You have not added a Floor yet", parent="add_new_door")
+        dpg.add_spacer(height=10, parent="add_new_door")
+        dpg.add_text("Please add a Floor", parent="add_new_door")
         dpg.add_spacer(height=10, parent="add_new_door")
         dpg.add_button(label="Close", callback=close_pop_door, parent="add_new_door")
-
+    elif not validationCheck.door_side(draw.side):
+        dpg.configure_item(item="add_new_door", )
+        dpg.add_text("ERROR", color=[255, 0, 0], parent="add_new_door")
+        dpg.add_separator(parent="add_new_door")
+        dpg.add_spacer(height=10, parent="add_new_door")
+        dpg.add_text("A Door already exists on this side of the house", parent="add_new_door")
+        dpg.add_spacer(height=10, parent="add_new_door")
+        dpg.add_button(label="Close", callback=close_pop_door, parent="add_new_door")
 
 # saves parameters of door + creates button for door
 def new_door():

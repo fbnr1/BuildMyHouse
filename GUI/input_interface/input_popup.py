@@ -5,6 +5,7 @@ from GUI.input_interface import window_input
 from GUI.input_interface import floor_input
 from GUI.input_interface import door_input
 from GUI.input_interface import roof_input
+from GUI.input_interface import tree_input
 
 global window_type
 global window_len
@@ -48,8 +49,7 @@ def add_popup_content():
 
     # menu of popup
     with dpg.menu_bar(show=True):
-        dpg.add_button(label="Save")
-        dpg.add_button(label="Close", callback=lambda: dpg.configure_item("popup_window", show=False))
+        dpg.add_button(label="Close", callback=lambda: dpg.configure_item("popup_window", show=False), indent=530)
     dpg.add_text("Options")
     dpg.add_separator()
     dpg.add_spacer(height=10)
@@ -116,6 +116,8 @@ def add_popup_content():
         dpg.configure_item(item="add_new_door", show=False)
         dpg.add_spacer(width=5)
 
+
+
     # Door: parameters for position of door window
     door_wid = dpg.get_item_width(door_pop)
     door_hei = dpg.get_item_height(door_pop)
@@ -146,6 +148,7 @@ def add_popup_content():
     dpg.set_item_pos(roof_pop,
                      [dpg.get_viewport_width() // 2 - roof_wid // 2, dpg.get_viewport_height() // 2 - roof_hei // 2])
 
+
     # hovering over button shows text
     with dpg.tooltip(parent="add_roof"):
         dpg.add_text("Add a new Roof")
@@ -154,6 +157,29 @@ def add_popup_content():
 
     dpg.add_separator()
     dpg.add_spacer(height=12)
+
+    dpg.add_text("Tree")
+    dpg.add_button(label="+", tag="add_tree", callback=tree_input.add_trees)
+    with dpg.window(label="Tree", modal=True, no_title_bar=True, tag="add_new_tree", no_resize=True,
+                    autosize=True) as tree_pop:
+        dpg.configure_item(item="add_new_tree", show=False)
+        dpg.add_spacer(width=5)
+
+    # Roof: parameters for position of roof window
+    tree_wid = dpg.get_item_width(tree_pop)
+    tree_hei = dpg.get_item_height(tree_pop)
+    dpg.set_item_pos(tree_pop,
+                     [dpg.get_viewport_width() // 2 - tree_wid // 2, dpg.get_viewport_height() // 2 - tree_hei // 2])
+
+    # hovering over button shows text
+    with dpg.tooltip(parent="add_tree"):
+        dpg.add_text("Add a new Tree")
+    with dpg.group(horizontal=True, before="end_tree_task", tag="parent_tree"):
+        dpg.add_spacer(height=5)
+
+    dpg.add_separator()
+    dpg.add_spacer(height=12)
+
     # section to add a texture
     dpg.add_text("Texture")
 

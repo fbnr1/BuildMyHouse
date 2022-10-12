@@ -107,6 +107,9 @@ def add_new_window_popup():
 
 
     else:
+        dpg.add_text("ERROR", color=[255, 0, 0], parent="add_new_window")
+        dpg.add_separator(parent="add_new_window")
+        dpg.add_spacer(height=10, parent="add_new_window")
         dpg.add_text("You can't add a window without a floor", parent="add_new_window")
         dpg.add_spacer(height=10, parent="add_new_window")
         dpg.add_text("Please add a floor", parent="add_new_window")

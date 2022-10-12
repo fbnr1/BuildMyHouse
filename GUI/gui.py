@@ -43,7 +43,9 @@ def create_gui():
                 nodetree.nodes()
             # input popup
             with dpg.group(horizontal=True):
-                dpg.add_button(label="Popup", tag="parent", callback=lambda: dpg.show_item("popup_window"))
+                dpg.add_button(label="+", tag="parent", callback=lambda: dpg.show_item("popup_window"), indent=int(dpg.get_item_width(item="config_win")/2), width=30, height=30)
+                with dpg.tooltip(parent="parent"):
+                    dpg.add_text("Click this to open the Parameter Popup")
 
                 with dpg.window(width=600, height=600, no_scrollbar=True, no_resize=True,
                                 no_collapse=True,
@@ -89,7 +91,6 @@ def add_perspective_buttons():
 def add_menu_buttons():
     dpg.add_button(label="Save", callback=saving)
     dpg.add_button(label="Load", callback=lambda: dpg.show_item("file_dialog_id"))
-    dpg.add_button(label="Export")
 
 
 def start_dpg(main_window: int):
