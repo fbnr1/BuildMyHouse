@@ -108,6 +108,9 @@ def add_new_window_popup():
 
 
     else:
+        dpg.add_text("ERROR", color=[255, 0, 0], parent="add_new_window")
+        dpg.add_separator(parent="add_new_window")
+        dpg.add_spacer(height=10, parent="add_new_window")
         dpg.add_text("You can't add a window without a floor", parent="add_new_window")
         dpg.add_spacer(height=10, parent="add_new_window")
         dpg.add_text("Please add a floor", parent="add_new_window")
@@ -121,6 +124,7 @@ def set_max_height():
         if dpg.get_value(item="floor_win_select") == gui.house_list["House"][i]["floor_name"]:
             win_max_height = gui.house_list["House"][i]["floor_height"]
             dpg.configure_item(item="window_height", max_value=win_max_height / 2)
+            dpg.configure_item(item="window_height", max_clamped=True)
 
 
 
@@ -130,6 +134,7 @@ def set_max_width():
         if dpg.get_value(item="floor_win_select") == gui.house_list["House"][i]["floor_name"]:
             win_max_width = gui.house_list["House"][i]["floor_width"]
             dpg.configure_item(item="window_width", max_value=win_max_width / 2)
+            dpg.configure_item(item="window_width", max_clamped=True)
 
 # saves values from window + creates button for window
 def new_window():
@@ -175,7 +180,7 @@ def new_window():
                 dpg.add_text(popup.window_paras[1])
             dpg.add_separator()
             with dpg.group():
-                dpg.add_text("Window Length: ")
+                dpg.add_text("Window Height: ")
                 dpg.add_text(popup.window_paras[2])
             dpg.add_separator()
             with dpg.group():

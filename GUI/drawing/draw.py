@@ -61,6 +61,7 @@ def draw_floor(width, height, i, house_list):
         gui.house_list["House"]["Floor0"]["height"] = height
 
 
+
 def append_floor(liste, house_list):
     i = len(house_list["House"])
     if liste["floor_name"] == "":
@@ -84,10 +85,22 @@ def draw_window(liste, house_list, seite=None):
                 # wwidth = liste["window_width"] / 2
                 # if i != "Floor0":
                 #     middle = house_list["House"][i]["height"] - house_list["House"][i]["floor_width"] / 2
-                gui.dpg.draw_quad((liste["p1"]), (liste["p2"]),
-                              (liste["p3"]), (liste["p4"]),
-                              parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
-
+                if liste["window_type"] == "Double Hung":
+                    gui.dpg.draw_quad((liste["p1"]), (liste["p2"]),
+                                  (liste["p3"]), (liste["p4"]),
+                                  parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
+                    gui.dpg.draw_line((liste["p1"][0],liste["p1"][1] + liste["window_height"]/2), (liste["p3"][0], liste["p1"][1] + liste["window_height"]/2),parent="plot", thickness=0.001, tag=liste["window_name"] + "wh", show=False)
+                elif liste["window_type"] == "2 Slide Window":
+                    gui.dpg.draw_quad((liste["p1"]), (liste["p2"]),
+                                      (liste["p3"]), (liste["p4"]),
+                                      parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
+                    gui.dpg.draw_line((liste["p3"][0] - liste["window_width"]/2, liste["p1"][1] + liste["window_height"]),
+                                      (liste["p3"][0] - liste["window_width"]/2, liste["p1"][1]), parent="plot",
+                                      thickness=0.001, tag=liste["window_name"] + "wh", show=False)
+                else:
+                    gui.dpg.draw_quad((liste["p1"]), (liste["p2"]),
+                                      (liste["p3"]), (liste["p4"]),
+                                      parent="plot", thickness=0.001, tag=liste["window_name"] + "w", show=False)
                 # else:
                 #     middle = house_list["House"][i]["height"] / 2
                 #     gui.dpg.draw_quad((wmiddle - wwidth, middle - wlen), (wmiddle + wwidth, middle - wlen),
@@ -96,12 +109,16 @@ def draw_window(liste, house_list, seite=None):
 
                 if house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "front":
                     layer["layers"]["front"].append(liste["window_name"] + "w")
+                    layer["layers"]["front"].append(liste["window_name"] + "wh")
                 elif house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "back":
                     layer["layers"]["back"].append(liste["window_name"] + "w")
+                    layer["layers"]["back"].append(liste["window_name"] + "wh")
                 elif house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "right":
                     layer["layers"]["right"].append(liste["window_name"] + "w")
+                    layer["layers"]["right"].append(liste["window_name"] + "wh")
                 elif house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "left":
                     layer["layers"]["left"].append(liste["window_name"] + "w")
+                    layer["layers"]["left"].append(liste["window_name"] + "wh")
 
                 switch_layer()
                 nodetree.nodes()
@@ -212,3 +229,18 @@ def draw_roof(liste, l, house_list):
         nodetree.nodes()
     else:
         pass
+
+def draw_tree(i):
+    gui.dpg.draw_line((i,0),(i,3),thickness=0.001,parent="plot")
+
+    gui.dpg.draw_line((i-4, 3), (i, 3), thickness=0.001, parent="plot")
+    gui.dpg.draw_line((i+4, 3), (i, 3), thickness=0.001, parent="plot")
+
+    gui.dpg.draw_line((i+4, 3), (i+2, 7), thickness=0.001, parent="plot")
+    gui.dpg.draw_line((i-4, 3), (i-2, 7), thickness=0.001, parent="plot")
+
+    gui.dpg.draw_line((i - 2, 7), (i - 3, 7), thickness=0.001, parent="plot")
+    gui.dpg.draw_line((i + 2, 7), (i + 3, 7), thickness=0.001, parent="plot")
+
+    gui.dpg.draw_line((i+3, 7), (i, 12), thickness=0.001, parent="plot")
+    gui.dpg.draw_line((i-3, 7), (i, 12), thickness=0.001, parent="plot")

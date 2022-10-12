@@ -30,7 +30,7 @@ def add_new_door_popup():
 
         # choice of doors
         with dpg.group(horizontal=True, parent="add_new_door"):
-            f = dpg.add_text("<None>", tag="select_door")
+            f = dpg.add_text("Normal Door", tag="select_door")
             with dpg.tree_node(label="Door Selector", tag="door"):
                 dpg.add_text("Options")
                 dpg.add_separator()
@@ -56,24 +56,34 @@ def add_new_door_popup():
 
         # Width of Door
         dpg.add_input_float(label="How wide is the Door? (LE)", max_value=max_door_width/2, min_value=1, min_clamped=True, max_clamped=True, tag="door_width",
-                            format="%.2f", default_value=2, parent="add_new_door")
+                            format="%.2f", default_value=5, parent="add_new_door")
 
         dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=5, parent="add_new_door")
 
 
         # Distance from Left Wall
-        dpg.add_input_float(label="How far is the door from the left wall? (LE)", max_value=35, min_value=0, tag="door_width_wall",
-                            format="%.2f", default_value=5, parent="add_new_door")
+        dpg.add_input_float(label="How far is the door from the left wall? (LE)", min_value=0, min_clamped=True, tag="door_width_wall",
+                            format="%.2f", default_value=5, parent="add_new_door", callback=check_door_inhouse)
 
     # can't add another door
-    else:
-        dpg.add_text("A Door already exists on this side of the house", parent="add_new_door")
+    elif not len(gui.house_list["House"]) > 0:
+        dpg.add_text("ERROR", color=[255, 0, 0], parent="add_new_door")
+        dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=10, parent="add_new_door")
-        dpg.add_text("If you haven't added a door yet, you might not have added a floor", parent="add_new_door")
+        dpg.add_text("You have not added a Floor yet", parent="add_new_door")
+        dpg.add_spacer(height=10, parent="add_new_door")
+        dpg.add_text("Please add a Floor", parent="add_new_door")
         dpg.add_spacer(height=10, parent="add_new_door")
         dpg.add_button(label="Close", callback=close_pop_door, parent="add_new_door")
-
+    elif not validationCheck.door_side(draw.side):
+        dpg.configure_item(item="add_new_door", )
+        dpg.add_text("ERROR", color=[255, 0, 0], parent="add_new_door")
+        dpg.add_separator(parent="add_new_door")
+        dpg.add_spacer(height=10, parent="add_new_door")
+        dpg.add_text("A Door already exists on this side of the house", parent="add_new_door")
+        dpg.add_spacer(height=10, parent="add_new_door")
+        dpg.add_button(label="Close", callback=close_pop_door, parent="add_new_door")
 
 # saves parameters of door + creates button for door
 def new_door():
@@ -90,7 +100,7 @@ def new_door():
 
     # condition if no name given, use number of window
     if dpg.get_value(item="door_name") == "":
-        door_name = "Door" + str(popup.window_count-1)
+        door_name = "Door" + str(popup.door_count-1)
 
     if validationCheck.name_collision_door(dpg.get_value(item="door_name")):
         # button in popup to visualize given parameters of door
@@ -119,6 +129,12 @@ def new_door():
     dpg.delete_item(item="add_new_door", children_only=True)
     dpg.configure_item(item="add_new_door", show=False)
 
+
+def check_door_inhouse():
+    first_floor = gui.house_list["House"]["Floor0"]["floor_width"]
+    this_door_width = dpg.get_value(item="door_width")
+    dpg.configure_item(item="door_width_wall", max_value=first_floor-this_door_width)
+    dpg.configure_item(item="door_width_wall", max_clamped=True)
 
 # function to close the door input popup
 def close_pop_door():
