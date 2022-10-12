@@ -1,5 +1,6 @@
 import dearpygui.dearpygui as dpg
 import GUI.input_interface.input_popup as popup
+from GUI.drawing.draw import side
 from GUI.input_interface import input_popup
 from GUI.input_interface import floor_input
 from GUI import gui
@@ -183,6 +184,10 @@ def new_window():
             dpg.add_separator()
         draw.draw_window({"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height, "window_width": window_width, "wind_dist_left": wind_dist_left, "wind_dist_up": wind_dist_up, "p1": p1, "p2": p2, "p3": p3, "p4": p4}, gui.house_list, draw.side)
     popup.window_paras.clear()
+
+    parameter = gui.house_list
+    validationCheck.object_collision(parameter, side)
+
 
     # close input popup after saving
     dpg.delete_item(item="add_new_window", children_only=True)

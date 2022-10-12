@@ -1,6 +1,7 @@
 import dearpygui.dearpygui as dpg
 import GUI.input_interface.input_popup as popup
 from GUI import gui
+from GUI.drawing.draw import side
 from GUI.input_interface import input_popup
 
 from processing.parameters import validationCheck
@@ -109,6 +110,9 @@ def new_door():
         draw.draw_door({"door_name": door_name, "side_width": door_width_wall, "width": door_width, "height":
             door_height, "door_type": door_type}, draw.side)
         print(gui.house_list)
+
+        parameter = gui.house_list
+        validationCheck.object_collision(parameter, side)
 
     popup.window_paras.clear()
     # close input popup after saving

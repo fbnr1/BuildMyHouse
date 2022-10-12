@@ -30,19 +30,34 @@ from GUI import gui
 def object_collision(parameter, side):
     liste = gui.house_list
     # p1, p2
-
-    if parameter['door_name']:
-        for window_name in liste["House"]["Floor0"]["Windows"]:
+    for i in parameter:
+        if parameter[i] == "door_name":
+            for window_name in liste["House"]["Floor0"]["Windows"]:
             # liste["House"]["Floor0"]["Windows"][window_name]['p1']
             # do_overlap(p1,p2, s1,s2)
-            if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
-                pass
-    elif parameter['window_name']:
-        for i in liste["House"]:
-            if i != "Roof":
-                for j in liste["House"][i]:
-                    pass
+                if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
+                    p1 = liste["House"]["Floor0"]["Windows"][window_name]['p1']
+                    p2 = liste["House"]["Floor0"]["Windows"][window_name]['p2']
+                    s1 = liste["House"]["Floor0"]["Windows"][window_name]['s1']
+                    s2 = liste["House"]["Floor0"]["Windows"][window_name]['s2']
+                    a = do_overlap(p1, p2, s1, s2)
+                    if a == False:
+                        with gui.dpg.window(label="Collision Error"):                                           #ein Popup soll anzeigen, falls ein Collision Error vorliegt
+                            gui.dpg.add_text("Current Object colliding with another object. Please reposition") #wird aber nicht angezeigt
 
+        elif parameter[i] == 'window_name':
+            for i in liste["House"]:
+                if i != "Roof":
+                    for window_name in liste["House"]["Floor0"]["Windows"]:
+                        if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
+                            p1 = liste["House"]["Floor0"]["Windows"][window_name]['p1']
+                            p2 = liste["House"]["Floor0"]["Windows"][window_name]['p2']
+                            s1 = liste["House"]["Floor0"]["Windows"][window_name]['s1']
+                            s2 = liste["House"]["Floor0"]["Windows"][window_name]['s2']
+                            a = do_overlap(p1, p2, s1, s2)
+                            if a == False:
+                                with gui.dpg.window(label="Collision Error"):
+                                    gui.dpg.add_text("Current Object colliding with another object. Please reposition")
 
 # check overlapping rectangles
 def do_overlap(p1, p2, s1, s2):
