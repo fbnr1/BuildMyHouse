@@ -47,14 +47,15 @@ def add_new_roof_popup():
 
         # Height of Roof
         dpg.add_input_float(label="How tall is the Roof? (LE)", min_value=5, min_clamped=True, tag="roof_height",
-                             format="%.2f", default_value=10, parent="add_new_roof")
+                             format="%.2f", default_value=5, parent="add_new_roof")
 
         dpg.add_separator(parent="add_new_roof")
         dpg.add_spacer(height=5, parent="add_new_roof")
 
+
         # Width of Roof
-        dpg.add_input_float(label="How wide is the Roof? (LE)", max_value=40, min_value=5, tag="roof_width",
-                             format="%.2f", default_value=10, parent="add_new_roof")
+        dpg.add_input_float(label="How wide is the Roof? (LE)", min_value=5, min_clamped=True, tag="roof_width",
+                             format="%.2f", default_value=5, parent="add_new_roof")
 
     # cant add another roof
     else:
@@ -81,7 +82,7 @@ def new_roof():
     if dpg.get_value(item="roof_name") == "":
         roof_name = "Roof"
 
-    if not validationCheck.check_for_roof():
+    if not validationCheck.check_for_roof() and gui.house_list["House"]["Floor"+str(len(gui.house_list["House"]) - 1)]["floor_width"] - roof_width < 0:
         # button in popup to visualize given parameters of roof
         dpg.add_button(tag=roof_id, parent="parent_roof", label=roof_name)
         with dpg.tooltip(parent=roof_id):
