@@ -106,8 +106,8 @@ def new_door():
             with dpg.group():
                 dpg.add_text("Door Width: ")
                 dpg.add_text(popup.door_paras[2])
-        draw.draw_door({"Door": {"door_name": door_name, "side_width": door_width_wall, "width": door_width, "height":
-            door_height, "door_type": door_type}})
+        draw.draw_door({"door_name": door_name, "side_width": door_width_wall, "width": door_width, "height":
+            door_height, "door_type": door_type}, draw.side)
         print(gui.house_list)
 
     popup.window_paras.clear()

@@ -7,7 +7,6 @@ from GUI.drawing import draw
 
 
 def save(lists, filename):
-    print(lists)
     save_path = 'save'
     name = os.path.join(save_path, filename)
     name = name + '.jsonl'
@@ -28,13 +27,13 @@ def load(filename):
     for floor in liste['House']:
         if floor != "Roof":
             floor_num += 1
-            print(print(liste['House'][floor]))
-            draw.draw_floor(liste['House'][floor]["floor_height"], liste['House'][floor]["floor_width"], floor_num, liste)
+            draw.draw_floor(liste['House'][floor]["floor_height"], liste['House'][floor]["floor_width"], floor_num,
+                            liste)
             for window in liste['House'][floor]['Windows']:
-                print(liste['House'][floor]['Windows'])
-                draw.draw_window(liste['House'][floor]['Windows'][window], liste)
-            if liste['House'][floor]['Doors']:
-                draw.draw_door(liste['House'][floor]['Doors'], liste['House'][floor]['Doors']['Door']['side'])
-    else:
-        draw.draw_roof(liste['House'][floor], len(liste["House"])-2, liste)
+                draw.draw_window(liste['House'][floor]['Windows'][window], liste,
+                                 liste['House'][floor]['Windows'][window]['side'])
+            for door in liste['House'][floor]['Doors']:
+                draw.draw_door(liste['House'][floor]['Doors'][door], liste['House'][floor]['Doors'][door]['side'])
+        else:
+            draw.draw_roof(liste['House'][floor], len(liste["House"]) - 2, liste)
     return liste
