@@ -229,3 +229,18 @@ def draw_roof(liste, l, house_list):
         nodetree.nodes()
     else:
         pass
+
+def draw_tree(i):
+    gui.dpg.draw_line((i,0),(i,3),thickness=0.001,parent="plot")
+
+    gui.dpg.draw_line((i-4, 3), (i, 3), thickness=0.001, parent="plot")
+    gui.dpg.draw_line((i+4, 3), (i, 3), thickness=0.001, parent="plot")
+
+    gui.dpg.draw_line((i+4, 3), (i+2, 7), thickness=0.001, parent="plot")
+    gui.dpg.draw_line((i-4, 3), (i-2, 7), thickness=0.001, parent="plot")
+
+    gui.dpg.draw_line((i - 2, 7), (i - 3, 7), thickness=0.001, parent="plot")
+    gui.dpg.draw_line((i + 2, 7), (i + 3, 7), thickness=0.001, parent="plot")
+
+    gui.dpg.draw_line((i+3, 7), (i, 12), thickness=0.001, parent="plot")
+    gui.dpg.draw_line((i-3, 7), (i, 12), thickness=0.001, parent="plot")
