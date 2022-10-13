@@ -99,8 +99,8 @@ def new_door():
     # condition if no name given, use number of window
     if dpg.get_value(item="door_name") == "":
         door_name = "Door" + str(popup.door_count-1)
-    if validationCheck.name_collision_door(dpg.get_value(item="door_name") and validationCheck.object_collision({"door_name": door_name, "side_width": door_width_wall, "width": door_width, "height":
-            door_height, "door_type": door_type}, draw.side)):
+    if not validationCheck.object_collision({"door_name": door_name, "side_width": door_width_wall, "width": door_width, "height":
+            door_height, "door_type": door_type}, draw.side) and validationCheck.name_collision_door(dpg.get_value(item="door_name")):
         # button in popup to visualize given parameters of door
         dpg.add_button(tag=door_id, parent="parent_door", label=door_name)
         with dpg.tooltip(parent=door_id):
