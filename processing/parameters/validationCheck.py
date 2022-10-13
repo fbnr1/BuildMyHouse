@@ -38,13 +38,13 @@ def object_collision(parameter, side):
 # check overlapping rectangles
 def do_overlap(p1, p2, s1, s2):
 
-    if p1[0] < s1[0] < p2[0] and p1[1] < s2[1] < p2[1]:
+    if p1[0] <= s1[0] <= p2[0] and p1[1] <= s2[1] <= p2[1]:
         return True
-    elif p1[0] < s1[0] < p2[0] and p1[1] < s1[1] < p2[1]:
+    elif p1[0] <= s1[0] <= p2[0] and p1[1] <= s1[1] <= p2[1]:
         return True
-    elif p1[0] < s2[0] < p2[0] and p1[1] < s1[1] < p2[1]:
+    elif p1[0] <= s2[0] <= p2[0] and p1[1] <= s1[1] <= p2[1]:
         return True
-    elif p1[0] < s2[0] < p2[0] and p1[1] < s2[1] < p2[1]:
+    elif p1[0] <= s2[0] <= p2[0] and p1[1] <= s2[1] <= p2[1]:
         return True
 
     return False
