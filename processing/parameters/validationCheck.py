@@ -1,28 +1,6 @@
 from GUI import gui
 
 
-# def construct_building():
-#     a = building_constructable()
-#     if a:
-#         pass  # code zum konstruieren des Gebäudes
-#
-#
-# def building_constructable():
-#
-#     a = width_and_height_valid()
-#     b = roof_height_not_higher_than_building_height()
-#     return a and b
-#
-#
-# def width_and_height_valid(wall_len, wall_width):
-#     if wall_width != 0 and wall_len != 0:
-#         return True
-#
-#
-# def roof_height_not_higher_than_building_height(wall_width, roofheight):
-#     if wall_width > roofheight:
-#         return True
-
 # {"window_name": "Window0", "window_type": "Double Hung", "floor_win": "Floor0", "window_height": 2.0, "window_width": 2.0, "wind_dist_left": null, "wind_dist_up": null, "side": "front"}
 # {"door_name": door_name, "side_width": door_width_wall, "width": door_width, "height": door_height, "door_type": door_type}
 # {"House": {"Floor0": {"floor_name": "Floor0", "floor_height": 10.0, "floor_width": 10.0, "deleted": false, "Windows": {"w": {"window_name": "w", "window_type": "Double Hung", "floor_win": "Floor0", "window_height": 2.0, "window_width": 2.0, "side": "front"}}, "Doors": {"d": {"door_name": "d", "side_width": 5.0, "width": 2.0, "height": 10.0, "door_type": "Normal Door", "side": "front"}}, "height": 10.0}, "Floor1": {"floor_name": "Floor1", "floor_height": 10.0, "floor_width": 10.0, "deleted": false, "Windows": {}, "Doors": {}, "height": 20.0}, "Roof": {"roof_type": "Triangular Roof", "roof_height": 10.0, "roof_width": 10.0, "roof_name": "r"}}}
@@ -36,42 +14,44 @@ def object_collision(parameter, side):
             # liste["House"]["Floor0"]["Windows"][window_name]['p1']
             # do_overlap(p1,p2, s1,s2)
                 if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
-                    p1 = liste["House"]["Floor0"]["Windows"][window_name]['p1']
-                    p2 = liste["House"]["Floor0"]["Windows"][window_name]['p2']
-                    s1 = liste["House"]["Floor0"]["Windows"][window_name]['s1']
-                    s2 = liste["House"]["Floor0"]["Windows"][window_name]['s2']
-                    a = do_overlap(p1, p2, s1, s2)
-                    if a == False:
-                        with gui.dpg.window(label="Collision Error"):                                           #ein Popup soll anzeigen, falls ein Collision Error vorliegt
-                            gui.dpg.add_text("Current Object colliding with another object. Please reposition") #wird aber nicht angezeigt
+                    p1 = parameter["House"]["Floor0"]["Windows"][window_name]['p1']
+                    p2 = parameter["House"]["Floor0"]["Windows"][window_name]['p3']
+                    s1 = (parameter["side_width"], 0)
+                    s2 = (parameter["side_width"]+parameter["width"], parameter["height"])
+                    if not do_overlap(p1, p2, s1, s2):
+                        print("ERROR")
 
-        elif parameter[i] == 'window_name':
-            for i in liste["House"]:
-                if i != "Roof":
-                    for window_name in liste["House"]["Floor0"]["Windows"]:
-                        if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
-                            p1 = liste["House"]["Floor0"]["Windows"][window_name]['p1']
-                            p2 = liste["House"]["Floor0"]["Windows"][window_name]['p2']
-                            s1 = liste["House"]["Floor0"]["Windows"][window_name]['s1']
-                            s2 = liste["House"]["Floor0"]["Windows"][window_name]['s2']
-                            a = do_overlap(p1, p2, s1, s2)
-                            if a == False:
-                                with gui.dpg.window(label="Collision Error"):
-                                    gui.dpg.add_text("Current Object colliding with another object. Please reposition")
+        # elif parameter[i] == 'window_name':
+        #     for i in liste["House"]:
+        #         if i != "Roof":
+        #             for window_name in liste["House"]["Floor0"]["Windows"]:
+        #                 if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
+        #                     p1 = liste["House"]["Floor0"]["Windows"][window_name]['p1']
+        #                     p2 = liste["House"]["Floor0"]["Windows"][window_name]['p2']
+        #                     s1 = liste["House"]["Floor0"]["Windows"][window_name]['s1']
+        #                     s2 = liste["House"]["Floor0"]["Windows"][window_name]['s2']
+        #                     a = do_overlap(p1, p2, s1, s2)
+        #                     if a == False:
+        #                         with gui.dpg.window(label="Collision Error"):
+        #                             gui.dpg.add_text("Current Object colliding with another object. Please reposition")
+
 
 # check overlapping rectangles
 def do_overlap(p1, p2, s1, s2):
-    # if rectangle has area 0, no overlap
-    if p1[0] == p2[0] or p1[1] == p2[1] or s2[0] == s1[0] or s1[1] == s2[1]:
-        return False
+    for i in range(p1[0], p2[0], 0.001):
+        for j in range(p1[1], p2[1], 0.001):
+            pv = (i,j)
+            # if rectangle has area 0, no overlap
+            if pv == s1 or pv == s2:
+                return False
 
-    # If one rectangle is on left side of other
-    if p1[0] > s2[0] or s1[0] > p2[0]:
-        return False
+            # If one rectangle is on left side of other
+            # if p1[0] > s2[0] or s1[0] > p2[0]:
+            #     return False
 
-    # If one rectangle is above other
-    if p2[1] > s1[1] or s2[1] > p1[1]:
-        return False
+            # If one rectangle is above other
+            # if p2[1] > s1[1] or s2[1] > p1[1]:
+            #     return False
 
     return True
 
