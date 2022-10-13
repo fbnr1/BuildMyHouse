@@ -24,7 +24,7 @@ def add_new_floor_popup():
 
         # Height of Floor
         dpg.add_input_float(label="How tall is the Wall? (LE)", min_value=2, min_clamped=True, tag="wall_height",
-                             format="%.2f", default_value=2, parent="add_new_floor")
+                             format="%.2f", default_value=10, parent="add_new_floor")
 
         dpg.add_separator(parent="add_new_floor")
         dpg.add_spacer(height=5, parent="add_new_floor")
@@ -34,7 +34,7 @@ def add_new_floor_popup():
         # Floor does not have max_value for first floor, but get max_value according to previous floor
         # Width of Floor
         dpg.add_input_float(label="How wide is the Wall? (LE)", min_value=5, min_clamped=True, tag="wall_width",
-                             format="%.2f", default_value=5, parent="add_new_floor", callback=change_max_width)
+                             format="%.2f", default_value=10, parent="add_new_floor", callback=change_max_width)
 
     else:
         dpg.add_text("You can't add a Floor while you have a Roof!", parent="add_new_floor")

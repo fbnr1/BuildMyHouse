@@ -166,11 +166,10 @@ def new_window():
             p3 = (wind_dist_left + window_width, gui.house_list["House"][floor]["height"] - wind_dist_up)
             p4 = (wind_dist_left + window_width, gui.house_list["House"][floor]["height"] - wind_dist_up - window_height)
     # button in popup to visualize given parameters of window
-    validationCheck.object_collision(
+    if validationCheck.name_collision_window(dpg.get_value("window_name") and validationCheck.object_collision(
         {"window_name": window_name, "window_type": window_type, "floor_win": floor_win, "window_height": window_height,
          "window_width": window_width, "wind_dist_left": wind_dist_left, "wind_dist_up": wind_dist_up, "p1": p1,
-         "p2": p2, "p3": p3, "p4": p4}, side)
-    if validationCheck.name_collision_window(dpg.get_value("window_name")):
+         "p2": p2, "p3": p3, "p4": p4}, side)):
         dpg.add_button(tag=unique_id, parent="parent_window", label=window_name)
         popup.window_count += 1
         dpg.set_value(item="window_count", value=popup.window_count)
