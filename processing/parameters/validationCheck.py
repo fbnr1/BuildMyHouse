@@ -18,22 +18,43 @@ def object_collision(parameter, side):
                     p2 = parameter["House"]["Floor0"]["Windows"][window_name]['p3']
                     s1 = (parameter["side_width"], 0)
                     s2 = (parameter["side_width"]+parameter["width"], parameter["height"])
-                    if not do_overlap(p1, p2, s1, s2):
+                    if do_overlap(p1, p2, s1, s2):
                         print("ERROR")
+                    else:
+                        print("Fine")
 
-        # elif parameter[i] == 'window_name':
-        #     for i in liste["House"]:
-        #         if i != "Roof":
-        #             for window_name in liste["House"]["Floor0"]["Windows"]:
-        #                 if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
-        #                     p1 = liste["House"]["Floor0"]["Windows"][window_name]['p1']
-        #                     p2 = liste["House"]["Floor0"]["Windows"][window_name]['p2']
-        #                     s1 = liste["House"]["Floor0"]["Windows"][window_name]['s1']
-        #                     s2 = liste["House"]["Floor0"]["Windows"][window_name]['s2']
-        #                     a = do_overlap(p1, p2, s1, s2)
-        #                     if a == False:
-        #                         with gui.dpg.window(label="Collision Error"):
-        #                             gui.dpg.add_text("Current Object colliding with another object. Please reposition")
+        elif parameter[i] == 'window_name':
+            for floor in liste["House"]:
+                for window_name in liste["House"][floor]["Windows"]:
+                    try:
+                        if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
+                            p1 = parameter["House"]["Floor0"]["Windows"][window_name]['p1']
+                            p2 = parameter["House"]["Floor0"]["Windows"][window_name]['p3']
+                            s1 = (parameter["side_width"], 0)
+                            s2 = (parameter["side_width"] + parameter["width"], parameter["height"])
+                            if do_overlap(p1, p2, s1, s2):
+                                print("ERROR")
+                                return False
+                            else:
+                                print("Fine")
+                                return True
+                    except:
+                        return False
+                for door_name in liste["House"][floor]["Doors"]:
+                    try:
+                        if liste["House"]["Floor0"]["Doors"][door_name]["side"] == side:
+                            p1 = parameter["House"]["Floor0"]["Windows"][window_name]['p1']
+                            p2 = parameter["House"]["Floor0"]["Windows"][window_name]['p3']
+                            s1 = (parameter["side_width"], 0)
+                            s2 = (parameter["side_width"] + parameter["width"], parameter["height"])
+                            if do_overlap(p1, p2, s1, s2):
+                                print("ERROR")
+                                return False
+                            else:
+                                print("Fine")
+                                return True
+                    except:
+                        return False
 
 
 # check overlapping rectangles
@@ -43,7 +64,7 @@ def do_overlap(p1, p2, s1, s2):
             pv = (i,j)
             # if rectangle has area 0, no overlap
             if pv == s1 or pv == s2:
-                return False
+                return True
 
             # If one rectangle is on left side of other
             # if p1[0] > s2[0] or s1[0] > p2[0]:
@@ -53,7 +74,7 @@ def do_overlap(p1, p2, s1, s2):
             # if p2[1] > s1[1] or s2[1] > p1[1]:
             #     return False
 
-    return True
+    return False
 
 
 def name_collision_floor(name):
