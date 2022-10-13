@@ -109,16 +109,20 @@ def draw_window(liste, house_list, seite=None):
 
                 if house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "front":
                     layer["layers"]["front"].append(liste["window_name"] + "w")
-                    layer["layers"]["front"].append(liste["window_name"] + "wh")
+                    if liste["window_type"] != "Normal Window":
+                        layer["layers"]["front"].append(liste["window_name"] + "wh")
                 elif house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "back":
                     layer["layers"]["back"].append(liste["window_name"] + "w")
-                    layer["layers"]["back"].append(liste["window_name"] + "wh")
+                    if liste["window_type"] != "Normal Window":
+                        layer["layers"]["back"].append(liste["window_name"] + "wh")
                 elif house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "right":
                     layer["layers"]["right"].append(liste["window_name"] + "w")
-                    layer["layers"]["right"].append(liste["window_name"] + "wh")
+                    if liste["window_type"] != "Normal Window":
+                        layer["layers"]["right"].append(liste["window_name"] + "wh")
                 elif house_list["House"][i]["Windows"][liste["window_name"]]["side"] == "left":
                     layer["layers"]["left"].append(liste["window_name"] + "w")
-                    layer["layers"]["left"].append(liste["window_name"] + "wh")
+                    if liste["window_type"] != "Normal Window":
+                        layer["layers"]["left"].append(liste["window_name"] + "wh")
 
                 switch_layer()
                 nodetree.nodes()
