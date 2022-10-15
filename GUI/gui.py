@@ -61,13 +61,18 @@ def create_gui():
         dpg.set_item_pos(popup_window, [x_pos, y_pos])
 
         # plot window
-        with dpg.child_window(width=int((width / 4) * 3), height=height, pos=[480, 0], tag="house_editor",
-                              autosize_y=True, autosize_x=True):
-            with dpg.plot(tag="plot", label="House Editor", height=-1, width=-1, no_mouse_pos=True, equal_aspects=True,
-                          no_box_select=True, no_menus=True):
-                dpg.add_plot_legend()
+        create_plot()
 
     start_dpg(main_window)
+
+
+def create_plot():
+
+    with dpg.child_window(width=int((width / 4) * 3), height=height, pos=[480, 0], tag="house_editor",
+                          autosize_y=True, autosize_x=True):
+        with dpg.plot(tag="plot", label="House Editor", height=-1, width=-1, no_mouse_pos=True, equal_aspects=True,
+                      no_box_select=True, no_menus=True):
+            dpg.add_plot_legend()
 
 
 def load_file(sender, app_data):
