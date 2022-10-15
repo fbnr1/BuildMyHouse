@@ -37,8 +37,8 @@ def nodes():
                                 add_tree_node("Width", current_door["width"])
                                 add_tree_node("Side", current_door["side"])
             try:
+                roof = house_list[house]['Roof']
                 with dpg.tree_node(label="Roof"):
-                    roof = house_list[house]['Roof']
                     add_tree_node("Name", roof["roof_name"])
                     add_tree_node("Type", roof["roof_type"])
                     add_tree_node("Height", roof["roof_height"])
