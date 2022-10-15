@@ -1,8 +1,6 @@
 import dearpygui.dearpygui as dpg
 import GUI.input_interface.input_popup as popup
 from GUI import gui
-from GUI.drawing.draw import side
-from GUI.input_interface import input_popup
 
 from processing.parameters import validationCheck
 from GUI.drawing import draw
@@ -101,8 +99,8 @@ def new_door():
     # condition if no name given, use number of window
     if dpg.get_value(item="door_name") == "":
         door_name = "Door" + str(popup.door_count-1)
-
-    if validationCheck.name_collision_door(dpg.get_value(item="door_name")):
+    if not validationCheck.object_collision({"door_name": door_name, "side_width": door_width_wall, "width": door_width, "height":
+            door_height, "door_type": door_type}, draw.side) and validationCheck.name_collision_door(dpg.get_value(item="door_name")):
         # button in popup to visualize given parameters of door
         dpg.add_button(tag=door_id, parent="parent_door", label=door_name)
         with dpg.tooltip(parent=door_id):
@@ -119,10 +117,7 @@ def new_door():
                 dpg.add_text(popup.door_paras[2])
         draw.draw_door({"door_name": door_name, "side_width": door_width_wall, "width": door_width, "height":
             door_height, "door_type": door_type}, draw.side)
-        print(gui.house_list)
 
-        parameter = gui.house_list
-        validationCheck.object_collision(parameter, side)
 
     popup.window_paras.clear()
     # close input popup after saving
