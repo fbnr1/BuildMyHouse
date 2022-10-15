@@ -16,8 +16,8 @@ def nodes():
                     with dpg.tree_node(label="Roof"):
                         add_tree_node("Name", roof["roof_name"])
                         add_tree_node("Type", roof["roof_type"])
-                        add_tree_node("Height", roof["roof_height"])
-                        add_tree_node("Width", roof["roof_width"])
+                        add_tree_node("Height", round(float(roof["roof_height"]), 3))
+                        add_tree_node("Width", round(float(roof["roof_width"]), 3))
                         continue
                 try:
                     dpg.delete_item(floor)
@@ -47,6 +47,5 @@ def nodes():
 
 
 def add_tree_node(parameter_name, value):
-    value = round(value, 4)
     with dpg.tree_node(label=parameter_name + ": " + str(value), leaf=True):
         pass
