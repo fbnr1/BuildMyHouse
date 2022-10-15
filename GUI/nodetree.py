@@ -20,7 +20,6 @@ def nodes():
                     # todo: is deleted?
                     add_tree_node("Height", current_floor["floor_height"])
                     add_tree_node("Width", current_floor["floor_width"])
-                    # todo: only create if not empty
                     with dpg.tree_node(label="Windows"):
                         for window in current_floor["Windows"]:
                             current_window = current_floor["Windows"][window]
