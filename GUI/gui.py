@@ -43,7 +43,8 @@ def create_gui():
                 nodetree.nodes()
             # input popup
             with dpg.group(horizontal=True):
-                dpg.add_button(label="+", tag="parent", callback=lambda: dpg.show_item("popup_window"), indent=int(dpg.get_item_width(item="config_win")/2), width=30, height=30)
+                dpg.add_button(label="+", tag="parent", callback=lambda: dpg.show_item("popup_window"), indent=int(
+                    dpg.get_item_width(item="config_win")/2), width=30, height=30)
                 with dpg.tooltip(parent="parent"):
                     dpg.add_text("Click this to open the Parameter Popup")
 
@@ -100,7 +101,6 @@ def add_menu_buttons():
 
 def start_dpg(main_window: int):
     """Sets dpg up and starts it. Also sets the main window to full-screen
-
     :param main_window: main window of the application
     :return: none
     """
