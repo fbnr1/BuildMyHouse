@@ -124,20 +124,24 @@ def add_new_window_popup():
 
 def set_max_height():
     global win_max_height
-    for i in gui.house_list["House"]:
-        if dpg.get_value(item="floor_win_select") == gui.house_list["House"][i]["floor_name"]:
-            win_max_height = gui.house_list["House"][i]["floor_height"]
-            dpg.configure_item(item="window_height", max_value=win_max_height / 2)
-            dpg.configure_item(item="window_height", max_clamped=True)
+    for r in range(0, len(gui.house_list["House"]) - 1, 1):
+        for i in gui.house_list["House"]["Floor" + str(r)]:
+            s = gui.house_list["House"]["Floor" + str(r)]["floor_name"]
+            if dpg.get_value(item="floor_win_select") == s:
+                win_max_height = gui.house_list["House"]["Floor" + str(r)]["floor_height"]
+                dpg.configure_item(item="window_height", max_value=win_max_height / 2)
+                dpg.configure_item(item="window_height", max_clamped=True)
 
 
 def set_max_width():
     global win_max_width
-    for i in gui.house_list["House"]:
-        if dpg.get_value(item="floor_win_select") == gui.house_list["House"][i]["floor_name"]:
-            win_max_width = gui.house_list["House"][i]["floor_width"]
-            dpg.configure_item(item="window_width", max_value=win_max_width / 2)
-            dpg.configure_item(item="window_width", max_clamped=True)
+    for r in range(0, len(gui.house_list["House"]) - 1, 1):
+        for i in gui.house_list["House"]["Floor" + str(r)]:
+            s = gui.house_list["House"]["Floor" + str(r)]["floor_name"]
+            if dpg.get_value(item="floor_win_select") == s:
+                win_max_width = gui.house_list["House"]["Floor" + str(r)]["floor_width"]
+                dpg.configure_item(item="window_width", max_value=win_max_width / 2)
+                dpg.configure_item(item="window_width", max_clamped=True)
 
 
 # saves values from window + creates button for window
@@ -212,10 +216,11 @@ def place_window_left():
     global correct_floor_width, correct_floor_height
     correct_floor_height = 20
     correct_floor_width = 20
-    for i in gui.house_list["House"]:
-        s = gui.house_list["House"][i]["floor_name"]
-        if s == dpg.get_value(item="floor_win_select"):
-            correct_floor_width = gui.house_list["House"][i]["floor_width"]
+    for r in range(0, len(gui.house_list["House"]) - 1, 1):
+        for i in gui.house_list["House"]["Floor" + str(r)]:
+            s = gui.house_list["House"]["Floor" + str(r)]["floor_name"]
+            if s == dpg.get_value(item="floor_win_select"):
+                correct_floor_width = gui.house_list["House"]["Floor" + str(r)]["floor_width"]
     dpg.configure_item(item="win_dist_left", max_value=correct_floor_width - (
                                                          dpg.get_value(item="window_width") + (
                                                              dpg.get_value(item="window_width") / 2)))
@@ -226,10 +231,12 @@ def place_window_up():
     global correct_floor_width, correct_floor_height
     correct_floor_height = 20
     correct_floor_width = 20
-    for i in gui.house_list["House"]:
-            s = gui.house_list["House"][i]["floor_name"]
+
+    for r in range(0, len(gui.house_list["House"]) - 1, 1):
+        for i in gui.house_list["House"]["Floor" + str(r)]:
+            s = gui.house_list["House"]["Floor" + str(r)]["floor_name"]
             if s == dpg.get_value(item="floor_win_select"):
-                correct_floor_height = gui.house_list["House"][i]["floor_height"]
+              correct_floor_height = gui.house_list["House"]["Floor" + str(r)]["floor_height"]
     dpg.configure_item(item="win_dist_up", max_value=correct_floor_height - (dpg.get_value(item="window_height") + (
             dpg.get_value(item="window_height") / 2)))
     dpg.configure_item(item="win_dist_up", max_clamped=True)
