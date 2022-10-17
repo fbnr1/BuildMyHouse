@@ -6,6 +6,7 @@ from GUI.input_interface import floor_input
 from GUI.input_interface import door_input
 from GUI.input_interface import roof_input
 from GUI.input_interface import tree_input
+from GUI.input_interface import texture_input
 
 global window_type
 global window_len
@@ -16,36 +17,26 @@ global wall_width
 windows = []
 floors = []
 parameters = []
-window_paras = []
-door_paras = []
-floor_paras = []
-roof_paras = []
-roof_count = 0
-door_count = 0
-floor_count = 0
-window_count = 0
 
 
-def on_save(sender, app_data):
-    window_type = dpg.get_value(item="select_win")
-    window_len = dpg.get_value(item="window_length")
-    window_width = dpg.get_value(item="window_width")
-    texture_type = dpg.get_value(item="select_texture")
-    floor_count = dpg.get_value(item="floor_count")
-    wall_len = dpg.get_value(item="wall_length")
-    wall_width = dpg.get_value(item="wall_width")
-    print("sender: ", sender)
-    print("app_data: ", app_data)
-    print("Window Type: ", window_type)
-    print("Texture Type: ", texture_type)
-    return parameters.extend((
-        window_type, window_len, window_width, texture_type, floor_count, wall_len, wall_width))
+# def on_save(sender, app_data):
+#     window_type = dpg.get_value(item="select_win")
+#     window_len = dpg.get_value(item="window_length")
+#     window_width = dpg.get_value(item="window_width")
+#     texture_type = dpg.get_value(item="select_texture")
+#     floor_count = dpg.get_value(item="floor_count")
+#     wall_len = dpg.get_value(item="wall_length")
+#     wall_width = dpg.get_value(item="wall_width")
+#     print("sender: ", sender)
+#     print("app_data: ", app_data)
+#     print("Window Type: ", window_type)
+#     print("Texture Type: ", texture_type)
+#     return parameters.extend((
+#         window_type, window_len, window_width, texture_type, floor_count, wall_len, wall_width))
 
 # function to add the popup for input of parameters
 def add_popup_content():
 
-    # list of texture type
-    texture_values = ["Bricks", "Blank", "Wood", "Stone"]
 
     # menu of popup
     with dpg.menu_bar(show=True):
@@ -57,7 +48,7 @@ def add_popup_content():
     # Floor: section to add a new floor
     with dpg.group(horizontal=True):
         dpg.add_text("Floors")
-        dpg.add_text(str(floor_count), tag="floor_count")
+        dpg.add_text(str(floor_input.floor_count), tag="floor_count")
         dpg.add_spacer(width=5)
 
     dpg.add_button(label="+", tag="add_floor", callback=floor_input.add_new_floor_popup)
@@ -83,7 +74,7 @@ def add_popup_content():
     # Window: section to add a new window
     with dpg.group(horizontal=True):
         dpg.add_text("Windows")
-        dpg.add_text(str(window_count), tag="window_count")
+        dpg.add_text(str(window_input.window_count), tag="window_count")
         dpg.add_spacer(width=5)
     dpg.add_text("Add a Floor before adding a window")
     dpg.add_button(label="+", tag="add_window", callback=window_input.add_new_window_popup)
@@ -137,7 +128,7 @@ def add_popup_content():
     dpg.add_text("Roof")
     dpg.add_text("Add a Floor before adding a roof")
     dpg.add_button(label="+", tag="add_roof", callback=roof_input.add_new_roof_popup)
-    with dpg.window(label="Door", modal=True, no_title_bar=True, tag="add_new_roof", no_resize=True,
+    with dpg.window(label="Roof", modal=True, no_title_bar=True, tag="add_new_roof", no_resize=True,
                     autosize=True) as roof_pop:
         dpg.configure_item(item="add_new_roof", show=False)
         dpg.add_spacer(width=5)
@@ -165,7 +156,7 @@ def add_popup_content():
         dpg.configure_item(item="add_new_tree", show=False)
         dpg.add_spacer(width=5)
 
-    # Roof: parameters for position of roof window
+    # Tree: parameters for position of tree window
     tree_wid = dpg.get_item_width(tree_pop)
     tree_hei = dpg.get_item_height(tree_pop)
     dpg.set_item_pos(tree_pop,
@@ -182,14 +173,26 @@ def add_popup_content():
 
     # section to add a texture
     dpg.add_text("Texture")
+    dpg.add_button(label="+", tag="add_texture", callback=texture_input.add_the_texture)
+    with dpg.window(label="Texture", modal=True, no_title_bar=True, tag="add_new_texture", no_resize=True,
+                    autosize=True) as tex_pop:
+        dpg.configure_item(item="add_new_texture", show=False)
+        dpg.add_spacer(width=5)
 
-    with dpg.group(horizontal=True):
-        m = dpg.add_text("<None>", tag="select_texture")
-        with dpg.tree_node(label="Texture Selector", tag="texture"):
-            dpg.add_text("Options")
-            dpg.add_separator()
+    # Texture: parameters for position of texture window
+    tex_wid = dpg.get_item_width(tex_pop)
+    tex_hei = dpg.get_item_height(tex_pop)
+    dpg.set_item_pos(tex_pop,
+                     [dpg.get_viewport_width() // 2 - tex_wid // 2,
+                      dpg.get_viewport_height() // 2 - tex_hei // 2])
 
-            for r in texture_values:
-                dpg.add_button(label=r, user_data=[m, r], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
-            dpg.add_separator()
+    # hovering over button shows text
+    with dpg.tooltip(parent="add_texture"):
+        dpg.add_text("Add a Texture")
+    with dpg.group(horizontal=True, before="end_roof_task", tag="parent_texture"):
+        dpg.add_spacer(height=5)
+
+
+
+
 
