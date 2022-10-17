@@ -229,10 +229,11 @@ def draw_roof(liste, l, house_list):
                               parent="plot", thickness=0.001)
         switch_layer()
         gui.house_list["House"]["Roof"] = liste
-        gui.house_list["House"]["Roof"]["roof_width"] = width
+        gui.house_list["House"]["Roof"]["roof_width"] = r_width
         nodetree.nodes()
     else:
         pass
+
 
 def draw_tree(i):
     gui.dpg.draw_line((i,0),(i,3),thickness=0.001,parent="plot")
