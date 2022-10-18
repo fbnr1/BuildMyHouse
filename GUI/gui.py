@@ -1,4 +1,6 @@
 import dearpygui.dearpygui as dpg
+
+from GUI.input_interface import floor_input, window_input, door_input, roof_input, tree_input, texture_input
 from processing.fileLoading import save
 import GUI.input_interface.input_popup as popup
 
@@ -37,6 +39,8 @@ def create_gui():
                     add_menu_buttons()
                 with dpg.menu(label="Perspective"):
                     add_perspective_buttons()
+                dpg.add_button(label="Delete", indent=400, callback=delete)
+
 
             # node window
             with dpg.child_window(width=-1, height=600, tag="node_win"):
@@ -97,6 +101,45 @@ def add_perspective_buttons():
 def add_menu_buttons():
     dpg.add_button(label="Save", callback=saving)
     dpg.add_button(label="Load", callback=lambda: dpg.show_item("file_dialog_id"))
+
+def delete():
+    dpg.delete_item(item="House", children_only=True)
+    print(dpg.get_item_children(item="plot"))
+    # for t in dpg.get_item_children(item="plot"):
+    #     print(t)
+    #     childrenPlotAlias = dpg.get_item_alias(t)
+    #     dpg.remove_alias(childrenPlotAlias)
+    dpg.delete_item(item="plot", children_only=True)
+    print(dpg.get_item_children(item="plot"))
+    dpg.delete_item(item="parent_floor", children_only=True)
+    dpg.delete_item(item="parent_window", children_only=True)
+    dpg.delete_item(item="parent_door", children_only=True)
+    dpg.delete_item(item="parent_roof", children_only=True)
+    dpg.delete_item(item="parent_texture", children_only=True)
+    draw.layer = {"layers": {"front": [], "right": [], "left": [], "back": []}}
+    try:
+        for i in range(0, len(house_list["House"]), 1):
+            del house_list['House']['Floor' + str(i)]
+        try:
+            del house_list['House']['Roof']
+            del house_list['House']['Texture']
+        except KeyError:
+            pass
+    except KeyError:
+        pass
+    print(house_list)
+    popup.floors = []
+    popup.windows = []
+    floor_input.floor_count = 0
+    window_input.window_count = 0
+    door_input.door_count = 0
+    roof_input.roof_count = 0
+    tree_input.tree_number = 0
+    texture_input.texture_exists = 0
+
+
+
+
 
 
 def start_dpg(main_window: int):
