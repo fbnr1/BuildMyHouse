@@ -133,7 +133,6 @@ def set_max_height():
         if not roof_input.roof_count == 1:
             for r in range(0, len(gui.house_list["House"]), 1):
                 for i in gui.house_list["House"]:
-                    # s =
                     s = gui.house_list["House"]["Floor" + str(r)]["floor_name"]
                     print(s)
                     if dpg.get_value(item="floor_win_select") == s:
@@ -154,9 +153,7 @@ def set_max_height():
     # if only one floor exists
     else:
         for i in gui.house_list["House"]:
-            # s =
             s = gui.house_list["House"]["Floor" + str(0)]["floor_name"]
-            print(s)
             if dpg.get_value(item="floor_win_select") == s:
                 win_max_height = gui.house_list["House"]["Floor" + str(0)]["floor_height"]
                 dpg.configure_item(item="window_height", max_value=win_max_height / 2)
@@ -189,9 +186,7 @@ def set_max_width():
     # if only one floor exists
     else:
         for i in gui.house_list["House"]:
-            # s =
             s = gui.house_list["House"]["Floor" + str(0)]["floor_name"]
-            print(s)
             if dpg.get_value(item="floor_win_select") == s:
                 win_max_height = gui.house_list["House"]["Floor" + str(0)]["floor_width"]
                 dpg.configure_item(item="window_width", max_value=win_max_height / 2)
@@ -270,7 +265,9 @@ def place_window_left():
     global correct_floor_width, correct_floor_height
     correct_floor_height = 20
     correct_floor_width = 20
+    # if more than one floor exists
     if floor_input.floor_count > 1:
+        # if a roof doesnt exist
         if not roof_input.roof_count == 1:
             for r in range(0, len(gui.house_list["House"]), 1):
                 for i in gui.house_list["House"]:
@@ -281,6 +278,7 @@ def place_window_left():
                                 dpg.get_value(item="window_width") + (
                                 dpg.get_value(item="window_width") / 2)))
                         dpg.configure_item(item="win_dist_left", max_clamped=True)
+        # if a roof exists
         else:
             for r in range(0, len(gui.house_list["House"]) - 1, 1):
                 for i in gui.house_list["House"]:
@@ -291,11 +289,10 @@ def place_window_left():
                                 dpg.get_value(item="window_width") + (
                                 dpg.get_value(item="window_width") / 2)))
                         dpg.configure_item(item="win_dist_left", max_clamped=True)
+    # if only one floor exists
     else:
         for i in gui.house_list["House"]:
-            # s =
             s = gui.house_list["House"]["Floor" + str(0)]["floor_name"]
-            print(s)
             if dpg.get_value(item="floor_win_select") == s:
                 correct_floor_width = gui.house_list["House"]["Floor" + str(0)]["floor_width"]
                 dpg.configure_item(item="win_dist_left", max_value=correct_floor_width - (
@@ -308,7 +305,9 @@ def place_window_up():
     global correct_floor_width, correct_floor_height
     correct_floor_height = 20
     correct_floor_width = 20
+    # if more than one floor exists
     if floor_input.floor_count > 1:
+        # if a roof doesnt exist
         if not roof_input.roof_count == 1:
             for r in range(0, len(gui.house_list["House"]), 1):
                 for i in gui.house_list["House"]:
@@ -319,6 +318,7 @@ def place_window_up():
                                            max_value=correct_floor_height - (dpg.get_value(item="window_height") + (
                                                    dpg.get_value(item="window_height") / 2)))
                         dpg.configure_item(item="win_dist_up", max_clamped=True)
+        # if a roof exists
         else:
             for r in range(0, len(gui.house_list["House"]) - 1, 1):
                 for i in gui.house_list["House"]:
@@ -329,11 +329,10 @@ def place_window_up():
                                            max_value=correct_floor_height - (dpg.get_value(item="window_height") + (
                                                    dpg.get_value(item="window_height") / 2)))
                         dpg.configure_item(item="win_dist_up", max_clamped=True)
+    # if only one floor exists
     else:
         for i in gui.house_list["House"]:
-            # s =
             s = gui.house_list["House"]["Floor" + str(0)]["floor_name"]
-            print(s)
             if dpg.get_value(item="floor_win_select") == s:
                 correct_floor_height = gui.house_list["House"]["Floor" + str(0)]["floor_height"]
                 dpg.configure_item(item="win_dist_up",
