@@ -64,9 +64,12 @@ def draw_floor(width, height, i, house_list):
 
 def append_floor(liste, house_list):
     i = len(house_list["House"])
+    print("Länge von der Haus Liste" + str(i))
     if liste["floor_name"] == "":
         liste["floor_name"] = "Floor" + str(i)
     gui.house_list["House"]["Floor" + str(i)] = liste
+    print(liste)
+    print(gui.house_list)
     draw_floor(liste["floor_width"], liste["floor_height"], i, gui.house_list)
     nodetree.nodes()
 

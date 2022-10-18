@@ -54,6 +54,7 @@ def new_tree(sender, app_data, user_data):
             dpg.add_text("Tree Parameter: ")
             dpg.add_text(tree_para)
 
+    liste = {"tree_name": "Tree " + str(tree_number), "tree": tree_para}
     draw.draw_tree(tree_para)
     dpg.delete_item(item="add_new_window", children_only=True)
     dpg.configure_item(item="add_new_window", show=False)

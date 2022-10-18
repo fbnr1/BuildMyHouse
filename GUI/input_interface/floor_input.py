@@ -79,6 +79,8 @@ def new_floor(sender, app_data, user_data):
             liste = {"floor_name": popup.floors[floor_count - 1], "floor_height": floor_height,
                      "floor_width": floor_width, "deleted": False, "Windows": {}, "Doors": {}}
         draw.append_floor(liste, gui.house_list)
+        print(gui.house_list)
+
 
 
     # close input popup after saving
