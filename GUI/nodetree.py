@@ -2,8 +2,10 @@ from GUI import gui
 import dearpygui.dearpygui as dpg
 
 
+
 def nodes():
     house_list = gui.house_list
+    texture_list = gui.texture_list
     for house in house_list:
         try:
             dpg.delete_item(house)
@@ -44,6 +46,24 @@ def nodes():
                                 add_tree_node("Height", current_door["height"])
                                 add_tree_node("Width", current_door["width"])
                                 add_tree_node("Side", current_door["side"])
+    for texture in texture_list:
+        try:
+            dpg.delete_item(texture)
+        except:
+            pass
+        with dpg.tree_node(label=texture, parent="node_win", tag=texture, default_open=True, leaf=True):
+            try:
+                with dpg.tree_node(label=texture_list["Texture"]["Haus Texture"]["texture_type"]):
+                    if (texture_list["Texture"]["Haus Texture"]["texture_type"]) == "Blank":
+                        dpg.add_image("blank_texture", width=100, height=100)
+                    elif (texture_list["Texture"]["Haus Texture"]["texture_type"]) == "Brick":
+                        dpg.add_image("brick_texture", width=100, height=100)
+                    elif (texture_list["Texture"]["Haus Texture"]["texture_type"]) == "Stone":
+                        dpg.add_image("stone_texture", width=100, height=100)
+                    elif (texture_list["Texture"]["Haus Texture"]["texture_type"]) == "Wood":
+                        dpg.add_image("wood_texture", width=100, height=100)
+            except KeyError:
+                pass
 
 
 
