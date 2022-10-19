@@ -1,10 +1,10 @@
 import dearpygui.dearpygui as dpg
 from GUI import gui, nodetree
 
-# brick_width, brick_height, brick_channels, brick_data = dpg.load_image("resources\Brick.png")
-# stone_width, stone_height, stone_channels, stone_data = dpg.load_image("resources\Stone.png")
-# blank_width, blank_height, blank_channels, blank_data = dpg.load_image("resources\Blank.png")
-# wood_width, wood_height, wood_channels, wood_data = dpg.load_image("resources\Wood.jpg")
+brick_width, brick_height, brick_channels, brick_data = dpg.load_image("resources\Brick.png")
+stone_width, stone_height, stone_channels, stone_data = dpg.load_image("resources\Stone.png")
+blank_width, blank_height, blank_channels, blank_data = dpg.load_image("resources\Blank.png")
+wood_width, wood_height, wood_channels, wood_data = dpg.load_image("resources\Wood.jpg")
 texture_exists = 0
 
 def add_the_texture():

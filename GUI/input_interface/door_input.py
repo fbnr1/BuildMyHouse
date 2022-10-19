@@ -79,7 +79,6 @@ def add_new_door_popup():
 
     # door already exists
     elif not validationCheck.door_side(draw.side):
-        dpg.configure_item(item="add_new_door", )
         dpg.add_text("ERROR", color=[255, 0, 0], parent="add_new_door")
         dpg.add_separator(parent="add_new_door")
         dpg.add_spacer(height=10, parent="add_new_door")

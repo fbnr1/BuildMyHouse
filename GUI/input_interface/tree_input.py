@@ -1,6 +1,8 @@
 import dearpygui.dearpygui as dpg
 
 from GUI.drawing import draw
+from GUI import gui
+from GUI.input_interface import floor_input
 
 tree_number = 0
 
@@ -8,34 +10,27 @@ tree_number = 0
 def add_trees():
 
     dpg.configure_item(item="add_new_tree", show=True)
-
-    with dpg.group(horizontal=True, parent="add_new_tree"):
-        dpg.add_button(label="Save the Tree", callback=new_tree, tag="create_new_tree")
-        dpg.add_spacer(width=10)
-        dpg.add_button(label="Close", callback=close_pop_tree)
-    dpg.add_separator(parent="add_new_tree")
-    dpg.add_spacer(height=5, parent="add_new_tree")
+    if (floor_input.floor_count > 0):
+        with dpg.group(horizontal=True, parent="add_new_tree"):
+            dpg.add_button(label="Save the Tree", callback=new_tree, tag="create_new_tree")
+            dpg.add_spacer(width=10)
+            dpg.add_button(label="Close", callback=close_pop_tree)
 
 
-    # dpg.add_text("On which side of the house do you want a tree", parent="add_new_tree")
-    # # choice of House side
-    # with dpg.group(horizontal=True, parent="add_new_tree"):
-    #     f = dpg.add_text("Right", tag="select_house_side")
-    #     with dpg.tree_node(label="Side Selector", tag="tree"):
-    #         dpg.add_text("Options")
-    #         dpg.add_separator()
-    #         for r in house_side:
-    #             dpg.add_button(label=r, user_data=[f, r], callback=lambda s, a, u: dpg.set_value(u[0], u[1]))
-    #         dpg.add_separator()
-    #         dpg.add_spacer(height=12)
+        dpg.add_separator(parent="add_new_tree")
+        dpg.add_spacer(height=5, parent="add_new_tree")
+        dpg.add_text("Parameter", parent="add_new_tree")
+        tree_parameter = dpg.add_input_float(label="Parameter for Tree (LE)", tag="tree_para",
+                            format="%.2f", default_value=5, parent="add_new_tree")
 
-    dpg.add_separator(parent="add_new_tree")
-    dpg.add_spacer(height=5, parent="add_new_tree")
-    dpg.add_text("Parameter", parent="add_new_tree")
-    tree_parameter = dpg.add_input_float(label="Parameter for Tree (LE)", tag="tree_para",
-                        format="%.2f", default_value=5, parent="add_new_tree")
-
-    dpg.set_item_user_data(item="create_new_tree", user_data=[tree_parameter])
+        dpg.set_item_user_data(item="create_new_tree", user_data=[tree_parameter])
+    else:
+        dpg.add_text("ERROR", color=[255, 0, 0], parent="add_new_tree")
+        dpg.add_separator(parent="add_new_tree")
+        dpg.add_spacer(height=10, parent="add_new_tree")
+        dpg.add_text("Make a Floor first before making a tree", parent="add_new_tree")
+        dpg.add_spacer(height=10, parent="add_new_tree")
+        dpg.add_button(label="Close", callback=close_pop_tree, parent="add_new_tree")
 
 
 
