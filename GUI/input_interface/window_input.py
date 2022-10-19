@@ -1,6 +1,5 @@
 import dearpygui.dearpygui as dpg
 import GUI.input_interface.input_popup as popup
-from GUI.drawing.draw import side
 from GUI.input_interface import floor_input, roof_input
 from GUI import gui
 
@@ -212,7 +211,7 @@ def new_window(sender, app_data, user_data):
     if dpg.get_value(item="window_name") == "":
         window_name = "Window" + str(window_count)
     for floor in gui.house_list["House"]:
-        if gui.house_list["House"][floor]["floor_name"] == floor_win:
+        if floor != "Roof" and gui.house_list["House"][floor]["floor_name"] == floor_win:
             if wind_dist_left is None:
                 wind_dist_left = gui.house_list["House"][floor]["floor_width"] / 2 - window_width / 2
                 wind_dist_up = gui.house_list["House"][floor]["floor_height"] / 2 - window_height / 2
@@ -226,8 +225,8 @@ def new_window(sender, app_data, user_data):
             {"window_name": window_name, "window_type": window_type, "floor_win": floor_win,
              "window_height": window_height,
              "window_width": window_width, "wind_dist_left": wind_dist_left, "wind_dist_up": wind_dist_up, "p1": p1,
-             "p2": p2, "p3": p3, "p4": p4}, side) and validationCheck.name_collision_window(
-        dpg.get_value("window_name")):
+             "p2": p2, "p3": p3, "p4": p4}, draw.side) and validationCheck.name_collision_window(
+        dpg.get_value("window_name") and validationCheck.object_out_of_house(floor_win, p3[0])):
         dpg.add_button(tag=unique_id, parent="parent_window", label=window_name)
         window_count += 1
         dpg.set_value(item="window_count", value=window_count)

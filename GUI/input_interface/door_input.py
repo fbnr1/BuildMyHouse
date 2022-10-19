@@ -105,7 +105,7 @@ def new_door(sender, app_data, user_data):
     if dpg.get_value(item="door_name") == "":
         door_name = "Door" + str(door_count-1)
     if not validationCheck.object_collision({"door_name": door_name, "side_width": door_width_wall, "width": door_width, "height":
-            door_height, "door_type": door_type}, draw.side) and validationCheck.name_collision_door(dpg.get_value(item="door_name")):
+            door_height, "door_type": door_type}, draw.side) and validationCheck.name_collision_door(dpg.get_value(item="door_name") and not validationCheck.object_out_of_house(None, door_width_wall+door_width)):
 
         # button in popup to visualize given parameters of door
         dpg.add_button(tag=door_id, parent="parent_door", label=door_name)
