@@ -16,7 +16,7 @@ def object_collision(parameter, side):
         elif i == 'window_name':
             for floor in liste["House"]:
                 for window_name in liste["House"][floor]["Windows"]:
-                    if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
+                    if liste["House"][floor]["Windows"][window_name]["side"] == side:
                         p1 = liste["House"][floor]["Windows"][window_name]['p1']
                         p2 = liste["House"][floor]["Windows"][window_name]['p3']
                         s1 = parameter["p1"]

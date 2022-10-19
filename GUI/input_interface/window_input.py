@@ -295,6 +295,7 @@ def place_window_left():
             s = gui.house_list["House"]["Floor" + str(0)]["floor_name"]
             if dpg.get_value(item="floor_win_select") == s:
                 correct_floor_width = gui.house_list["House"]["Floor" + str(0)]["floor_width"]
+                print(correct_floor_width)
                 dpg.configure_item(item="win_dist_left", max_value=correct_floor_width - (
                         dpg.get_value(item="window_width") + (
                         dpg.get_value(item="window_width") / 2)))
