@@ -15,24 +15,23 @@ def object_collision(parameter, side):
                         return True
         elif i == 'window_name':
             for floor in liste["House"]:
-                if floor != "Roof":
-                    for window_name in liste["House"][floor]["Windows"]:
-                        if liste["House"]["Floor0"]["Windows"][window_name]["side"] == side:
-                            p1 = liste["House"][floor]["Windows"][window_name]['p1']
-                            p2 = liste["House"][floor]["Windows"][window_name]['p3']
-                            s1 = parameter["p1"]
-                            s2 = parameter["p3"]
-                            if do_overlap(p1, p2, s1, s2):
-                                return True
-                    for door_name in liste["House"][floor]["Doors"]:
-                        if liste["House"]["Floor0"]["Doors"][door_name]["side"] == side:
-                            p1 = (liste["House"]["Floor0"]["Doors"][door_name]["side_width"], 0)
-                            p2 = (liste["House"]["Floor0"]["Doors"][door_name]["side_width"] + liste["House"]["Floor0"][
-                                "Doors"][door_name]["side_width"], liste["House"]["Floor0"]["Doors"][door_name]["height"])
-                            s1 = parameter["p1"]
-                            s2 = parameter["p3"]
-                            if do_overlap(p1, p2, s1, s2):
-                                return True
+                for window_name in liste["House"][floor]["Windows"]:
+                    if liste["House"][floor]["Windows"][window_name]["side"] == side:
+                        p1 = liste["House"][floor]["Windows"][window_name]['p1']
+                        p2 = liste["House"][floor]["Windows"][window_name]['p3']
+                        s1 = parameter["p1"]
+                        s2 = parameter["p3"]
+                        if do_overlap(p1, p2, s1, s2):
+                            return True
+                for door_name in liste["House"][floor]["Doors"]:
+                    if liste["House"]["Floor0"]["Doors"][door_name]["side"] == side:
+                        p1 = (liste["House"]["Floor0"]["Doors"][door_name]["side_width"], 0)
+                        p2 = (liste["House"]["Floor0"]["Doors"][door_name]["side_width"] + liste["House"]["Floor0"][
+                            "Doors"][door_name]["side_width"], liste["House"]["Floor0"]["Doors"][door_name]["height"])
+                        s1 = parameter["p1"]
+                        s2 = parameter["p3"]
+                        if do_overlap(p1, p2, s1, s2):
+                            return True
     return False
 
 
@@ -87,15 +86,5 @@ def door_side(side):
 def check_for_roof():
     for i in gui.house_list["House"]:
         if i == "Roof":
-            return True
-    return False
-
-
-def object_out_of_house(floor_win, param):
-    if floor_win is None:
-        if gui.house_list["House"]["Floor0"]["floor_width"] == param:
-            return True
-    for i in gui.house_list["House"]:
-        if param == gui.house_list["House"][i]["floor_name"] and gui.house_list["House"][i]["floor_width"] == param:
             return True
     return False
