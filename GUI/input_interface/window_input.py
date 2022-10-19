@@ -254,9 +254,17 @@ def new_window(sender, app_data, user_data):
                           "wind_dist_left": wind_dist_left, "wind_dist_up": wind_dist_up, "p1": p1, "p2": p2, "p3": p3,
                           "p4": p4}, gui.house_list, draw.side)
 
-    # close input popup after saving
-    dpg.delete_item(item="add_new_window", children_only=True)
-    dpg.configure_item(item="add_new_window", show=False)
+        # close input popup after saving
+        dpg.delete_item(item="add_new_window", children_only=True)
+        dpg.configure_item(item="add_new_window", show=False)
+    else:
+        dpg.delete_item(item="add_new_window", children_only=True)
+        dpg.add_text("ERROR", color=[255, 0, 0], parent="add_new_window")
+        dpg.add_separator(parent="add_new_window")
+        dpg.add_spacer(height=10, parent="add_new_window")
+        dpg.add_text("No Window drawn if collision", parent="add_new_window")
+        dpg.add_spacer(height=10, parent="add_new_window")
+        dpg.add_button(label="Close", callback=close_pop_window, parent="add_new_window")
 
 
 # function add Placement window
