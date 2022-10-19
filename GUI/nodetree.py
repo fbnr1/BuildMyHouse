@@ -2,7 +2,6 @@ from GUI import gui
 import dearpygui.dearpygui as dpg
 
 
-
 def nodes():
     house_list = gui.house_list
     texture_list = gui.texture_list
@@ -64,7 +63,6 @@ def nodes():
                         dpg.add_image("wood_texture", width=100, height=100)
             except KeyError:
                 pass
-
 
 
 
