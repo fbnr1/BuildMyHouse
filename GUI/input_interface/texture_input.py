@@ -1,4 +1,5 @@
 import dearpygui.dearpygui as dpg
+from GUI import gui, nodetree
 
 # brick_width, brick_height, brick_channels, brick_data = dpg.load_image("resources\Brick.png")
 # stone_width, stone_height, stone_channels, stone_data = dpg.load_image("resources\Stone.png")
@@ -41,10 +42,12 @@ def new_tex():
     # todo: new node for texture with image
     house_texture = dpg.get_value(item="select_texture")
 
+
     texture_exists += 1
     if house_texture == "Wood":
-        with dpg.texture_registry():
-            dpg.add_static_texture(width=wood_width, height=wood_height, default_value=wood_data, tag="wood_texture")
+        if not dpg.does_item_exist(item="wood_texture"):
+            with dpg.texture_registry():
+                dpg.add_static_texture(width=wood_width, height=wood_height, default_value=wood_data, tag="wood_texture")
         dpg.add_button(label="Wood", parent="parent_texture", tag="wood")
         with dpg.tooltip(parent="wood"):
             dpg.add_text("Texture: Wood")
@@ -52,8 +55,9 @@ def new_tex():
             dpg.add_spacer(height=10)
             dpg.add_image("wood_texture")
     elif house_texture == "Stone":
-        with dpg.texture_registry():
-            dpg.add_static_texture(width=stone_width, height=stone_height, default_value=stone_data, tag="stone_texture")
+        if not dpg.does_item_exist(item="stone_texture"):
+            with dpg.texture_registry():
+                dpg.add_static_texture(width=stone_width, height=stone_height, default_value=stone_data, tag="stone_texture")
         dpg.add_button(label="Stone", parent="parent_texture", tag="stone")
         with dpg.tooltip(parent="stone"):
             dpg.add_text("Texture: Stone")
@@ -61,8 +65,9 @@ def new_tex():
             dpg.add_spacer(height=10)
             dpg.add_image("stone_texture")
     elif house_texture == "Brick":
-        with dpg.texture_registry():
-            dpg.add_static_texture(width=brick_width, height=brick_height, default_value=brick_data, tag="brick_texture")
+        if not dpg.does_item_exist(item="brick_texture"):
+            with dpg.texture_registry():
+                dpg.add_static_texture(width=brick_width, height=brick_height, default_value=brick_data, tag="brick_texture")
         dpg.add_button(label="Brick", parent="parent_texture", tag="brick")
         with dpg.tooltip(parent="brick"):
             dpg.add_text("Texture: Brick")
@@ -70,15 +75,18 @@ def new_tex():
             dpg.add_spacer(height=10)
             dpg.add_image("brick_texture")
     elif house_texture == "Blank":
-        with dpg.texture_registry():
-            dpg.add_static_texture(width=blank_width, height=blank_height, default_value=blank_data, tag="blank_texture")
+        if not dpg.does_item_exist(item="blank_texture"):
+            with dpg.texture_registry():
+                dpg.add_static_texture(width=blank_width, height=blank_height, default_value=blank_data, tag="blank_texture")
         dpg.add_button(label="Blank", parent="parent_texture", tag="blank")
         with dpg.tooltip(parent="blank"):
             dpg.add_text("Texture: Blank")
             dpg.add_separator()
             dpg.add_spacer(height=10)
             dpg.add_image("blank_texture")
-    liste = {"texture_type": house_texture}
+    gui.texture_list = {"Texture": {"Haus Texture": {"texture_type": house_texture}}}
+    nodetree.nodes()
+    print(gui.texture_list)
 
 
     dpg.delete_item(item="add_new_texture", children_only=True)

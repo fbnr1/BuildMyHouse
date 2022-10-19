@@ -11,6 +11,7 @@ from GUI.drawing import draw
 width = 1920
 height = 1080
 house_list = {"House": {}}
+texture_list = {"Texture": {}}
 
 
 def create_gui():
@@ -104,11 +105,8 @@ def add_menu_buttons():
 
 def delete():
     dpg.delete_item(item="House", children_only=True)
+    dpg.delete_item(item="Texture", children_only=True)
     print(dpg.get_item_children(item="plot"))
-    # for t in dpg.get_item_children(item="plot"):
-    #     print(t)
-    #     childrenPlotAlias = dpg.get_item_alias(t)
-    #     dpg.remove_alias(childrenPlotAlias)
     dpg.delete_item(item="plot", children_only=True)
     print(dpg.get_item_children(item="plot"))
     dpg.delete_item(item="parent_floor", children_only=True)
@@ -127,7 +125,12 @@ def delete():
             pass
     except KeyError:
         pass
+    try:
+        del texture_list["Texture"]["Haus Texture"]["texture_type"]
+    except KeyError:
+        pass
     print(house_list)
+    print(texture_list)
     popup.floors = []
     popup.windows = []
     floor_input.floor_count = 0
